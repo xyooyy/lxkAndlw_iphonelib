@@ -1,0 +1,765 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		93293097179A357F00272808 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93293096179A357F00272808 /* UIKit.framework */; };
+		93293099179A357F00272808 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93293098179A357F00272808 /* Foundation.framework */; };
+		9329309B179A357F00272808 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9329309A179A357F00272808 /* CoreGraphics.framework */; };
+		9329309D179A357F00272808 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9329309C179A357F00272808 /* CoreData.framework */; };
+		932930A3179A358000272808 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 932930A1179A358000272808 /* InfoPlist.strings */; };
+		932930A5179A358000272808 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930A4179A358000272808 /* main.m */; };
+		932930A9179A358000272808 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930A8179A358000272808 /* AppDelegate.m */; };
+		932930AB179A358000272808 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 932930AA179A358000272808 /* Default.png */; };
+		932930AD179A358000272808 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932930AC179A358000272808 /* Default@2x.png */; };
+		932930AF179A358000272808 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932930AE179A358000272808 /* Default-568h@2x.png */; };
+		932930B2179A358000272808 /* DemoGoogleRecognize.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 932930B0179A358000272808 /* DemoGoogleRecognize.xcdatamodeld */; };
+		932930BA179A358000272808 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932930B9179A358000272808 /* SenTestingKit.framework */; };
+		932930BB179A358000272808 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93293096179A357F00272808 /* UIKit.framework */; };
+		932930BC179A358000272808 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93293098179A357F00272808 /* Foundation.framework */; };
+		932930BD179A358000272808 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9329309C179A357F00272808 /* CoreData.framework */; };
+		932930C5179A358000272808 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 932930C3179A358000272808 /* InfoPlist.strings */; };
+		932930C8179A358000272808 /* DemoGoogleRecognizeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930C7179A358000272808 /* DemoGoogleRecognizeTests.m */; };
+		932930DF179A362F00272808 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932930DE179A362F00272808 /* AudioToolbox.framework */; };
+		932930EE179A370500272808 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 932930E7179A370500272808 /* ASGoogleVoiceRecognizer.mm */; };
+		932930EF179A370500272808 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 932930E7179A370500272808 /* ASGoogleVoiceRecognizer.mm */; };
+		932930F8179A371F00272808 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F1179A371F00272808 /* PopupView.m */; };
+		932930F9179A371F00272808 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F1179A371F00272808 /* PopupView.m */; };
+		932930FA179A371F00272808 /* HeadControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F3179A371F00272808 /* HeadControlView.m */; };
+		932930FB179A371F00272808 /* HeadControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F3179A371F00272808 /* HeadControlView.m */; };
+		932930FC179A371F00272808 /* FootTextControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F5179A371F00272808 /* FootTextControlView.m */; };
+		932930FD179A371F00272808 /* FootTextControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F5179A371F00272808 /* FootTextControlView.m */; };
+		932930FE179A371F00272808 /* BodyContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F7179A371F00272808 /* BodyContentView.m */; };
+		932930FF179A371F00272808 /* BodyContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 932930F7179A371F00272808 /* BodyContentView.m */; };
+		93293108179A373700272808 /* EditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293103179A373700272808 /* EditController.m */; };
+		93293109179A373700272808 /* EditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293103179A373700272808 /* EditController.m */; };
+		9329310A179A373700272808 /* TranslateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293105179A373700272808 /* TranslateController.m */; };
+		9329310B179A373700272808 /* TranslateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293105179A373700272808 /* TranslateController.m */; };
+		9329310E179A392600272808 /* SpeakController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329310D179A392600272808 /* SpeakController.m */; };
+		9329310F179A392600272808 /* SpeakController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329310D179A392600272808 /* SpeakController.m */; };
+		9329312A179A3D0900272808 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293112179A3D0900272808 /* NSObject+SBJson.m */; };
+		9329312B179A3D0900272808 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293112179A3D0900272808 /* NSObject+SBJson.m */; };
+		9329312C179A3D0900272808 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293115179A3D0900272808 /* SBJsonParser.m */; };
+		9329312D179A3D0900272808 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293115179A3D0900272808 /* SBJsonParser.m */; };
+		9329312E179A3D0900272808 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293117179A3D0900272808 /* SBJsonStreamParser.m */; };
+		9329312F179A3D0900272808 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293117179A3D0900272808 /* SBJsonStreamParser.m */; };
+		93293130179A3D0900272808 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293119179A3D0900272808 /* SBJsonStreamParserAccumulator.m */; };
+		93293131179A3D0900272808 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293119179A3D0900272808 /* SBJsonStreamParserAccumulator.m */; };
+		93293132179A3D0900272808 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329311B179A3D0900272808 /* SBJsonStreamParserAdapter.m */; };
+		93293133179A3D0900272808 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329311B179A3D0900272808 /* SBJsonStreamParserAdapter.m */; };
+		93293134179A3D0900272808 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329311D179A3D0900272808 /* SBJsonStreamParserState.m */; };
+		93293135179A3D0900272808 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329311D179A3D0900272808 /* SBJsonStreamParserState.m */; };
+		93293136179A3D0900272808 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329311F179A3D0900272808 /* SBJsonStreamWriter.m */; };
+		93293137179A3D0900272808 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329311F179A3D0900272808 /* SBJsonStreamWriter.m */; };
+		93293138179A3D0900272808 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293121179A3D0900272808 /* SBJsonStreamWriterAccumulator.m */; };
+		93293139179A3D0900272808 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293121179A3D0900272808 /* SBJsonStreamWriterAccumulator.m */; };
+		9329313A179A3D0900272808 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293123179A3D0900272808 /* SBJsonStreamWriterState.m */; };
+		9329313B179A3D0900272808 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293123179A3D0900272808 /* SBJsonStreamWriterState.m */; };
+		9329313C179A3D0900272808 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293125179A3D0900272808 /* SBJsonTokeniser.m */; };
+		9329313D179A3D0900272808 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293125179A3D0900272808 /* SBJsonTokeniser.m */; };
+		9329313E179A3D0900272808 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293127179A3D0900272808 /* SBJsonUTF8Stream.m */; };
+		9329313F179A3D0900272808 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293127179A3D0900272808 /* SBJsonUTF8Stream.m */; };
+		93293140179A3D0900272808 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293129179A3D0900272808 /* SBJsonWriter.m */; };
+		93293141179A3D0900272808 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 93293129179A3D0900272808 /* SBJsonWriter.m */; };
+		93293143179A3F2E00272808 /* hello.flac in Resources */ = {isa = PBXBuildFile; fileRef = 93293142179A3F2E00272808 /* hello.flac */; };
+		93293144179A3F2E00272808 /* hello.flac in Resources */ = {isa = PBXBuildFile; fileRef = 93293142179A3F2E00272808 /* hello.flac */; };
+		936611E2179D2DFE000A2808 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 936611E1179D2DFE000A2808 /* Test.m */; };
+		936FF0C2179EB535003B28EE /* hello.wav in Resources */ = {isa = PBXBuildFile; fileRef = 936FF0C1179EB535003B28EE /* hello.wav */; };
+		936FF0C4179EB5CB003B28EE /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = 936FF0C3179EB5CB003B28EE /* test.wav */; };
+		9398E229179CECD700CB26F5 /* WavHeaderFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9398E227179CECD700CB26F5 /* WavHeaderFactory.cpp */; };
+		93F5E502179ABA26000BC9A3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F5E501179ABA26000BC9A3 /* AVFoundation.framework */; };
+		93F5E507179ACAE1000BC9A3 /* CalculateSoundStrength.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5E505179ACAE0000BC9A3 /* CalculateSoundStrength.m */; };
+		93F5E508179ACAE1000BC9A3 /* CalculateSoundStrength.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5E505179ACAE0000BC9A3 /* CalculateSoundStrength.m */; };
+		93F66C82179B73090026AB92 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F66C7F179B73090026AB92 /* ASRecordWav.m */; };
+		93F66C83179B73090026AB92 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F66C7F179B73090026AB92 /* ASRecordWav.m */; };
+		93F66C84179B73090026AB92 /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F66C81179B73090026AB92 /* RecordInfo.m */; };
+		93F66C85179B73090026AB92 /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F66C81179B73090026AB92 /* RecordInfo.m */; };
+		93FAED90179CCAF300999E35 /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FAED8C179CCAF300999E35 /* AudioInfo.m */; };
+		93FAED91179CCAF300999E35 /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FAED8C179CCAF300999E35 /* AudioInfo.m */; };
+		93FAED92179CCAF300999E35 /* PlayAudioWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FAED8F179CCAF300999E35 /* PlayAudioWav.m */; };
+		93FAED93179CCAF300999E35 /* PlayAudioWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FAED8F179CCAF300999E35 /* PlayAudioWav.m */; };
+		9A3E7F62179E84EF00F76E23 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9A3E7F61179E84EF00F76E23 /* test.wav */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		932930BE179A358000272808 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9329308B179A357F00272808 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93293092179A357F00272808;
+			remoteInfo = DemoGoogleRecognize;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		93293093179A357F00272808 /* DemoGoogleRecognize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoGoogleRecognize.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93293096179A357F00272808 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		93293098179A357F00272808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9329309A179A357F00272808 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9329309C179A357F00272808 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		932930A0179A358000272808 /* DemoGoogleRecognize-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DemoGoogleRecognize-Info.plist"; sourceTree = "<group>"; };
+		932930A2179A358000272808 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		932930A4179A358000272808 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		932930A6179A358000272808 /* DemoGoogleRecognize-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DemoGoogleRecognize-Prefix.pch"; sourceTree = "<group>"; };
+		932930A7179A358000272808 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		932930A8179A358000272808 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		932930AA179A358000272808 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		932930AC179A358000272808 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		932930AE179A358000272808 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		932930B1179A358000272808 /* DemoGoogleRecognize.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DemoGoogleRecognize.xcdatamodel; sourceTree = "<group>"; };
+		932930B8179A358000272808 /* DemoGoogleRecognizeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoGoogleRecognizeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		932930B9179A358000272808 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		932930C2179A358000272808 /* DemoGoogleRecognizeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DemoGoogleRecognizeTests-Info.plist"; sourceTree = "<group>"; };
+		932930C4179A358000272808 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		932930C6179A358000272808 /* DemoGoogleRecognizeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoGoogleRecognizeTests.h; sourceTree = "<group>"; };
+		932930C7179A358000272808 /* DemoGoogleRecognizeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoGoogleRecognizeTests.m; sourceTree = "<group>"; };
+		932930DE179A362F00272808 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		932930E6179A370500272808 /* ASGoogleVoiceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGoogleVoiceRecognizer.h; sourceTree = "<group>"; };
+		932930E7179A370500272808 /* ASGoogleVoiceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASGoogleVoiceRecognizer.mm; sourceTree = "<group>"; };
+		932930F0179A371F00272808 /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
+		932930F1179A371F00272808 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
+		932930F2179A371F00272808 /* HeadControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadControlView.h; sourceTree = "<group>"; };
+		932930F3179A371F00272808 /* HeadControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadControlView.m; sourceTree = "<group>"; };
+		932930F4179A371F00272808 /* FootTextControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootTextControlView.h; sourceTree = "<group>"; };
+		932930F5179A371F00272808 /* FootTextControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootTextControlView.m; sourceTree = "<group>"; };
+		932930F6179A371F00272808 /* BodyContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyContentView.h; sourceTree = "<group>"; };
+		932930F7179A371F00272808 /* BodyContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyContentView.m; sourceTree = "<group>"; };
+		93293102179A373700272808 /* EditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditController.h; sourceTree = "<group>"; };
+		93293103179A373700272808 /* EditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditController.m; sourceTree = "<group>"; };
+		93293104179A373700272808 /* TranslateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateController.h; sourceTree = "<group>"; };
+		93293105179A373700272808 /* TranslateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateController.m; sourceTree = "<group>"; };
+		9329310C179A392600272808 /* SpeakController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakController.h; sourceTree = "<group>"; };
+		9329310D179A392600272808 /* SpeakController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakController.m; sourceTree = "<group>"; };
+		93293111179A3D0900272808 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		93293112179A3D0900272808 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		93293113179A3D0900272808 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		93293114179A3D0900272808 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		93293115179A3D0900272808 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		93293116179A3D0900272808 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		93293117179A3D0900272808 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		93293118179A3D0900272808 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		93293119179A3D0900272808 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		9329311A179A3D0900272808 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		9329311B179A3D0900272808 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		9329311C179A3D0900272808 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		9329311D179A3D0900272808 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		9329311E179A3D0900272808 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		9329311F179A3D0900272808 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		93293120179A3D0900272808 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		93293121179A3D0900272808 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		93293122179A3D0900272808 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		93293123179A3D0900272808 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		93293124179A3D0900272808 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		93293125179A3D0900272808 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		93293126179A3D0900272808 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		93293127179A3D0900272808 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		93293128179A3D0900272808 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		93293129179A3D0900272808 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		93293142179A3F2E00272808 /* hello.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = hello.flac; sourceTree = "<group>"; };
+		936611E0179D2DFE000A2808 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
+		936611E1179D2DFE000A2808 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
+		936FF0C1179EB535003B28EE /* hello.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hello.wav; sourceTree = "<group>"; };
+		936FF0C3179EB5CB003B28EE /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
+		9398E227179CECD700CB26F5 /* WavHeaderFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavHeaderFactory.cpp; sourceTree = "<group>"; };
+		9398E228179CECD700CB26F5 /* WavHeaderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavHeaderFactory.h; sourceTree = "<group>"; };
+		93F5E501179ABA26000BC9A3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		93F5E505179ACAE0000BC9A3 /* CalculateSoundStrength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateSoundStrength.m; sourceTree = "<group>"; };
+		93F5E506179ACAE1000BC9A3 /* CalculateSoundStrength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateSoundStrength.h; sourceTree = "<group>"; };
+		93F66C7D179B73090026AB92 /* ASRecordDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordDelegate.h; sourceTree = "<group>"; };
+		93F66C7E179B73090026AB92 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
+		93F66C7F179B73090026AB92 /* ASRecordWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRecordWav.m; sourceTree = "<group>"; };
+		93F66C80179B73090026AB92 /* RecordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordInfo.h; sourceTree = "<group>"; };
+		93F66C81179B73090026AB92 /* RecordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordInfo.m; sourceTree = "<group>"; };
+		93FAED8B179CCAF300999E35 /* ASPlayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPlayDelegate.h; sourceTree = "<group>"; };
+		93FAED8C179CCAF300999E35 /* AudioInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioInfo.m; sourceTree = "<group>"; };
+		93FAED8D179CCAF300999E35 /* AudioInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioInfo.h; sourceTree = "<group>"; };
+		93FAED8E179CCAF300999E35 /* PlayAudioWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayAudioWav.h; sourceTree = "<group>"; };
+		93FAED8F179CCAF300999E35 /* PlayAudioWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioWav.m; sourceTree = "<group>"; };
+		9A3E7F61179E84EF00F76E23 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93293090179A357F00272808 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93F5E502179ABA26000BC9A3 /* AVFoundation.framework in Frameworks */,
+				932930DF179A362F00272808 /* AudioToolbox.framework in Frameworks */,
+				93293097179A357F00272808 /* UIKit.framework in Frameworks */,
+				93293099179A357F00272808 /* Foundation.framework in Frameworks */,
+				9329309B179A357F00272808 /* CoreGraphics.framework in Frameworks */,
+				9329309D179A357F00272808 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		932930B4179A358000272808 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				932930BA179A358000272808 /* SenTestingKit.framework in Frameworks */,
+				932930BB179A358000272808 /* UIKit.framework in Frameworks */,
+				932930BC179A358000272808 /* Foundation.framework in Frameworks */,
+				932930BD179A358000272808 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9329308A179A357F00272808 = {
+			isa = PBXGroup;
+			children = (
+				9329309E179A357F00272808 /* DemoGoogleRecognize */,
+				932930C0179A358000272808 /* DemoGoogleRecognizeTests */,
+				93293095179A357F00272808 /* Frameworks */,
+				93293094179A357F00272808 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		93293094179A357F00272808 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93293093179A357F00272808 /* DemoGoogleRecognize.app */,
+				932930B8179A358000272808 /* DemoGoogleRecognizeTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93293095179A357F00272808 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				93F5E501179ABA26000BC9A3 /* AVFoundation.framework */,
+				932930DE179A362F00272808 /* AudioToolbox.framework */,
+				93293096179A357F00272808 /* UIKit.framework */,
+				93293098179A357F00272808 /* Foundation.framework */,
+				9329309A179A357F00272808 /* CoreGraphics.framework */,
+				9329309C179A357F00272808 /* CoreData.framework */,
+				932930B9179A358000272808 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9329309E179A357F00272808 /* DemoGoogleRecognize */ = {
+			isa = PBXGroup;
+			children = (
+				9A3E7F61179E84EF00F76E23 /* test.wav */,
+				936FF0C1179EB535003B28EE /* hello.wav */,
+				936FF0C3179EB5CB003B28EE /* test.wav */,
+				932930D3179A35A800272808 /* recognizer */,
+				932930D2179A35A100272808 /* controllers */,
+				932930D1179A359600272808 /* views */,
+				932930A7179A358000272808 /* AppDelegate.h */,
+				932930A8179A358000272808 /* AppDelegate.m */,
+				932930B0179A358000272808 /* DemoGoogleRecognize.xcdatamodeld */,
+				9329309F179A357F00272808 /* Supporting Files */,
+			);
+			path = DemoGoogleRecognize;
+			sourceTree = "<group>";
+		};
+		9329309F179A357F00272808 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				932930A0179A358000272808 /* DemoGoogleRecognize-Info.plist */,
+				932930A1179A358000272808 /* InfoPlist.strings */,
+				932930A4179A358000272808 /* main.m */,
+				932930A6179A358000272808 /* DemoGoogleRecognize-Prefix.pch */,
+				932930AA179A358000272808 /* Default.png */,
+				932930AC179A358000272808 /* Default@2x.png */,
+				932930AE179A358000272808 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		932930C0179A358000272808 /* DemoGoogleRecognizeTests */ = {
+			isa = PBXGroup;
+			children = (
+				932930C6179A358000272808 /* DemoGoogleRecognizeTests.h */,
+				932930C7179A358000272808 /* DemoGoogleRecognizeTests.m */,
+				932930C1179A358000272808 /* Supporting Files */,
+			);
+			path = DemoGoogleRecognizeTests;
+			sourceTree = "<group>";
+		};
+		932930C1179A358000272808 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				932930C2179A358000272808 /* DemoGoogleRecognizeTests-Info.plist */,
+				932930C3179A358000272808 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		932930D1179A359600272808 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				932930F0179A371F00272808 /* PopupView.h */,
+				932930F1179A371F00272808 /* PopupView.m */,
+				932930F2179A371F00272808 /* HeadControlView.h */,
+				932930F3179A371F00272808 /* HeadControlView.m */,
+				932930F4179A371F00272808 /* FootTextControlView.h */,
+				932930F5179A371F00272808 /* FootTextControlView.m */,
+				932930F6179A371F00272808 /* BodyContentView.h */,
+				932930F7179A371F00272808 /* BodyContentView.m */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		932930D2179A35A100272808 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9329310C179A392600272808 /* SpeakController.h */,
+				9329310D179A392600272808 /* SpeakController.m */,
+				93293102179A373700272808 /* EditController.h */,
+				93293103179A373700272808 /* EditController.m */,
+				93293104179A373700272808 /* TranslateController.h */,
+				93293105179A373700272808 /* TranslateController.m */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		932930D3179A35A800272808 /* recognizer */ = {
+			isa = PBXGroup;
+			children = (
+				93FAED8A179CCACA00999E35 /* recorder */,
+				93FAED89179CCABF00999E35 /* payer */,
+				93293142179A3F2E00272808 /* hello.flac */,
+				93293110179A3CE100272808 /* JSONExplorer */,
+				932930E6179A370500272808 /* ASGoogleVoiceRecognizer.h */,
+				932930E7179A370500272808 /* ASGoogleVoiceRecognizer.mm */,
+			);
+			name = recognizer;
+			sourceTree = "<group>";
+		};
+		93293110179A3CE100272808 /* JSONExplorer */ = {
+			isa = PBXGroup;
+			children = (
+				93293111179A3D0900272808 /* NSObject+SBJson.h */,
+				93293112179A3D0900272808 /* NSObject+SBJson.m */,
+				93293113179A3D0900272808 /* SBJson.h */,
+				93293114179A3D0900272808 /* SBJsonParser.h */,
+				93293115179A3D0900272808 /* SBJsonParser.m */,
+				93293116179A3D0900272808 /* SBJsonStreamParser.h */,
+				93293117179A3D0900272808 /* SBJsonStreamParser.m */,
+				93293118179A3D0900272808 /* SBJsonStreamParserAccumulator.h */,
+				93293119179A3D0900272808 /* SBJsonStreamParserAccumulator.m */,
+				9329311A179A3D0900272808 /* SBJsonStreamParserAdapter.h */,
+				9329311B179A3D0900272808 /* SBJsonStreamParserAdapter.m */,
+				9329311C179A3D0900272808 /* SBJsonStreamParserState.h */,
+				9329311D179A3D0900272808 /* SBJsonStreamParserState.m */,
+				9329311E179A3D0900272808 /* SBJsonStreamWriter.h */,
+				9329311F179A3D0900272808 /* SBJsonStreamWriter.m */,
+				93293120179A3D0900272808 /* SBJsonStreamWriterAccumulator.h */,
+				93293121179A3D0900272808 /* SBJsonStreamWriterAccumulator.m */,
+				93293122179A3D0900272808 /* SBJsonStreamWriterState.h */,
+				93293123179A3D0900272808 /* SBJsonStreamWriterState.m */,
+				93293124179A3D0900272808 /* SBJsonTokeniser.h */,
+				93293125179A3D0900272808 /* SBJsonTokeniser.m */,
+				93293126179A3D0900272808 /* SBJsonUTF8Stream.h */,
+				93293127179A3D0900272808 /* SBJsonUTF8Stream.m */,
+				93293128179A3D0900272808 /* SBJsonWriter.h */,
+				93293129179A3D0900272808 /* SBJsonWriter.m */,
+			);
+			name = JSONExplorer;
+			sourceTree = "<group>";
+		};
+		93FAED89179CCABF00999E35 /* payer */ = {
+			isa = PBXGroup;
+			children = (
+				93FAED8B179CCAF300999E35 /* ASPlayDelegate.h */,
+				93FAED8C179CCAF300999E35 /* AudioInfo.m */,
+				93FAED8D179CCAF300999E35 /* AudioInfo.h */,
+				93FAED8E179CCAF300999E35 /* PlayAudioWav.h */,
+				93FAED8F179CCAF300999E35 /* PlayAudioWav.m */,
+			);
+			name = payer;
+			sourceTree = "<group>";
+		};
+		93FAED8A179CCACA00999E35 /* recorder */ = {
+			isa = PBXGroup;
+			children = (
+				93F66C7D179B73090026AB92 /* ASRecordDelegate.h */,
+				93F66C7E179B73090026AB92 /* ASRecordWav.h */,
+				93F66C7F179B73090026AB92 /* ASRecordWav.m */,
+				93F66C80179B73090026AB92 /* RecordInfo.h */,
+				93F66C81179B73090026AB92 /* RecordInfo.m */,
+				93F5E505179ACAE0000BC9A3 /* CalculateSoundStrength.m */,
+				93F5E506179ACAE1000BC9A3 /* CalculateSoundStrength.h */,
+				9398E227179CECD700CB26F5 /* WavHeaderFactory.cpp */,
+				9398E228179CECD700CB26F5 /* WavHeaderFactory.h */,
+				936611E0179D2DFE000A2808 /* Test.h */,
+				936611E1179D2DFE000A2808 /* Test.m */,
+			);
+			name = recorder;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		93293092179A357F00272808 /* DemoGoogleRecognize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 932930CB179A358000272808 /* Build configuration list for PBXNativeTarget "DemoGoogleRecognize" */;
+			buildPhases = (
+				9329308F179A357F00272808 /* Sources */,
+				93293090179A357F00272808 /* Frameworks */,
+				93293091179A357F00272808 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DemoGoogleRecognize;
+			productName = DemoGoogleRecognize;
+			productReference = 93293093179A357F00272808 /* DemoGoogleRecognize.app */;
+			productType = "com.apple.product-type.application";
+		};
+		932930B7179A358000272808 /* DemoGoogleRecognizeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 932930CE179A358000272808 /* Build configuration list for PBXNativeTarget "DemoGoogleRecognizeTests" */;
+			buildPhases = (
+				932930B3179A358000272808 /* Sources */,
+				932930B4179A358000272808 /* Frameworks */,
+				932930B5179A358000272808 /* Resources */,
+				932930B6179A358000272808 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				932930BF179A358000272808 /* PBXTargetDependency */,
+			);
+			name = DemoGoogleRecognizeTests;
+			productName = DemoGoogleRecognizeTests;
+			productReference = 932930B8179A358000272808 /* DemoGoogleRecognizeTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9329308B179A357F00272808 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = ShockingLee;
+			};
+			buildConfigurationList = 9329308E179A357F00272808 /* Build configuration list for PBXProject "DemoGoogleRecognize" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9329308A179A357F00272808;
+			productRefGroup = 93293094179A357F00272808 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				93293092179A357F00272808 /* DemoGoogleRecognize */,
+				932930B7179A358000272808 /* DemoGoogleRecognizeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		93293091179A357F00272808 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				932930A3179A358000272808 /* InfoPlist.strings in Resources */,
+				932930AB179A358000272808 /* Default.png in Resources */,
+				932930AD179A358000272808 /* Default@2x.png in Resources */,
+				932930AF179A358000272808 /* Default-568h@2x.png in Resources */,
+				93293143179A3F2E00272808 /* hello.flac in Resources */,
+				9A3E7F62179E84EF00F76E23 /* test.wav in Resources */,
+				936FF0C2179EB535003B28EE /* hello.wav in Resources */,
+				936FF0C4179EB5CB003B28EE /* test.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		932930B5179A358000272808 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				932930C5179A358000272808 /* InfoPlist.strings in Resources */,
+				93293144179A3F2E00272808 /* hello.flac in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		932930B6179A358000272808 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9329308F179A357F00272808 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				932930A5179A358000272808 /* main.m in Sources */,
+				932930A9179A358000272808 /* AppDelegate.m in Sources */,
+				932930B2179A358000272808 /* DemoGoogleRecognize.xcdatamodeld in Sources */,
+				932930EE179A370500272808 /* ASGoogleVoiceRecognizer.mm in Sources */,
+				932930F8179A371F00272808 /* PopupView.m in Sources */,
+				932930FA179A371F00272808 /* HeadControlView.m in Sources */,
+				932930FC179A371F00272808 /* FootTextControlView.m in Sources */,
+				932930FE179A371F00272808 /* BodyContentView.m in Sources */,
+				93293108179A373700272808 /* EditController.m in Sources */,
+				9329310A179A373700272808 /* TranslateController.m in Sources */,
+				9329310E179A392600272808 /* SpeakController.m in Sources */,
+				9329312A179A3D0900272808 /* NSObject+SBJson.m in Sources */,
+				9329312C179A3D0900272808 /* SBJsonParser.m in Sources */,
+				9329312E179A3D0900272808 /* SBJsonStreamParser.m in Sources */,
+				93293130179A3D0900272808 /* SBJsonStreamParserAccumulator.m in Sources */,
+				93293132179A3D0900272808 /* SBJsonStreamParserAdapter.m in Sources */,
+				93293134179A3D0900272808 /* SBJsonStreamParserState.m in Sources */,
+				93293136179A3D0900272808 /* SBJsonStreamWriter.m in Sources */,
+				93293138179A3D0900272808 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				9329313A179A3D0900272808 /* SBJsonStreamWriterState.m in Sources */,
+				9329313C179A3D0900272808 /* SBJsonTokeniser.m in Sources */,
+				9329313E179A3D0900272808 /* SBJsonUTF8Stream.m in Sources */,
+				93293140179A3D0900272808 /* SBJsonWriter.m in Sources */,
+				93F5E507179ACAE1000BC9A3 /* CalculateSoundStrength.m in Sources */,
+				93F66C82179B73090026AB92 /* ASRecordWav.m in Sources */,
+				93F66C84179B73090026AB92 /* RecordInfo.m in Sources */,
+				93FAED90179CCAF300999E35 /* AudioInfo.m in Sources */,
+				93FAED92179CCAF300999E35 /* PlayAudioWav.m in Sources */,
+				9398E229179CECD700CB26F5 /* WavHeaderFactory.cpp in Sources */,
+				936611E2179D2DFE000A2808 /* Test.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		932930B3179A358000272808 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				932930C8179A358000272808 /* DemoGoogleRecognizeTests.m in Sources */,
+				932930EF179A370500272808 /* ASGoogleVoiceRecognizer.mm in Sources */,
+				932930F9179A371F00272808 /* PopupView.m in Sources */,
+				932930FB179A371F00272808 /* HeadControlView.m in Sources */,
+				932930FD179A371F00272808 /* FootTextControlView.m in Sources */,
+				932930FF179A371F00272808 /* BodyContentView.m in Sources */,
+				93293109179A373700272808 /* EditController.m in Sources */,
+				9329310B179A373700272808 /* TranslateController.m in Sources */,
+				9329310F179A392600272808 /* SpeakController.m in Sources */,
+				9329312B179A3D0900272808 /* NSObject+SBJson.m in Sources */,
+				9329312D179A3D0900272808 /* SBJsonParser.m in Sources */,
+				9329312F179A3D0900272808 /* SBJsonStreamParser.m in Sources */,
+				93293131179A3D0900272808 /* SBJsonStreamParserAccumulator.m in Sources */,
+				93293133179A3D0900272808 /* SBJsonStreamParserAdapter.m in Sources */,
+				93293135179A3D0900272808 /* SBJsonStreamParserState.m in Sources */,
+				93293137179A3D0900272808 /* SBJsonStreamWriter.m in Sources */,
+				93293139179A3D0900272808 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				9329313B179A3D0900272808 /* SBJsonStreamWriterState.m in Sources */,
+				9329313D179A3D0900272808 /* SBJsonTokeniser.m in Sources */,
+				9329313F179A3D0900272808 /* SBJsonUTF8Stream.m in Sources */,
+				93293141179A3D0900272808 /* SBJsonWriter.m in Sources */,
+				93F5E508179ACAE1000BC9A3 /* CalculateSoundStrength.m in Sources */,
+				93F66C83179B73090026AB92 /* ASRecordWav.m in Sources */,
+				93F66C85179B73090026AB92 /* RecordInfo.m in Sources */,
+				93FAED91179CCAF300999E35 /* AudioInfo.m in Sources */,
+				93FAED93179CCAF300999E35 /* PlayAudioWav.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		932930BF179A358000272808 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93293092179A357F00272808 /* DemoGoogleRecognize */;
+			targetProxy = 932930BE179A358000272808 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		932930A1179A358000272808 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				932930A2179A358000272808 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		932930C3179A358000272808 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				932930C4179A358000272808 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		932930C9179A358000272808 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		932930CA179A358000272808 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		932930CC179A358000272808 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DemoGoogleRecognize/DemoGoogleRecognize-Prefix.pch";
+				INFOPLIST_FILE = "DemoGoogleRecognize/DemoGoogleRecognize-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		932930CD179A358000272808 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DemoGoogleRecognize/DemoGoogleRecognize-Prefix.pch";
+				INFOPLIST_FILE = "DemoGoogleRecognize/DemoGoogleRecognize-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		932930CF179A358000272808 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DemoGoogleRecognize.app/DemoGoogleRecognize";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DemoGoogleRecognize/DemoGoogleRecognize-Prefix.pch";
+				INFOPLIST_FILE = "DemoGoogleRecognizeTests/DemoGoogleRecognizeTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		932930D0179A358000272808 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DemoGoogleRecognize.app/DemoGoogleRecognize";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DemoGoogleRecognize/DemoGoogleRecognize-Prefix.pch";
+				INFOPLIST_FILE = "DemoGoogleRecognizeTests/DemoGoogleRecognizeTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9329308E179A357F00272808 /* Build configuration list for PBXProject "DemoGoogleRecognize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				932930C9179A358000272808 /* Debug */,
+				932930CA179A358000272808 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		932930CB179A358000272808 /* Build configuration list for PBXNativeTarget "DemoGoogleRecognize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				932930CC179A358000272808 /* Debug */,
+				932930CD179A358000272808 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		932930CE179A358000272808 /* Build configuration list for PBXNativeTarget "DemoGoogleRecognizeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				932930CF179A358000272808 /* Debug */,
+				932930D0179A358000272808 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		932930B0179A358000272808 /* DemoGoogleRecognize.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				932930B1179A358000272808 /* DemoGoogleRecognize.xcdatamodel */,
+			);
+			currentVersion = 932930B1179A358000272808 /* DemoGoogleRecognize.xcdatamodel */;
+			path = DemoGoogleRecognize.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9329308B179A357F00272808 /* Project object */;
+}
