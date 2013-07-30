@@ -36,7 +36,6 @@
     
     [sender removeTarget:self action:@selector(startRecogniseButtonTouch:) forControlEvents:UIControlEventTouchDown];
     [sender addTarget:self action:@selector(stopRecogniseButtonTouch:) forControlEvents:UIControlEventTouchDown];
-    NSLog(@"string");
     return YES;
 }
 
