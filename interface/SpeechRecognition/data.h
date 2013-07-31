@@ -15,7 +15,6 @@
 #define kImageCD            @"CD.png"
 #define kImageEdit          @"edit.png"
 #define kImageHistoryButton @"history-button.png"
-#define kImageLogoMiddle    @"logo-middle.png"
 #define kImageNavBackground @"navbar-bg.png"
 #define kImagePlay          @"play.png"
 #define kImageRecognise     @"recognise.png"
@@ -108,6 +107,22 @@
 #define kImageCDInnerCenterX    95.f
 #define kImageCDInnerCenterY    75.f
 
+// -------- 显示识别文字 --------
+#pragma mark - 显示识别文字
+
+#define kTextViewWidth          280.f
+#define kTextViewHeight         160.f
+#define kTextViewX              ((kScreenWidth - kTextViewWidth) / 2.f)
+#define kTextViewY              130.f
+
+#define kTextFontSize           13.f
+#define kTextRowNumber          7       // 行数
+#define kTextMaxLineWidth       240.f   // 行最大长度
+#define kTextRowSpacing         6.f     // 行距
+#define kTextAnimationFadeOutTime   1.f
+#define kTextAnimationFadeInTime    1.f
+#define kTextAnimationMoveTime      1.f
+
 // -------- 动画 --------
 #pragma mark - 动画
 
@@ -126,11 +141,3 @@
 #define kAnimationDarknessDuration      1.f
 #define kAnimationDarknessRepeatCount   1.f
 #define kAnimationDarknessAlpha         0.4f
-
-// -------- tag标记 --------
-enum ViewTag
-{
-    kImageViewCDTag = 1,
-    kImageViewCDInnerTag,
-    kViewCDCoverTag
-};

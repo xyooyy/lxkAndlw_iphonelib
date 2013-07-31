@@ -14,11 +14,12 @@
 		BE0B8DEF17A74E6700C49DBC /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE417A74E6700C49DBC /* edit.png */; };
 		BE0B8DF017A74E6700C49DBC /* history-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE517A74E6700C49DBC /* history-button.png */; };
 		BE0B8DF117A74E6700C49DBC /* navbar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE617A74E6700C49DBC /* navbar-bg.png */; };
-		BE0B8DF217A74E6700C49DBC /* navbar-bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE717A74E6700C49DBC /* navbar-bg1.png */; };
 		BE0B8DF317A74E6700C49DBC /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE817A74E6700C49DBC /* play.png */; };
-		BE0B8DF417A74E6700C49DBC /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE917A74E6700C49DBC /* recognise.png */; };
 		BE0B8DF517A74E6700C49DBC /* translate.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DEA17A74E6700C49DBC /* translate.png */; };
+		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE457F1C17A4A5BC00123896 /* QuartzCore.framework */; };
+		BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4D1A3C17A761B300756FF4 /* recognise.png */; };
+		BE4D1A4017A7639500756FF4 /* SpeechRecognitionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */; };
 		BE76D2F817A5561E00DBA827 /* SpeechRecognitionNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* SpeechRecognitionNavigationBar.m */; };
 		BE7B5B6717A278BD00BF9C1E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6617A278BD00BF9C1E /* UIKit.framework */; };
 		BE7B5B6917A278BD00BF9C1E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6817A278BD00BF9C1E /* Foundation.framework */; };
@@ -43,11 +44,14 @@
 		BE0B8DE417A74E6700C49DBC /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = edit.png; path = SpeechRecognition/images/edit.png; sourceTree = SOURCE_ROOT; };
 		BE0B8DE517A74E6700C49DBC /* history-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-button.png"; path = "SpeechRecognition/images/history-button.png"; sourceTree = SOURCE_ROOT; };
 		BE0B8DE617A74E6700C49DBC /* navbar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar-bg.png"; path = "SpeechRecognition/images/navbar-bg.png"; sourceTree = SOURCE_ROOT; };
-		BE0B8DE717A74E6700C49DBC /* navbar-bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar-bg1.png"; path = "SpeechRecognition/images/navbar-bg1.png"; sourceTree = SOURCE_ROOT; };
 		BE0B8DE817A74E6700C49DBC /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = SpeechRecognition/images/play.png; sourceTree = SOURCE_ROOT; };
-		BE0B8DE917A74E6700C49DBC /* recognise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recognise.png; path = SpeechRecognition/images/recognise.png; sourceTree = SOURCE_ROOT; };
 		BE0B8DEA17A74E6700C49DBC /* translate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = translate.png; path = SpeechRecognition/images/translate.png; sourceTree = SOURCE_ROOT; };
+		BE19607017A8E4E600073ADF /* TextToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToImage.h; sourceTree = "<group>"; };
+		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
 		BE457F1C17A4A5BC00123896 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BE4D1A3C17A761B300756FF4 /* recognise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recognise.png; path = SpeechRecognition/images/recognise.png; sourceTree = SOURCE_ROOT; };
+		BE4D1A3E17A7639500756FF4 /* SpeechRecognitionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionTextView.h; sourceTree = "<group>"; };
+		BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionTextView.m; sourceTree = "<group>"; };
 		BE76D2F617A5561E00DBA827 /* SpeechRecognitionNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionNavigationBar.h; sourceTree = "<group>"; };
 		BE76D2F717A5561E00DBA827 /* SpeechRecognitionNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionNavigationBar.m; sourceTree = "<group>"; };
 		BE7B5B6317A278BD00BF9C1E /* SpeechRecognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechRecognition.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE4D1A4717A791D900756FF4 /* drawText */ = {
+			isa = PBXGroup;
+			children = (
+				BE19607017A8E4E600073ADF /* TextToImage.h */,
+				BE19607117A8E4E600073ADF /* TextToImage.m */,
+			);
+			path = drawText;
+			sourceTree = "<group>";
+		};
 		BE7B5B5A17A278BD00BF9C1E = {
 			isa = PBXGroup;
 			children = (
@@ -121,8 +134,9 @@
 			isa = PBXGroup;
 			children = (
 				BE7B5B8B17A2820F00BF9C1E /* Images */,
-				BE7B5B8717A27EC300BF9C1E /* View */,
+				BE4D1A4717A791D900756FF4 /* drawText */,
 				BEEFA91F17A63AD400B0FD34 /* Animation */,
+				BE7B5B8717A27EC300BF9C1E /* View */,
 				BE7B5B8317A27D7800BF9C1E /* ViewController */,
 				BE7B5B7517A278BD00BF9C1E /* AppDelegate.h */,
 				BE7B5B7617A278BD00BF9C1E /* AppDelegate.m */,
@@ -164,6 +178,8 @@
 				BE7B5B8917A27F0000BF9C1E /* SpeechRecognitionView.m */,
 				BEEFA92317A6753600B0FD34 /* RecogniseButton.h */,
 				BEEFA92417A6753600B0FD34 /* RecogniseButton.m */,
+				BE4D1A3E17A7639500756FF4 /* SpeechRecognitionTextView.h */,
+				BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -171,6 +187,7 @@
 		BE7B5B8B17A2820F00BF9C1E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BE4D1A3C17A761B300756FF4 /* recognise.png */,
 				BE0B8DE017A74E6700C49DBC /* background.png */,
 				BE0B8DE117A74E6700C49DBC /* CD-inner.png */,
 				BE0B8DE217A74E6700C49DBC /* CD-inner1.png */,
@@ -178,9 +195,7 @@
 				BE0B8DE417A74E6700C49DBC /* edit.png */,
 				BE0B8DE517A74E6700C49DBC /* history-button.png */,
 				BE0B8DE617A74E6700C49DBC /* navbar-bg.png */,
-				BE0B8DE717A74E6700C49DBC /* navbar-bg1.png */,
 				BE0B8DE817A74E6700C49DBC /* play.png */,
-				BE0B8DE917A74E6700C49DBC /* recognise.png */,
 				BE0B8DEA17A74E6700C49DBC /* translate.png */,
 			);
 			name = Images;
@@ -258,10 +273,9 @@
 				BE0B8DEF17A74E6700C49DBC /* edit.png in Resources */,
 				BE0B8DF017A74E6700C49DBC /* history-button.png in Resources */,
 				BE0B8DF117A74E6700C49DBC /* navbar-bg.png in Resources */,
-				BE0B8DF217A74E6700C49DBC /* navbar-bg1.png in Resources */,
 				BE0B8DF317A74E6700C49DBC /* play.png in Resources */,
-				BE0B8DF417A74E6700C49DBC /* recognise.png in Resources */,
 				BE0B8DF517A74E6700C49DBC /* translate.png in Resources */,
+				BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +293,8 @@
 				BE76D2F817A5561E00DBA827 /* SpeechRecognitionNavigationBar.m in Sources */,
 				BEEFA92217A63B2800B0FD34 /* SpeechRecognitionAnimation.m in Sources */,
 				BEEFA92517A6753600B0FD34 /* RecogniseButton.m in Sources */,
+				BE4D1A4017A7639500756FF4 /* SpeechRecognitionTextView.m in Sources */,
+				BE19607217A8E4E600073ADF /* TextToImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

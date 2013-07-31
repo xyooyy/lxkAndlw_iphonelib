@@ -33,7 +33,7 @@
         [self addButtonWithImageNamed:kImageHistoryButton
                                  rect:CGRectMake(kButtonHistoryX, kButtonHistoryY, kButtonHistoryWidth, kButtonHistoryHeight)
                              delegate:_delegate
-                               action:@selector(rightButtonItemTouch:)];
+                               action:@selector(navbarRightButtonItemTouch:)];
     }
     return self;
 }

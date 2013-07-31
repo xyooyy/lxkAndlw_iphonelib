@@ -5,22 +5,25 @@
 //  Created by Lovells on 13-7-26.
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
-
 #import "SpeechRecognitionView.h"
 #import "SpeechRecognitionAnimation.h"
 #import "RecogniseButton.h"
+#import "SpeechRecognitionTextView.h"
 #import "data.h"
 
 @interface SpeechRecognitionView ()
 {
     // 大的CD图片的view
-    UIImageView *_imageViewCD;
+    UIImageView *_CDImageView;
     
     // 覆盖在CD图片上的view
-    UIView *_viewCDCover;
+    UIView *_CDCoverView;
     
     // 小的CD图片（旋转）
-    UIImageView *_imageViewCDInner;
+    UIImageView *_CDInnerImageView;
+    
+    // 文字显示
+    SpeechRecognitionTextView *_textView;
 }
 
 @end
@@ -35,7 +38,7 @@
         [self addImageWithName:kImageBackground
                          frame:CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight)];
         
-        _imageViewCD = [self addImageWithName:kImageCD
+        _CDImageView = [self addImageWithName:kImageCD
                                         frame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY, kImageCDBeforeWidth, kImageCDBeforeHeight)];
         
         // 语音识别按钮
@@ -53,29 +56,28 @@
 - (BOOL)animationBrightnessDark
 {
 
-    if (!_viewCDCover)
+    if (!_CDCoverView)
     {
-        _viewCDCover = [[UIView alloc] initWithFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY, kImageCDAfterWidth, kImageCDAfterHeight)];
-        _viewCDCover.backgroundColor = [UIColor colorWithWhite:kFloatZero alpha:kFloatZero];
-        [self addSubview:_viewCDCover];
+        _CDCoverView = [[UIView alloc] initWithFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY, kImageCDAfterWidth, kImageCDAfterHeight)];
+        _CDCoverView.backgroundColor = [UIColor colorWithWhite:kFloatZero alpha:kFloatZero];
+        [self addSubview:_CDCoverView];
     }
     
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
-    [animation animationWithLayer:_viewCDCover.layer
+    [animation animationWithLayer:_CDCoverView.layer
                           keypath:kAnimationDarknessKeyPath
-                        fromValue:(__bridge id)(_viewCDCover.backgroundColor.CGColor)
+                        fromValue:(__bridge id)(_CDCoverView.backgroundColor.CGColor)
                           toValue:(__bridge id)([UIColor colorWithWhite:kFloatZero alpha:kAnimationDarknessAlpha].CGColor)
                          duration:kAnimationDarknessDuration
                       repeatCount:kAnimationDarknessRepeatCount
                     animationName:kAnimationDarknessName];
-    
     return YES;
 }
 
 - (BOOL)animationBrightnessLight
 {
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
-    [animation animationWithLayer:_viewCDCover.layer
+    [animation animationWithLayer:_CDCoverView.layer
                           keypath:kAnimationDarknessKeyPath
                         fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero alpha:kAnimationDarknessAlpha].CGColor)
                           toValue:(__bridge id)[UIColor clearColor].CGColor
@@ -85,29 +87,30 @@
     return YES;
 }
 
-//- (BOOL)animation
-
 #pragma mark - 渐显和旋转动画
 
 - (BOOL)animtionCDInnerRotation
 {
-    if (!_imageViewCDInner)
+    if (!_CDInnerImageView)
     {
-        _imageViewCDInner = [self addImageWithName:kImageCDInner
+        _CDInnerImageView = [self addImageWithName:kImageCDInner
                                 frame:CGRectMake(kFloatZero, kFloatZero, kImageCDInnerWidth, kImageCDInnerHeight)];
-        _imageViewCDInner.alpha = kFloatZero;
-        _imageViewCDInner.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
+        _CDInnerImageView.alpha = kFloatZero;
+//        _imageViewCDInner.layer.shadowOpacity = 1.0f;
+//        _imageViewCDInner.layer.shadowColor = [UIColor colorWithWhite:0.611 alpha:1.000].CGColor;
+//        _imageViewCDInner.layer.shadowOffset = CGSizeMake(0.5f, 0.5f);
+        _CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     }
     
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
         
     // 逐渐出现动画
-    [animation fadeInWithView:_imageViewCDInner
+    [animation fadeInWithView:_CDInnerImageView
                      duration:kImageCDInnerTransformTime
                    completion:^{}];
         
     // 旋转动画
-    [animation animationWithLayer:_imageViewCDInner.layer
+    [animation animationWithLayer:_CDInnerImageView.layer
                           keypath:kAnimationRotationKeyPath
                         fromValue:[NSNumber numberWithFloat:kFloatZero]
                           toValue:[NSNumber numberWithFloat:k2PI]
@@ -122,7 +125,7 @@
 - (BOOL)animationTransformAfterCompletion:(void(^)(void))completion
 {
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
-    [animation transformView:_imageViewCD
+    [animation transformView:_CDImageView
                      toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY, kImageCDAfterWidth, kImageCDAfterHeight)
                 withDuration:kImageCDTransformDuration
                   completion:^{
@@ -134,7 +137,7 @@
 - (BOOL)animationTransformBefore
 {
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
-    [animation transformView:_imageViewCD
+    [animation transformView:_CDImageView
                      toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY, kImageCDBeforeWidth, kImageCDBeforeHeight)
                 withDuration:kImageCDTransformDuration
                   completion:^{}];
@@ -159,9 +162,8 @@
                          delegate:(id)delegate
                            action:(SEL)action
 {
-//    RecogniseButton *button = [[RecogniseButton alloc] initWithFrame:rect];
-    RecogniseButton *button = [[RecogniseButton alloc] initWithFrame:rect title:title imageName:name];
-//    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+    UIButton *button = [[UIButton alloc] initWithFrame:rect];
+    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
     [self addSubview:button];
     
@@ -175,7 +177,7 @@
     [button setEnabled:NO];
     
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
-    [animation animationRemoveFromLayer:_viewCDCover.layer forKey:kAnimationDarknessName];
+    [animation animationRemoveFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     
     [self animationTransformAfterCompletion:^{
         [self animationBrightnessDark];
@@ -190,14 +192,28 @@
     [button setEnabled:NO];
     
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
-    [animation animationRemoveFromLayer:_viewCDCover.layer forKey:kAnimationDarknessName];
+    [animation animationRemoveFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     
     [self animationBrightnessLight];
-    [animation fadeOutWithView:_imageViewCDInner duration:kAnimationDarknessDuration completion:^{
+    [animation fadeOutWithView:_CDInnerImageView duration:kAnimationDarknessDuration completion:^{
         [self animationTransformBefore];
-        [animation animationRemoveFromLayer:_imageViewCDInner.layer forKey:kAnimationRotationName];
+        [animation animationRemoveFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
         [button setEnabled:YES];
     }];
+    return YES;
+}
+
+- (BOOL)addText:(NSString *)text
+{
+    if (!_textView)
+    {
+        CGRect frame = CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight);
+        _textView = [[SpeechRecognitionTextView alloc] initWithFrame:frame
+                                                                font:[UIFont boldSystemFontOfSize:kTextFontSize]
+                                                         numberOfRow:kTextRowNumber];
+        [self addSubview:_textView];
+    }
+    [_textView addText:text maxLineWidth:kTextMaxLineWidth];
     return YES;
 }
 

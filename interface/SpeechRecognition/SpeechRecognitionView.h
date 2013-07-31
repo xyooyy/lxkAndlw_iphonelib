@@ -15,4 +15,6 @@
 - (BOOL)startRecogniseButtonTouchAnimation:(UIButton *)button;
 - (BOOL)stopRecogniseButtonTouchAnimation:(UIButton *)button;
 
+- (BOOL)addText:(NSString *)text;
+
 @end
