@@ -20,7 +20,7 @@
 #define kImageRecognise     @"recognise.png"
 #define kImageTranslate     @"translate.png"
 
-#pragma mark - 常用大小
+#pragma mark - 常用
 
 #define kFloatZero              0.f
 #define kIntZero                0
@@ -33,6 +33,8 @@
 #define kScreenHeight   [UIScreen mainScreen].applicationFrame.size.height
 #define kScreenSize     [UIScreen mainScreen].applicationFrame.size
 #define kScreenFrame    [UIScreen mainScreen].applicationFrame  
+
+#define RGB(r, g, b, a) ([UIColor colorWithRed:r/255.f green:g/255.f blue:b/255.f alpha:a])
 
 // -------- 按钮 --------
 #pragma mark - 按钮
@@ -116,6 +118,7 @@
 #define kTextViewY              130.f
 
 #define kTextFontSize           13.f
+#define kTextFontColor          RGB(255.f, 245.f, 205.f, 1.f)
 #define kTextRowNumber          7       // 行数
 #define kTextMaxLineWidth       240.f   // 行最大长度
 #define kTextRowSpacing         6.f     // 行距

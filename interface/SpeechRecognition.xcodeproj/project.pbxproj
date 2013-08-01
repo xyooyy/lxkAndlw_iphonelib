@@ -176,10 +176,10 @@
 				BE76D2F717A5561E00DBA827 /* SpeechRecognitionNavigationBar.m */,
 				BE7B5B8817A27F0000BF9C1E /* SpeechRecognitionView.h */,
 				BE7B5B8917A27F0000BF9C1E /* SpeechRecognitionView.m */,
-				BEEFA92317A6753600B0FD34 /* RecogniseButton.h */,
-				BEEFA92417A6753600B0FD34 /* RecogniseButton.m */,
 				BE4D1A3E17A7639500756FF4 /* SpeechRecognitionTextView.h */,
 				BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */,
+				BEEFA92317A6753600B0FD34 /* RecogniseButton.h */,
+				BEEFA92417A6753600B0FD34 /* RecogniseButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";

@@ -21,9 +21,10 @@
     CGSize size = [text sizeWithFont:font];
     size.height += spacing;
     
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetShadowWithColor(ctx, offset, blur, [shadowColor CGColor]);
-    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetShadowWithColor(context, offset, blur, [shadowColor CGColor]);
+    CGContextSetShouldSmoothFonts(context, YES);
+
     UIGraphicsBeginImageContext(size);
     [color set];
     [text drawInRect:CGRectMake(0.f, spacing / 2.f, size.width, size.height) withFont:font];
@@ -43,13 +44,11 @@
     size.height += spacing;
     
     UIGraphicsBeginImageContext(size);
-    
     [color set];
     [text drawInRect:CGRectMake(0.f, spacing / 2.f, size.width, size.height) withFont:font];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return image;
 }
 

@@ -10,7 +10,12 @@
 
 @interface SpeechRecognitionTextView : UIView
 
-- (id)initWithFrame:(CGRect)frame font:(UIFont *)font numberOfRow:(NSUInteger)number;
-- (BOOL)addText:(NSString *)text maxLineWidth:(NSUInteger)maxWidth;
+- (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
+
+- (BOOL)addText:(NSString *)text
+   maxLineWidth:(NSUInteger)maxWidth
+       withFont:(UIFont *)font
+          color:(UIColor *)color
+        spacing:(CGFloat)spacing;
 
 @end

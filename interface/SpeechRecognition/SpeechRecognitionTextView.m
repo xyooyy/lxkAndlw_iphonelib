@@ -13,57 +13,56 @@
 
 @interface SpeechRecognitionTextView ()
 {
-    NSMutableArray *_currentViewArray;
-    UIFont *_font;
+    NSMutableArray *_viewArray;
     NSUInteger _maxRow;
-    
-    UIImageView *_imageView;
 }
 
 @end
 
 @implementation SpeechRecognitionTextView
 
-- (id)initWithFrame:(CGRect)frame font:(UIFont *)font numberOfRow:(NSUInteger)number
+- (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        _currentViewArray = [[NSMutableArray alloc] init];
-        _font = font;
+        _viewArray = [[NSMutableArray alloc] init];
         _maxRow = number;
-        _imageView = [[UIImageView alloc] init];
-        _imageView.backgroundColor = [UIColor redColor];
-        [self addSubview:_imageView];
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
 }
 
- - (BOOL)addText:(NSString *)text maxLineWidth:(NSUInteger)maxWidth
+- (BOOL)addText:(NSString *)text
+   maxLineWidth:(NSUInteger)maxWidth
+       withFont:(UIFont *)font
+          color:(UIColor *)color
+        spacing:(CGFloat)spacing
 {
-    NSArray *textArray = [self lineBreakWithString:text maxWidth:maxWidth font:_font];
+    NSArray *textArray = [self lineBreakWithString:text maxWidth:maxWidth font:font];
 
-    if (textArray.count + _currentViewArray.count > _maxRow)
+    if (textArray.count + _viewArray.count > _maxRow)
     {
-        [self removeViewArray:_currentViewArray
-                        range:NSMakeRange(kIntZero, (textArray.count + _currentViewArray.count) - _maxRow)];
+        [self removeViewArray:_viewArray
+                        range:NSMakeRange(kIntZero, (textArray.count + _viewArray.count) - _maxRow)];
     }
-    [self addViewArray:_currentViewArray withTextArray:textArray];
-    [self animationWithViewArray:_currentViewArray];
-    [self setNeedsDisplay];
+    [self addViewArray:_viewArray withTextArray:textArray andFont:font color:color spacing:spacing];
+    [self animationWithViewArray:_viewArray];
     
     return YES;
 }
 
 #pragma mark - 内部函数
 
+// 动画显示出添加好的imageView
 - (BOOL)animationWithViewArray:(NSMutableArray *)viewArray
 {
     for (int i = 0; i < viewArray.count; i++)
     {
         UIView *view = [viewArray objectAtIndex:i];
         SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+        
+        // 移动动画
         [animation transformView:view
                          toFrame:CGRectMake(view.frame.origin.x,
                                             view.frame.size.height * i,
@@ -72,6 +71,7 @@
                     withDuration:kTextAnimationMoveTime
                       completion:^{}];
         
+        // 渐显动画
         [animation fadeInWithView:view duration:kTextAnimationFadeInTime completion:^{}];
     }
     return YES;
@@ -80,30 +80,45 @@
 // 删除指定的view
 - (BOOL)removeViewArray:(NSMutableArray *)viewArray range:(NSRange)range
 {
-    NSUInteger end = MIN(range.location + range.length, viewArray.count);
-    for (int i = range.location; i < end; i++)
+    for (int i = 0; i < range.length; i++)
     {
-        UIView *view = [viewArray objectAtIndex:i];
-        
+        UIView *view = [viewArray objectAtIndex:range.location];
         SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+        
+        // 移动动画
+        [animation transformView:view
+                         toFrame:CGRectMake(view.frame.origin.x,
+                                            kFloatZero,
+                                            view.frame.size.width,
+                                            view.frame.size.height)
+                    withDuration:kTextAnimationMoveTime
+                      completion:^{}];
+        
+        // 渐隐动画
         [animation fadeOutWithView:view duration:kTextAnimationFadeOutTime completion:^{
             [view removeFromSuperview];
         }];
-        [viewArray removeObjectAtIndex:i];
+        
+        [viewArray removeObjectAtIndex:range.location];
     }
     return YES;
 }
 
-- (BOOL)addViewArray:(NSMutableArray *)viewArray withTextArray:(NSArray *)textArray
+// 根据text生成的image,添加新的imageView
+- (BOOL)addViewArray:(NSMutableArray *)viewArray
+       withTextArray:(NSArray *)textArray
+             andFont:(UIFont *)font
+               color:(UIColor *)color
+             spacing:(CGFloat)spacing
 {
     TextToImage *textToImage = [[TextToImage alloc] init];
     
     for (int i = 0; i < textArray.count; i++)
     {
         UIImage *image = [textToImage imageFromText:[textArray objectAtIndex:i]
-                                           withFont:_font
-                                              color:[UIColor whiteColor]
-                                         rowSpacing:kTextRowSpacing];
+                                           withFont:font
+                                              color:color
+                                         rowSpacing:spacing];
         
         UIImageView *view = [[UIImageView alloc] initWithImage:image];
         view.frame = CGRectMake((self.frame.size.width - view.frame.size.width) / 2.f,

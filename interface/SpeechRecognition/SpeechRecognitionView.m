@@ -39,12 +39,13 @@
                          frame:CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight)];
         
         _CDImageView = [self addImageWithName:kImageCD
-                                        frame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY, kImageCDBeforeWidth, kImageCDBeforeHeight)];
-        
+                                        frame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
+                                                         kImageCDBeforeWidth, kImageCDBeforeHeight)];
         // 语音识别按钮
         [self addButtonWithTitle:kButtonStartRecogniseTitle
                       imageNamed:kImageRecognise
-                            rect:CGRectMake(kButtonRecogniseX, kButtonRecogniseY, kButtonRecogniseWidth, kButtonRecogniseHeight)
+                            rect:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,
+                                            kButtonRecogniseWidth, kButtonRecogniseHeight)
                         delegate:target
                           action:@selector(startRecogniseButtonTouch:)];
     }
@@ -58,7 +59,8 @@
 
     if (!_CDCoverView)
     {
-        _CDCoverView = [[UIView alloc] initWithFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY, kImageCDAfterWidth, kImageCDAfterHeight)];
+        _CDCoverView = [[UIView alloc] initWithFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
+                                                                kImageCDAfterWidth, kImageCDAfterHeight)];
         _CDCoverView.backgroundColor = [UIColor colorWithWhite:kFloatZero alpha:kFloatZero];
         [self addSubview:_CDCoverView];
     }
@@ -67,7 +69,8 @@
     [animation animationWithLayer:_CDCoverView.layer
                           keypath:kAnimationDarknessKeyPath
                         fromValue:(__bridge id)(_CDCoverView.backgroundColor.CGColor)
-                          toValue:(__bridge id)([UIColor colorWithWhite:kFloatZero alpha:kAnimationDarknessAlpha].CGColor)
+                          toValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
+                                                                  alpha:kAnimationDarknessAlpha].CGColor)
                          duration:kAnimationDarknessDuration
                       repeatCount:kAnimationDarknessRepeatCount
                     animationName:kAnimationDarknessName];
@@ -79,7 +82,8 @@
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
     [animation animationWithLayer:_CDCoverView.layer
                           keypath:kAnimationDarknessKeyPath
-                        fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero alpha:kAnimationDarknessAlpha].CGColor)
+                        fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
+                                                                  alpha:kAnimationDarknessAlpha].CGColor)
                           toValue:(__bridge id)[UIColor clearColor].CGColor
                          duration:kAnimationDarknessDuration
                       repeatCount:kAnimationDarknessRepeatCount
@@ -94,11 +98,9 @@
     if (!_CDInnerImageView)
     {
         _CDInnerImageView = [self addImageWithName:kImageCDInner
-                                frame:CGRectMake(kFloatZero, kFloatZero, kImageCDInnerWidth, kImageCDInnerHeight)];
+                                frame:CGRectMake(kFloatZero, kFloatZero,
+                                                 kImageCDInnerWidth, kImageCDInnerHeight)];
         _CDInnerImageView.alpha = kFloatZero;
-//        _imageViewCDInner.layer.shadowOpacity = 1.0f;
-//        _imageViewCDInner.layer.shadowColor = [UIColor colorWithWhite:0.611 alpha:1.000].CGColor;
-//        _imageViewCDInner.layer.shadowOffset = CGSizeMake(0.5f, 0.5f);
         _CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     }
     
@@ -126,7 +128,8 @@
 {
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
     [animation transformView:_CDImageView
-                     toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY, kImageCDAfterWidth, kImageCDAfterHeight)
+                     toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
+                                        kImageCDAfterWidth, kImageCDAfterHeight)
                 withDuration:kImageCDTransformDuration
                   completion:^{
                       completion();
@@ -138,7 +141,8 @@
 {
     SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
     [animation transformView:_CDImageView
-                     toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY, kImageCDBeforeWidth, kImageCDBeforeHeight)
+                     toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
+                                        kImageCDBeforeWidth, kImageCDBeforeHeight)
                 withDuration:kImageCDTransformDuration
                   completion:^{}];
     return YES;
@@ -200,6 +204,7 @@
         [animation animationRemoveFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
         [button setEnabled:YES];
     }];
+    
     return YES;
 }
 
@@ -209,11 +214,25 @@
     {
         CGRect frame = CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight);
         _textView = [[SpeechRecognitionTextView alloc] initWithFrame:frame
-                                                                font:[UIFont boldSystemFontOfSize:kTextFontSize]
-                                                         numberOfRow:kTextRowNumber];
+                                                             maxRows:kTextRowNumber];
         [self addSubview:_textView];
     }
-    [_textView addText:text maxLineWidth:kTextMaxLineWidth];
+    [_textView addText:text
+          maxLineWidth:kTextMaxLineWidth
+              withFont:[UIFont boldSystemFontOfSize:kTextFontSize]
+                 color:kTextFontColor
+               spacing:kTextRowSpacing];
+    return YES;
+}
+
+- (BOOL)switchButton:(UIButton *)button
+           oldAction:(SEL)oldAction
+          withTarget:(id)oldTarget
+           newAction:(SEL)newAction
+          withTarget:(id)newTarget
+{
+    [button removeTarget:oldTarget action:oldAction forControlEvents:UIControlEventTouchDown];
+    [button addTarget:newTarget action:newAction forControlEvents:UIControlEventTouchDown];
     return YES;
 }
 

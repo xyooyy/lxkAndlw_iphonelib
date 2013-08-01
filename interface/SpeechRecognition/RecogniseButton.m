@@ -29,7 +29,6 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor colorWithWhite:0.705 alpha:1.000];
-//        label.font = [UIFont systemFontOfSize:12.f];
         label.font = [UIFont fontWithName:@"Helvetica" size:12.f];
         [self addSubview:label];
     }
