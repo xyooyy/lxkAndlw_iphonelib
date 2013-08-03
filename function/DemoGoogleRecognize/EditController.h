@@ -10,12 +10,14 @@
 #import "HeadControlView.h"
 #import "BodyContentView.h"
 #import "FootTextControlView.h"
+#import "PopupView.h"
 
 @interface EditController : UIViewController
 {
     HeadControlView *mHeadControllView;
     BodyContentView *mBodyContentView;
     FootTextControlView *mFootTextControlView;
+    PopupView *mPopupView;
     
     id mPreController;
     SEL mSelSaveText;

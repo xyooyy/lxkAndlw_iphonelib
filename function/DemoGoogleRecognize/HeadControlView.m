@@ -105,12 +105,4 @@
 {
     mRightBtnPressCall = aRightPressCall;
 }
-
--(void)dealloc
-{
-    [mBtnLeft dealloc];
-    [mBtnRight dealloc];
-    [mLabelTitle dealloc];
-    [super dealloc];
-}
 @end

@@ -30,6 +30,5 @@
     free(mBuffers);
     free(mAudioFile);
     free(mQueue);
-    [super dealloc];
 }
 @end

@@ -43,6 +43,8 @@
         mFootTextControlView = [[FootTextControlView alloc]initWithSuperViewRect:self.view.frame];
         [self configFootView];
         [self.view addSubview:mFootTextControlView];
+        mPopupView = [[PopupView alloc]initWithFrame:CGRectMake(100, 360, 0, 0)];
+        [mPopupView setParentView:self.view];
         
         mPreController = aPreCon;
         mSelSaveText = aSEL;
@@ -96,12 +98,12 @@
 {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     [pasteboard setString:[mBodyContentView getContent]];
-    NSLog(@"Copy");
+    [mPopupView showWithText:@"已复制" AndSuperView:self.view];
 }
 
 -(void)SavePressd
 {
-    NSString *str = [[[NSString alloc]initWithString:[mBodyContentView getContent]]autorelease];
+    NSString *str = [[NSString alloc]initWithString:[mBodyContentView getContent]];
     [mPreController performSelector:mSelSaveText withObject:str];
     [self.navigationController popViewControllerAnimated:YES];
 }

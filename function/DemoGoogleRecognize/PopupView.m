@@ -68,12 +68,5 @@
     [aSuperView addSubview:self];
 }
 
-- (void) dealloc
-{
-    [_parentView release];
-    
-    [super dealloc];
-}
-
 @end
 

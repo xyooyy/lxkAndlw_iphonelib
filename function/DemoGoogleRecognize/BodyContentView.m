@@ -64,17 +64,11 @@
 
 -(void)setTextRewirteAll:(NSString *)aStrText
 {
-    mTextView.text = aStrText;
+    mTextView.text = [NSString stringWithString:aStrText];
 }
 -(void)AddTextAtEnd:(NSString *)aStrText
 {
-    mTextView.text = [NSString stringWithFormat:@"%@\r\n%@",mTextView.text,aStrText];
-}
-
--(void)dealloc
-{
-    [mTextView dealloc];
-    [super dealloc];
+    mTextView.text = [NSString stringWithFormat:@"%@\r\n%@",mTextView.text,[NSString stringWithString:aStrText]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -14,6 +14,8 @@
 #import "EditController.h"
 #import "TranslateController.h"
 #import "ASGoogleVoiceRecognizer.h"
+#import "AudioPlayer.h"
+#import "HistorySelectController.h"
 
 @interface SpeakController : UIViewController
 {
@@ -24,15 +26,17 @@
     
     //recognizer
     ASGoogleVoiceRecognizer *mRecognizer;
-    
     BOOL isSpeaking;
     
-    NSMutableString *mResult;
+    //player
+    AudioPlayer *mPlayer;
     
-    NSURL *mFilePath;
+    //使用历史记录
+    NSMutableString *mCurrentFile;
+    NSMutableArray *mHistory;
 }
 
 -(id)init;
--(void)changeResult:(NSMutableString *)aStr;
-
+-(void)changeText:(NSString *)aStr;
+-(void)addText:(NSString *)aStr;
 @end

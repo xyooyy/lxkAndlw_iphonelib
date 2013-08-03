@@ -20,13 +20,13 @@
     {
         m_sampleRate = parmMSampleRate;
         m_BitsPerChannel = 16;
-        m_ChannelsPerFrame = 2;
+        m_ChannelsPerFrame = 1;
         mSeconds = parmSeconds;
         
-        AudioSessionInitialize(NULL, NULL, NULL, self);
+        AudioSessionInitialize(NULL, NULL, NULL, (__bridge void *)(self));
         UInt32 sessionCategory = kAudioSessionCategory_PlayAndRecord;
         AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
-        bufferSize = parmMSampleRate*parmSeconds*4;
+        bufferSize = parmMSampleRate*parmSeconds*2;
        // Float32 bufferSizeInSec = 0.0056f;
        // AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration,
         //                        sizeof(Float32), &bufferSizeInSec);
@@ -74,10 +74,6 @@
          timer = [NSTimer scheduledTimerWithTimeInterval:1 / 32.0 target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
         isInitTimer = YES;
     }
-       
-   // isInvalidate = FALSE;
-    
-
     return TRUE;
 }//开始录音
 
@@ -88,7 +84,6 @@
         AudioQueueFreeBuffer(*(audioInfo.mQueue), audioInfo.mBuffers[i]);
     }
     AudioFileClose(*(audioInfo.mAudioFile));
-    [audioInfo release];
     return YES;
 }
 -(BOOL) pauseRecord:(RecordInfo *)recorderState
@@ -130,6 +125,7 @@
     tmpRecordState.mSeconds = mSeconds;
     tmpRecordState.sampleRate = m_sampleRate;
     tmpRecordState.recorder = self;
+    //AudioStreamBasicDescription *format =
     if(*tmpRecordState.mQueue)
     {
         AudioQueueDispose(*tmpRecordState.mQueue, TRUE);//处理已有队列
@@ -143,7 +139,7 @@
     
     AudioQueueNewInput(tmpRecordState.mRecordFormat,
                        customAudioQueueInputCallback,
-                       tmpRecordState,NULL, NULL,0 ,tmpRecordState.mQueue);
+                       (__bridge void *)(tmpRecordState),NULL, NULL,0 ,tmpRecordState.mQueue);
     tmpRecordState.mCurrentPacket = 0;
     size = sizeof(*tmpRecordState.mRecordFormat);
     AudioQueueGetProperty(
@@ -186,6 +182,7 @@
     (*recorderState.mRecordFormat).mFramesPerPacket = 1;
     (*recorderState.mRecordFormat).mBytesPerFrame = ((*recorderState.mRecordFormat).mBitsPerChannel / 8) *  (*recorderState.mRecordFormat).mChannelsPerFrame;
     (*recorderState.mRecordFormat).mBytesPerPacket = (*recorderState.mRecordFormat).mBytesPerFrame * (*recorderState.mRecordFormat).mFramesPerPacket;
+    
     (*recorderState.mRecordFormat).mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     
 }
@@ -257,7 +254,7 @@ void customAudioQueueInputCallback( void  *inUserData,
     {
         
    
-        RecordInfo *recorderState = (RecordInfo *) inUserData;
+        RecordInfo *recorderState = (__bridge RecordInfo *) inUserData;
         //NSLog(@"customAudioQueueInputCallback begin %d", recorderState.m_test);
         ASRecordWav* recorder = (ASRecordWav*)recorderState.recorder;
 
@@ -274,13 +271,7 @@ void customAudioQueueInputCallback( void  *inUserData,
            
          //[recorder performSelectorOnMainThread:@selector(reportReceiveData:) withObject:recordDataDict waitUntilDone:NO];
         recorderState.mCurrentPacket += inNumberPacketDescriptions;
-            
-            
-            
-            [fileData autorelease];
-            [voice_data autorelease];
-            [recordDataDict autorelease];
-            recorderState.m_test++;
+        recorderState.m_test++;
         }   
         
         if(recorderState.mIsRunning == YES)
@@ -307,7 +298,6 @@ int computeRecordBufferSize(const AudioStreamBasicDescription *format,RecordInfo
 }//设置每个buff的容量
 -(void)dealloc
 {
-    [super dealloc];
     self.receiveDataDelegate = nil;
 }
 @end

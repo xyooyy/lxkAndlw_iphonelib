@@ -59,31 +59,6 @@
     mBtnRight.enabled = YES;
 }
 
-
--(void)btnLPressed
-{
-    [mController performSelector:mBtnLCall];
-}
-
--(void)btnRPressed
-{
-    [mController performSelector:mBtnRCall];
-}
-
--(void)btnMPressed
-{
-    [mController performSelector:mBtnMCall];
-}
-
--(void)dealloc
-{
-    [mBtnLeft dealloc];
-    [mBtnRight dealloc];
-    [mBtnMid dealloc];
-    
-    [super dealloc];
-}
-
 -(void)setBtnLTitleWithText:(NSString *)aStrText
 {
     [mBtnLeft setTitle:aStrText forState:UIControlStateNormal];
@@ -131,6 +106,21 @@
 -(void)setBtnMPressCall:(SEL)aBtnMCall
 {
     mBtnMCall = aBtnMCall;
+}
+
+-(void)btnLPressed
+{
+    [mController performSelector:mBtnLCall];
+}
+
+-(void)btnRPressed
+{
+    [mController performSelector:mBtnRCall];
+}
+
+-(void)btnMPressed
+{
+    [mController performSelector:mBtnMCall];
 }
 
 @end

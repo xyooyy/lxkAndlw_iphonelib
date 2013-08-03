@@ -8,51 +8,48 @@
 
 #import <Foundation/Foundation.h>
 #import "CalculateSoundStrength.h"
-#import "PlayAudioWav.h"
-#import "ASPlayDelegate.h"
 #import "ASRecordWav.h"
 #import "ASRecordDelegate.h"
 #import "RecordInfo.h"
 
-#define RequestURL @"http://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=zh-CN&maxresults=9"
+#define RequestURL @"http://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=zh-CN&maxresults=1"
 
-@interface ASGoogleVoiceRecognizer : NSObject <NSURLConnectionDataDelegate,ASRecordDelegate,ASPlayDelegate>
+@interface ASGoogleVoiceRecognizer : NSObject <NSURLConnectionDataDelegate,ASRecordDelegate>
 {
+    //http请求
     NSMutableURLRequest *mRequest;
-    
-    
     NSMutableData *mRecivedData;
     
-    
-    
-    NSError *error;
-    BOOL isPlaying;
+    //标志位
     BOOL isRecording;
-    
-    //录音监测
+    BOOL canRecgnise;
+
+    //录音
     ASRecordWav *mRecorder;
     RecordInfo *mRecorderInfo;
+    NSMutableData *mRecord;
+    NSMutableData *mFullRecord;
+    NSMutableData *currentUpLoad;
     
+    NSMutableString *fileName;
+
+    //识别成功的回调
     id mCotroller;
     SEL mSetText;
     
-    NSMutableData *mRecord;
+    //文件大小
     
-    //播放器
-    PlayAudioWav *mPlayer;
-    AudioInfo *mPlayInfo;
-    
-    NSMutableData *mFullRecord;
-    
-    AudioStreamBasicDescription * mFormat;
+    int upLoadStart;
+    int upLoadEnd;
+    int mDataEnd;
 }
 
 -(id)init;
+-(void)setFilePath:(NSString *)aPath;
 -(BOOL)startRecording;
 -(BOOL)stopRecording;
--(BOOL)upLoadWAV:(NSData *)mDataWav;
--(void)startPlaying:(NSData *)aWavData;
--(void)playSelf;
--(void)setSaveFile:(NSURL *)aFilePath;
+
+-(BOOL)upLoadWAV:(NSData *)aDataWav;
 -(void)setController:(id)aCon andFunction:(SEL)aSEL;
+
 @end
