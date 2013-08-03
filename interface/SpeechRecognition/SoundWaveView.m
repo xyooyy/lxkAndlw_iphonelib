@@ -42,7 +42,7 @@
     
     for (int i = 0; i < kScreenWidth; i+=kSoundWaveWidth)
     {
-        height = (rand() % _strong) / 9.f + 10.f;
+        height = (rand() % _strong) / 9.f + _strong / rand() % 100;
 
         CGContextRef context = UIGraphicsGetCurrentContext();
         
