@@ -21,9 +21,7 @@
     if (self) {
         //history
         mCurrentFile = [[NSMutableString alloc]init];
-        NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        path = [path stringByAppendingPathComponent:@"history"];
-        mHistory = [[NSMutableArray alloc]initWithContentsOfFile:path];
+        [self configHistory];
         //head
         mHeadSpeakControlView = [[HeadControlView alloc]initWithSuperViewCGRect:self.view.frame AndTitle:@"准备识别"];
         [self setHeadView];
@@ -46,6 +44,22 @@
         mPlayer = [[AudioPlayer alloc]init];
     }
     return self;
+}
+
+-(void)configHistory
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    path = [path stringByAppendingPathComponent:@"history"];
+    //mHistory = [mHistory initWithContentsOfFile:path];
+    NSFileManager *manager = [[NSFileManager alloc]init];
+    if ([manager fileExistsAtPath:path]) {
+        mHistory = [[NSMutableArray alloc]initWithContentsOfFile:path];
+    }
+    if (![manager fileExistsAtPath:path])
+    {
+        mHistory = [[NSMutableArray alloc]init];
+        [mHistory writeToFile:path atomically:YES];
+    }
 }
 
 //设置head
