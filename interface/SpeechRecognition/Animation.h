@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SpeechRecognitionAnimation : NSObject
+@interface Animation : NSObject
 
 // 变换view的frame
 - (BOOL)transformView:(UIView *)view

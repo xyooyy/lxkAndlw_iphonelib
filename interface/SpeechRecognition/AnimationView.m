@@ -5,13 +5,11 @@
 //  Created by Lovells on 13-7-26.
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
-#import "SpeechRecognitionView.h"
-#import "SpeechRecognitionAnimation.h"
-#import "RecogniseButton.h"
-#import "SpeechRecognitionTextView.h"
-#import "data.h"
+#import "AnimationView.h"
+#import "Animation.h"
+#import "Data.h"
 
-@interface SpeechRecognitionView ()
+@interface AnimationView ()
 {
     // 大的CD图片的view
     UIImageView *_CDImageView;
@@ -21,16 +19,13 @@
     
     // 小的CD图片（旋转）
     UIImageView *_CDInnerImageView;
-    
-    // 文字显示
-    SpeechRecognitionTextView *_textView;
 }
 
 @end
 
-@implementation SpeechRecognitionView
+@implementation AnimationView
 
-- (id)initWithFrame:(CGRect)frame delegate:(id)target
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
@@ -41,13 +36,6 @@
         _CDImageView = [self addImageWithName:kImageCD
                                         frame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
                                                          kImageCDBeforeWidth, kImageCDBeforeHeight)];
-        // 语音识别按钮
-        [self addButtonWithTitle:kButtonStartRecogniseTitle
-                      imageNamed:kImageRecognise
-                            rect:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,
-                                            kButtonRecogniseWidth, kButtonRecogniseHeight)
-                        delegate:target
-                          action:@selector(startRecogniseButtonTouch:)];
     }
     return self;
 }
@@ -65,7 +53,7 @@
         [self addSubview:_CDCoverView];
     }
     
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
     [animation animationWithLayer:_CDCoverView.layer
                           keypath:kAnimationDarknessKeyPath
                         fromValue:(__bridge id)(_CDCoverView.backgroundColor.CGColor)
@@ -79,7 +67,7 @@
 
 - (BOOL)animationBrightnessLight
 {
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
     [animation animationWithLayer:_CDCoverView.layer
                           keypath:kAnimationDarknessKeyPath
                         fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
@@ -104,7 +92,7 @@
         _CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     }
     
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
         
     // 逐渐出现动画
     [animation fadeInWithView:_CDInnerImageView
@@ -126,7 +114,7 @@
 
 - (BOOL)animationTransformAfterCompletion:(void(^)(void))completion
 {
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
     [animation transformView:_CDImageView
                      toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
                                         kImageCDAfterWidth, kImageCDAfterHeight)
@@ -139,7 +127,7 @@
 
 - (BOOL)animationTransformBefore
 {
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
     [animation transformView:_CDImageView
                      toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
                                         kImageCDBeforeWidth, kImageCDBeforeHeight)
@@ -159,28 +147,13 @@
     return imageView;
 }
 
-// 创建一个按钮，并添加到self中
-- (UIButton *) addButtonWithTitle:(NSString *)title
-                       imageNamed:(NSString *)name
-                             rect:(CGRect)rect
-                         delegate:(id)delegate
-                           action:(SEL)action
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:rect];
-    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
-    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
-    [self addSubview:button];
-    
-    return button;
-}
-
 #pragma mark - 公开方法
 
-- (BOOL)startRecogniseButtonTouchAnimation:(UIButton *)button
+- (BOOL)startRecogniseAnimation:(UIButton *)button
 {
     [button setEnabled:NO];
     
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
     [animation animationRemoveFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     
     [self animationTransformAfterCompletion:^{
@@ -191,11 +164,11 @@
     return YES;
 }
 
-- (BOOL)stopRecogniseButtonTouchAnimation:(UIButton *)button
+- (BOOL)stopRecogniseAnimation:(UIButton *)button
 {
     [button setEnabled:NO];
     
-    SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
+    Animation *animation = [[Animation alloc] init];
     [animation animationRemoveFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     
     [self animationBrightnessLight];
@@ -205,34 +178,6 @@
         [button setEnabled:YES];
     }];
     
-    return YES;
-}
-
-- (BOOL)addText:(NSString *)text
-{
-    if (!_textView)
-    {
-        CGRect frame = CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight);
-        _textView = [[SpeechRecognitionTextView alloc] initWithFrame:frame
-                                                             maxRows:kTextRowNumber];
-        [self addSubview:_textView];
-    }
-    [_textView addText:text
-          maxLineWidth:kTextMaxLineWidth
-              withFont:[UIFont boldSystemFontOfSize:kTextFontSize]
-                 color:kTextFontColor
-               spacing:kTextRowSpacing];
-    return YES;
-}
-
-- (BOOL)switchButton:(UIButton *)button
-           oldAction:(SEL)oldAction
-          withTarget:(id)oldTarget
-           newAction:(SEL)newAction
-          withTarget:(id)newTarget
-{
-    [button removeTarget:oldTarget action:oldAction forControlEvents:UIControlEventTouchDown];
-    [button addTarget:newTarget action:newAction forControlEvents:UIControlEventTouchDown];
     return YES;
 }
 

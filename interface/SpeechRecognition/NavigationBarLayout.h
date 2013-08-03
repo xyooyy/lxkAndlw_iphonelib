@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SpeechRecognitionNavigationBar : NSObject
+@interface NavigationBarLayout : NSObject
 
 - (id)initNavigationBar:(UINavigationBar *)navbar delegate:(id)delegate;
 

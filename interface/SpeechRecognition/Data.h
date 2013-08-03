@@ -34,7 +34,7 @@
 #define kScreenSize     [UIScreen mainScreen].applicationFrame.size
 #define kScreenFrame    [UIScreen mainScreen].applicationFrame  
 
-#define RGB(r, g, b, a) ([UIColor colorWithRed:r/255.f green:g/255.f blue:b/255.f alpha:a])
+#define RGBA(r, g, b, a) ([UIColor colorWithRed:r/255.f green:g/255.f blue:b/255.f alpha:a])
 
 // -------- 按钮 --------
 #pragma mark - 按钮
@@ -47,15 +47,15 @@
 #define kButtonStartRecogniseTitle  @"开始识别"
 #define kButtonStopRecogniseTitle   @"停止识别"
 
-#define kImageRecogniseWidth    28.f
-#define kImageRecogniseHeight   21.f
-#define kImageRecogniseX        ((kButtonRecogniseWidth - kImageRecogniseWidth) / 2.f)
-#define kImageRecogniseY        3.f
-
-#define kLabelRecogniseWidth    kButtonRecogniseWidth
-#define kLabelRecogniseHeight   (kButtonRecogniseHeight - kImageRecogniseHeight)
-#define kLabelRecogniseX        0.f
-#define kLabelRecogniseY        kImageRecogniseHeight
+//#define kImageRecogniseWidth    28.f
+//#define kImageRecogniseHeight   21.f
+//#define kImageRecogniseX        ((kButtonRecogniseWidth - kImageRecogniseWidth) / 2.f)
+//#define kImageRecogniseY        3.f
+//
+//#define kLabelRecogniseWidth    kButtonRecogniseWidth
+//#define kLabelRecogniseHeight   (kButtonRecogniseHeight - kImageRecogniseHeight)
+//#define kLabelRecogniseX        0.f
+//#define kLabelRecogniseY        kImageRecogniseHeight
 
 // 编辑按钮
 #define kButtonEditWidth    kButtonRecogniseWidth
@@ -100,9 +100,9 @@
 #define kImageCDAfterY       -115.f
 
 // CD-inner图片
-#define kImageCDInnerTransformTime  3.f
-#define kImageCDInnerOpacity        1.f
-#define kImageCDInnerRotationalSpeed 10.f
+#define kImageCDInnerTransformTime      3.f
+#define kImageCDInnerOpacity            1.f
+#define kImageCDInnerRotationalSpeed    10.f
 
 #define kImageCDInnerWidth      112.f
 #define kImageCDInnerHeight     kImageCDInnerWidth
@@ -118,7 +118,7 @@
 #define kTextViewY              130.f
 
 #define kTextFontSize           13.f
-#define kTextFontColor          RGB(255.f, 245.f, 205.f, 1.f)
+#define kTextFontColor          RGBA(255.f, 245.f, 205.f, 1.f)
 #define kTextRowNumber          7       // 行数
 #define kTextMaxLineWidth       240.f   // 行最大长度
 #define kTextRowSpacing         6.f     // 行距
@@ -144,3 +144,7 @@
 #define kAnimationDarknessDuration      1.f
 #define kAnimationDarknessRepeatCount   1.f
 #define kAnimationDarknessAlpha         0.4f
+
+#define kSoundWaveStartCGColor    RGBA(153.f, 47.f, 41.f, 1.0f).CGColor
+#define kSoundWaveEndCGColor      RGBA(153.f, 47.f, 41.f, 0.0f).CGColor
+

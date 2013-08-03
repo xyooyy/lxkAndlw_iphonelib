@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 
-#import "SpeechRecognitionAnimation.h"
+#import "Animation.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation SpeechRecognitionAnimation
+@implementation Animation
 
 - (BOOL)transformView:(UIView *)view
               toFrame:(CGRect)frame

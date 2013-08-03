@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SpeechRecognitionViewController : UIViewController
+@interface viewController : UIViewController
 
 @end

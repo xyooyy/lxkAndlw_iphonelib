@@ -19,8 +19,11 @@
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE457F1C17A4A5BC00123896 /* QuartzCore.framework */; };
 		BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4D1A3C17A761B300756FF4 /* recognise.png */; };
-		BE4D1A4017A7639500756FF4 /* SpeechRecognitionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */; };
-		BE76D2F817A5561E00DBA827 /* SpeechRecognitionNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* SpeechRecognitionNavigationBar.m */; };
+		BE4D1A4017A7639500756FF4 /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4D1A3F17A7639500756FF4 /* TextView.m */; };
+		BE589A4217AA412400E88166 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE589A4117AA412400E88166 /* SoundWaveView.m */; };
+		BE589A4517AA543C00E88166 /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE589A4417AA543C00E88166 /* ControlsView.m */; };
+		BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */; };
+		BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */; };
 		BE7B5B6717A278BD00BF9C1E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6617A278BD00BF9C1E /* UIKit.framework */; };
 		BE7B5B6917A278BD00BF9C1E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6817A278BD00BF9C1E /* Foundation.framework */; };
 		BE7B5B6B17A278BD00BF9C1E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6A17A278BD00BF9C1E /* CoreGraphics.framework */; };
@@ -30,10 +33,9 @@
 		BE7B5B7917A278BD00BF9C1E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BE7B5B7817A278BD00BF9C1E /* Default.png */; };
 		BE7B5B7B17A278BD00BF9C1E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE7B5B7A17A278BD00BF9C1E /* Default@2x.png */; };
 		BE7B5B7D17A278BD00BF9C1E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE7B5B7C17A278BD00BF9C1E /* Default-568h@2x.png */; };
-		BE7B5B8617A27DB200BF9C1E /* SpeechRecognitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7B5B8517A27DB200BF9C1E /* SpeechRecognitionViewController.m */; };
-		BE7B5B8A17A27F0000BF9C1E /* SpeechRecognitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7B5B8917A27F0000BF9C1E /* SpeechRecognitionView.m */; };
-		BEEFA92217A63B2800B0FD34 /* SpeechRecognitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEFA92117A63B2800B0FD34 /* SpeechRecognitionAnimation.m */; };
-		BEEFA92517A6753600B0FD34 /* RecogniseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEFA92417A6753600B0FD34 /* RecogniseButton.m */; };
+		BE7B5B8617A27DB200BF9C1E /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7B5B8517A27DB200BF9C1E /* viewController.m */; };
+		BE7B5B8A17A27F0000BF9C1E /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7B5B8917A27F0000BF9C1E /* AnimationView.m */; };
+		BEEFA92217A63B2800B0FD34 /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEFA92117A63B2800B0FD34 /* Animation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,10 +52,16 @@
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
 		BE457F1C17A4A5BC00123896 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BE4D1A3C17A761B300756FF4 /* recognise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recognise.png; path = SpeechRecognition/images/recognise.png; sourceTree = SOURCE_ROOT; };
-		BE4D1A3E17A7639500756FF4 /* SpeechRecognitionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionTextView.h; sourceTree = "<group>"; };
-		BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionTextView.m; sourceTree = "<group>"; };
-		BE76D2F617A5561E00DBA827 /* SpeechRecognitionNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionNavigationBar.h; sourceTree = "<group>"; };
-		BE76D2F717A5561E00DBA827 /* SpeechRecognitionNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionNavigationBar.m; sourceTree = "<group>"; };
+		BE4D1A3E17A7639500756FF4 /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
+		BE4D1A3F17A7639500756FF4 /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
+		BE589A4017AA412400E88166 /* SoundWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundWaveView.h; sourceTree = "<group>"; };
+		BE589A4117AA412400E88166 /* SoundWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundWaveView.m; sourceTree = "<group>"; };
+		BE589A4317AA543B00E88166 /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
+		BE589A4417AA543C00E88166 /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
+		BE5A050317ACAD9D00B7CD4A /* GradientColorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientColorImage.h; sourceTree = "<group>"; };
+		BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientColorImage.m; sourceTree = "<group>"; };
+		BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarLayout.h; sourceTree = "<group>"; };
+		BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarLayout.m; sourceTree = "<group>"; };
 		BE7B5B6317A278BD00BF9C1E /* SpeechRecognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechRecognition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7B5B6617A278BD00BF9C1E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BE7B5B6817A278BD00BF9C1E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -67,15 +75,13 @@
 		BE7B5B7817A278BD00BF9C1E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BE7B5B7A17A278BD00BF9C1E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		BE7B5B7C17A278BD00BF9C1E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		BE7B5B8417A27DB200BF9C1E /* SpeechRecognitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionViewController.h; sourceTree = "<group>"; };
-		BE7B5B8517A27DB200BF9C1E /* SpeechRecognitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionViewController.m; sourceTree = "<group>"; };
-		BE7B5B8817A27F0000BF9C1E /* SpeechRecognitionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionView.h; sourceTree = "<group>"; };
-		BE7B5B8917A27F0000BF9C1E /* SpeechRecognitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionView.m; sourceTree = "<group>"; };
-		BEAC404517A2B34800208083 /* data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
-		BEEFA92017A63B2800B0FD34 /* SpeechRecognitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionAnimation.h; sourceTree = "<group>"; };
-		BEEFA92117A63B2800B0FD34 /* SpeechRecognitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionAnimation.m; sourceTree = "<group>"; };
-		BEEFA92317A6753600B0FD34 /* RecogniseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecogniseButton.h; sourceTree = "<group>"; };
-		BEEFA92417A6753600B0FD34 /* RecogniseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecogniseButton.m; sourceTree = "<group>"; };
+		BE7B5B8417A27DB200BF9C1E /* viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewController.h; sourceTree = "<group>"; };
+		BE7B5B8517A27DB200BF9C1E /* viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewController.m; sourceTree = "<group>"; };
+		BE7B5B8817A27F0000BF9C1E /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
+		BE7B5B8917A27F0000BF9C1E /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
+		BEAC404517A2B34800208083 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		BEEFA92017A63B2800B0FD34 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		BEEFA92117A63B2800B0FD34 /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,13 +99,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BE4D1A4717A791D900756FF4 /* drawText */ = {
+		BE4D1A4717A791D900756FF4 /* DrawText */ = {
 			isa = PBXGroup;
 			children = (
 				BE19607017A8E4E600073ADF /* TextToImage.h */,
 				BE19607117A8E4E600073ADF /* TextToImage.m */,
 			);
+			name = DrawText;
 			path = drawText;
+			sourceTree = "<group>";
+		};
+		BE5A04B517AC999700B7CD4A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BE5A050317ACAD9D00B7CD4A /* GradientColorImage.h */,
+				BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		BE7B5B5A17A278BD00BF9C1E = {
@@ -134,13 +150,14 @@
 			isa = PBXGroup;
 			children = (
 				BE7B5B8B17A2820F00BF9C1E /* Images */,
-				BE4D1A4717A791D900756FF4 /* drawText */,
+				BE5A04B517AC999700B7CD4A /* Utility */,
+				BE4D1A4717A791D900756FF4 /* DrawText */,
 				BEEFA91F17A63AD400B0FD34 /* Animation */,
 				BE7B5B8717A27EC300BF9C1E /* View */,
 				BE7B5B8317A27D7800BF9C1E /* ViewController */,
 				BE7B5B7517A278BD00BF9C1E /* AppDelegate.h */,
 				BE7B5B7617A278BD00BF9C1E /* AppDelegate.m */,
-				BEAC404517A2B34800208083 /* data.h */,
+				BEAC404517A2B34800208083 /* Data.h */,
 				BE7B5B6D17A278BD00BF9C1E /* Supporting Files */,
 			);
 			path = SpeechRecognition;
@@ -163,8 +180,8 @@
 		BE7B5B8317A27D7800BF9C1E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BE7B5B8417A27DB200BF9C1E /* SpeechRecognitionViewController.h */,
-				BE7B5B8517A27DB200BF9C1E /* SpeechRecognitionViewController.m */,
+				BE7B5B8417A27DB200BF9C1E /* viewController.h */,
+				BE7B5B8517A27DB200BF9C1E /* viewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -172,14 +189,16 @@
 		BE7B5B8717A27EC300BF9C1E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BE76D2F617A5561E00DBA827 /* SpeechRecognitionNavigationBar.h */,
-				BE76D2F717A5561E00DBA827 /* SpeechRecognitionNavigationBar.m */,
-				BE7B5B8817A27F0000BF9C1E /* SpeechRecognitionView.h */,
-				BE7B5B8917A27F0000BF9C1E /* SpeechRecognitionView.m */,
-				BE4D1A3E17A7639500756FF4 /* SpeechRecognitionTextView.h */,
-				BE4D1A3F17A7639500756FF4 /* SpeechRecognitionTextView.m */,
-				BEEFA92317A6753600B0FD34 /* RecogniseButton.h */,
-				BEEFA92417A6753600B0FD34 /* RecogniseButton.m */,
+				BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */,
+				BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */,
+				BE7B5B8817A27F0000BF9C1E /* AnimationView.h */,
+				BE7B5B8917A27F0000BF9C1E /* AnimationView.m */,
+				BE4D1A3E17A7639500756FF4 /* TextView.h */,
+				BE4D1A3F17A7639500756FF4 /* TextView.m */,
+				BE589A4017AA412400E88166 /* SoundWaveView.h */,
+				BE589A4117AA412400E88166 /* SoundWaveView.m */,
+				BE589A4317AA543B00E88166 /* ControlsView.h */,
+				BE589A4417AA543C00E88166 /* ControlsView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -205,8 +224,8 @@
 		BEEFA91F17A63AD400B0FD34 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				BEEFA92017A63B2800B0FD34 /* SpeechRecognitionAnimation.h */,
-				BEEFA92117A63B2800B0FD34 /* SpeechRecognitionAnimation.m */,
+				BEEFA92017A63B2800B0FD34 /* Animation.h */,
+				BEEFA92117A63B2800B0FD34 /* Animation.m */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -288,13 +307,15 @@
 			files = (
 				BE7B5B7317A278BD00BF9C1E /* main.m in Sources */,
 				BE7B5B7717A278BD00BF9C1E /* AppDelegate.m in Sources */,
-				BE7B5B8617A27DB200BF9C1E /* SpeechRecognitionViewController.m in Sources */,
-				BE7B5B8A17A27F0000BF9C1E /* SpeechRecognitionView.m in Sources */,
-				BE76D2F817A5561E00DBA827 /* SpeechRecognitionNavigationBar.m in Sources */,
-				BEEFA92217A63B2800B0FD34 /* SpeechRecognitionAnimation.m in Sources */,
-				BEEFA92517A6753600B0FD34 /* RecogniseButton.m in Sources */,
-				BE4D1A4017A7639500756FF4 /* SpeechRecognitionTextView.m in Sources */,
+				BE7B5B8617A27DB200BF9C1E /* viewController.m in Sources */,
+				BE7B5B8A17A27F0000BF9C1E /* AnimationView.m in Sources */,
+				BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */,
+				BEEFA92217A63B2800B0FD34 /* Animation.m in Sources */,
+				BE4D1A4017A7639500756FF4 /* TextView.m in Sources */,
 				BE19607217A8E4E600073ADF /* TextToImage.m in Sources */,
+				BE589A4217AA412400E88166 /* SoundWaveView.m in Sources */,
+				BE589A4517AA543C00E88166 /* ControlsView.m in Sources */,
+				BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

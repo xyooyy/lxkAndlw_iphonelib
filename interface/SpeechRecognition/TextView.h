@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SpeechRecognitionTextView : UIView
+@interface TextView : UIView
 
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
 

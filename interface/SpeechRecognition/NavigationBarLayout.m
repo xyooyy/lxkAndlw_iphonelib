@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 #import <QuartzCore/QuartzCore.h>
-#import "SpeechRecognitionNavigationBar.h"
-#import "data.h"
+#import "NavigationBarLayout.h"
+#import "Data.h"
 
-@interface SpeechRecognitionNavigationBar ()
+@interface NavigationBarLayout ()
 {
     UINavigationBar *_navbar;
     id _delegate;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation SpeechRecognitionNavigationBar
+@implementation NavigationBarLayout
 
 - (id)initNavigationBar:(UINavigationBar *)navbar delegate:(id)delegate
 {

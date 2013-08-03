@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "SpeechRecognitionViewController.h"
-#import "SpeechRecognitionNavigationBar.h"
-#import "data.h"
+#import "viewController.h"
+#import "NavigationBarLayout.h"
+#import "Data.h"
 
 @implementation AppDelegate
 
@@ -18,11 +18,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    SpeechRecognitionViewController *rootViewController = [[SpeechRecognitionViewController alloc] init];
+    viewController *rootViewController = [[viewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     self.window.rootViewController = navController;
     
-    SpeechRecognitionNavigationBar *navbarLayout = [[SpeechRecognitionNavigationBar alloc] initNavigationBar:navController.navigationBar delegate:self];
+    NavigationBarLayout *navbarLayout = [[NavigationBarLayout alloc] initNavigationBar:navController.navigationBar delegate:self];
     
     // 设置状态栏颜色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];

@@ -6,20 +6,21 @@
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 #import <QuartzCore/QuartzCore.h>
-#import "SpeechRecognitionTextView.h"
-#import "SpeechRecognitionAnimation.h"
+#import "TextView.h"
+#import "Animation.h"
 #import "TextToImage.h"
-#import "data.h"
+#import "Data.h"
 
-@interface SpeechRecognitionTextView ()
+@interface TextView ()
 {
     NSMutableArray *_viewArray;
     NSUInteger _maxRow;
+    CGFloat _height;
 }
 
 @end
 
-@implementation SpeechRecognitionTextView
+@implementation TextView
 
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number
 {
@@ -46,8 +47,8 @@
         [self removeViewArray:_viewArray
                         range:NSMakeRange(kIntZero, (textArray.count + _viewArray.count) - _maxRow)];
     }
-    [self addViewArray:_viewArray withTextArray:textArray andFont:font color:color spacing:spacing];
-    [self animationWithViewArray:_viewArray];
+    CGRect rect = [self addViewArray:_viewArray withTextArray:textArray andFont:font color:color spacing:spacing];
+    [self animationWithViewArray:_viewArray toRect:rect];
     
     return YES;
 }
@@ -55,19 +56,20 @@
 #pragma mark - 内部函数
 
 // 动画显示出添加好的imageView
-- (BOOL)animationWithViewArray:(NSMutableArray *)viewArray
+- (BOOL)animationWithViewArray:(NSMutableArray *)viewArray toRect:(CGRect)rect
 {
+    Animation *animation = [[Animation alloc] init];
+
     for (int i = 0; i < viewArray.count; i++)
     {
         UIView *view = [viewArray objectAtIndex:i];
-        SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
         
         // 移动动画
         [animation transformView:view
                          toFrame:CGRectMake(view.frame.origin.x,
-                                            view.frame.size.height * i,
+                                            rect.size.height * i,
                                             view.frame.size.width,
-                                            view.frame.size.height)
+                                            rect.size.height)
                     withDuration:kTextAnimationMoveTime
                       completion:^{}];
         
@@ -80,17 +82,18 @@
 // 删除指定的view
 - (BOOL)removeViewArray:(NSMutableArray *)viewArray range:(NSRange)range
 {
+    Animation *animation = [[Animation alloc] init];
+
     for (int i = 0; i < range.length; i++)
     {
         UIView *view = [viewArray objectAtIndex:range.location];
-        SpeechRecognitionAnimation *animation = [[SpeechRecognitionAnimation alloc] init];
         
         // 移动动画
         [animation transformView:view
-                         toFrame:CGRectMake(view.frame.origin.x,
+                         toFrame:CGRectMake((int)self.frame.size.width, //view.frame.origin.x,
                                             kFloatZero,
                                             view.frame.size.width,
-                                            view.frame.size.height)
+                                            kFloatZero)
                     withDuration:kTextAnimationMoveTime
                       completion:^{}];
         
@@ -105,14 +108,15 @@
 }
 
 // 根据text生成的image,添加新的imageView
-- (BOOL)addViewArray:(NSMutableArray *)viewArray
+// 返回的事生成的image的实际大小
+- (CGRect)addViewArray:(NSMutableArray *)viewArray
        withTextArray:(NSArray *)textArray
              andFont:(UIFont *)font
                color:(UIColor *)color
              spacing:(CGFloat)spacing
 {
     TextToImage *textToImage = [[TextToImage alloc] init];
-    
+    CGRect rect;
     for (int i = 0; i < textArray.count; i++)
     {
         UIImage *image = [textToImage imageFromText:[textArray objectAtIndex:i]
@@ -121,16 +125,17 @@
                                          rowSpacing:spacing];
         
         UIImageView *view = [[UIImageView alloc] initWithImage:image];
+        rect = view.frame;
         view.frame = CGRectMake((self.frame.size.width - view.frame.size.width) / 2.f,
                                 self.frame.size.height,
                                 view.frame.size.width,
-                                view.frame.size.height);
+                                kFloatZero);
         view.alpha = kFloatZero;
         [viewArray addObject:view];
         [self addSubview:view];
     }
     
-    return YES;
+    return rect;
 }
 
 // 对字符串string根据所给的最大宽度和字体计算折行位置
