@@ -39,12 +39,12 @@
     
     GradientColorImage *gradient = [[GradientColorImage alloc] init];
     int height = 0;
-    
     for (int i = 0; i < kScreenWidth; i+=kSoundWaveWidth)
     {
         height = (rand() % _strong) / 9.f + _strong / rand() % 100;
-
         CGContextRef context = UIGraphicsGetCurrentContext();
+        if(height == 0)
+            height = 2;
         
         UIImage *image = [gradient imageLinearGradientWithRect:CGRectMake(0, 0, kSoundWaveWidth, height)
                                                     startColor:kSoundWaveEndCGColor
@@ -52,12 +52,14 @@
         [image drawInRect:CGRectMake(i, 350 - height, kSoundWaveWidth, height)];
         CGContextSetShadowWithColor(context, CGSizeMake(3, 0), 5, [UIColor redColor].CGColor);
     }
+    
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong
 {
     _strong = strong;
     [self setNeedsDisplay];
+    //[NSThread sleepForTimeInterval:1.0f];
     return YES;
 }
 

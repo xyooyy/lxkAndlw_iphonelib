@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9AA79F2117AF3A0400298409 /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2017AF3A0400298409 /* viewController.m */; };
+		9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2317AF403600298409 /* UIViewAnimation.m */; };
 		BE0B8DEB17A74E6700C49DBC /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE017A74E6700C49DBC /* background.png */; };
 		BE0B8DEC17A74E6700C49DBC /* CD-inner.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE117A74E6700C49DBC /* CD-inner.png */; };
 		BE0B8DED17A74E6700C49DBC /* CD-inner1.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE217A74E6700C49DBC /* CD-inner1.png */; };
@@ -21,7 +23,6 @@
 		BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4D1A3C17A761B300756FF4 /* recognise.png */; };
 		BE4D1A4017A7639500756FF4 /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4D1A3F17A7639500756FF4 /* TextView.m */; };
 		BE589A4217AA412400E88166 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE589A4117AA412400E88166 /* SoundWaveView.m */; };
-		BE589A4517AA543C00E88166 /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE589A4417AA543C00E88166 /* ControlsView.m */; };
 		BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */; };
 		BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */; };
 		BE7B5B6717A278BD00BF9C1E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6617A278BD00BF9C1E /* UIKit.framework */; };
@@ -33,12 +34,13 @@
 		BE7B5B7917A278BD00BF9C1E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BE7B5B7817A278BD00BF9C1E /* Default.png */; };
 		BE7B5B7B17A278BD00BF9C1E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE7B5B7A17A278BD00BF9C1E /* Default@2x.png */; };
 		BE7B5B7D17A278BD00BF9C1E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE7B5B7C17A278BD00BF9C1E /* Default-568h@2x.png */; };
-		BE7B5B8617A27DB200BF9C1E /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7B5B8517A27DB200BF9C1E /* viewController.m */; };
-		BE7B5B8A17A27F0000BF9C1E /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7B5B8917A27F0000BF9C1E /* AnimationView.m */; };
-		BEEFA92217A63B2800B0FD34 /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEFA92117A63B2800B0FD34 /* Animation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9AA79F1F17AF3A0400298409 /* viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewController.h; sourceTree = "<group>"; };
+		9AA79F2017AF3A0400298409 /* viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewController.m; sourceTree = "<group>"; };
+		9AA79F2217AF403600298409 /* UIViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimation.h; sourceTree = "<group>"; };
+		9AA79F2317AF403600298409 /* UIViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimation.m; sourceTree = "<group>"; };
 		BE0B8DE017A74E6700C49DBC /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = SpeechRecognition/images/background.png; sourceTree = SOURCE_ROOT; };
 		BE0B8DE117A74E6700C49DBC /* CD-inner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CD-inner.png"; path = "SpeechRecognition/images/CD-inner.png"; sourceTree = SOURCE_ROOT; };
 		BE0B8DE217A74E6700C49DBC /* CD-inner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CD-inner1.png"; path = "SpeechRecognition/images/CD-inner1.png"; sourceTree = SOURCE_ROOT; };
@@ -56,8 +58,6 @@
 		BE4D1A3F17A7639500756FF4 /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
 		BE589A4017AA412400E88166 /* SoundWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundWaveView.h; sourceTree = "<group>"; };
 		BE589A4117AA412400E88166 /* SoundWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundWaveView.m; sourceTree = "<group>"; };
-		BE589A4317AA543B00E88166 /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
-		BE589A4417AA543C00E88166 /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
 		BE5A050317ACAD9D00B7CD4A /* GradientColorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientColorImage.h; sourceTree = "<group>"; };
 		BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientColorImage.m; sourceTree = "<group>"; };
 		BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarLayout.h; sourceTree = "<group>"; };
@@ -75,13 +75,7 @@
 		BE7B5B7817A278BD00BF9C1E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BE7B5B7A17A278BD00BF9C1E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		BE7B5B7C17A278BD00BF9C1E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		BE7B5B8417A27DB200BF9C1E /* viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewController.h; sourceTree = "<group>"; };
-		BE7B5B8517A27DB200BF9C1E /* viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewController.m; sourceTree = "<group>"; };
-		BE7B5B8817A27F0000BF9C1E /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
-		BE7B5B8917A27F0000BF9C1E /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		BEAC404517A2B34800208083 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
-		BEEFA92017A63B2800B0FD34 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
-		BEEFA92117A63B2800B0FD34 /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +174,8 @@
 		BE7B5B8317A27D7800BF9C1E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BE7B5B8417A27DB200BF9C1E /* viewController.h */,
-				BE7B5B8517A27DB200BF9C1E /* viewController.m */,
+				9AA79F1F17AF3A0400298409 /* viewController.h */,
+				9AA79F2017AF3A0400298409 /* viewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -191,14 +185,10 @@
 			children = (
 				BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */,
 				BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */,
-				BE7B5B8817A27F0000BF9C1E /* AnimationView.h */,
-				BE7B5B8917A27F0000BF9C1E /* AnimationView.m */,
 				BE4D1A3E17A7639500756FF4 /* TextView.h */,
 				BE4D1A3F17A7639500756FF4 /* TextView.m */,
 				BE589A4017AA412400E88166 /* SoundWaveView.h */,
 				BE589A4117AA412400E88166 /* SoundWaveView.m */,
-				BE589A4317AA543B00E88166 /* ControlsView.h */,
-				BE589A4417AA543C00E88166 /* ControlsView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -224,8 +214,8 @@
 		BEEFA91F17A63AD400B0FD34 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				BEEFA92017A63B2800B0FD34 /* Animation.h */,
-				BEEFA92117A63B2800B0FD34 /* Animation.m */,
+				9AA79F2217AF403600298409 /* UIViewAnimation.h */,
+				9AA79F2317AF403600298409 /* UIViewAnimation.m */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -307,15 +297,13 @@
 			files = (
 				BE7B5B7317A278BD00BF9C1E /* main.m in Sources */,
 				BE7B5B7717A278BD00BF9C1E /* AppDelegate.m in Sources */,
-				BE7B5B8617A27DB200BF9C1E /* viewController.m in Sources */,
-				BE7B5B8A17A27F0000BF9C1E /* AnimationView.m in Sources */,
 				BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */,
-				BEEFA92217A63B2800B0FD34 /* Animation.m in Sources */,
 				BE4D1A4017A7639500756FF4 /* TextView.m in Sources */,
 				BE19607217A8E4E600073ADF /* TextToImage.m in Sources */,
 				BE589A4217AA412400E88166 /* SoundWaveView.m in Sources */,
-				BE589A4517AA543C00E88166 /* ControlsView.m in Sources */,
 				BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */,
+				9AA79F2117AF3A0400298409 /* viewController.m in Sources */,
+				9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

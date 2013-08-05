@@ -7,15 +7,16 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import "TextView.h"
-#import "Animation.h"
 #import "TextToImage.h"
 #import "Data.h"
+#import "UIViewAnimation.h"
 
 @interface TextView ()
 {
     NSMutableArray *_viewArray;
     NSUInteger _maxRow;
     CGFloat _height;
+    UIViewAnimation *_viewAnimation;
 }
 
 @end
@@ -29,6 +30,7 @@
     {
         _viewArray = [[NSMutableArray alloc] init];
         _maxRow = number;
+        _viewAnimation = [[UIViewAnimation alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
@@ -58,23 +60,21 @@
 // 动画显示出添加好的imageView
 - (BOOL)animationWithViewArray:(NSMutableArray *)viewArray toRect:(CGRect)rect
 {
-    Animation *animation = [[Animation alloc] init];
-
     for (int i = 0; i < viewArray.count; i++)
     {
         UIView *view = [viewArray objectAtIndex:i];
+        [_viewAnimation changeViewFrame:view
+                                toFrame:CGRectMake(view.frame.origin.x,
+                                                   rect.size.height * i,
+                                                   view.frame.size.width,
+                                                   rect.size.height)
+                           withDuration:kTextAnimationMoveTime
+                             completion:^{}];
         
-        // 移动动画
-        [animation transformView:view
-                         toFrame:CGRectMake(view.frame.origin.x,
-                                            rect.size.height * i,
-                                            view.frame.size.width,
-                                            rect.size.height)
-                    withDuration:kTextAnimationMoveTime
-                      completion:^{}];
-        
-        // 渐显动画
-        [animation fadeInWithView:view duration:kTextAnimationFadeInTime completion:^{}];
+        [_viewAnimation changeViewLightness:view
+                                      alpha:1.f
+                                   duration:kTextAnimationFadeInTime
+                                 completion:^{}];
     }
     return YES;
 }
@@ -82,25 +82,25 @@
 // 删除指定的view
 - (BOOL)removeViewArray:(NSMutableArray *)viewArray range:(NSRange)range
 {
-    Animation *animation = [[Animation alloc] init];
 
     for (int i = 0; i < range.length; i++)
     {
         UIView *view = [viewArray objectAtIndex:range.location];
         
-        // 移动动画
-        [animation transformView:view
-                         toFrame:CGRectMake((int)self.frame.size.width, //view.frame.origin.x,
-                                            kFloatZero,
-                                            view.frame.size.width,
-                                            kFloatZero)
-                    withDuration:kTextAnimationMoveTime
-                      completion:^{}];
-        
-        // 渐隐动画
-        [animation fadeOutWithView:view duration:kTextAnimationFadeOutTime completion:^{
-            [view removeFromSuperview];
-        }];
+        [_viewAnimation changeViewFrame:view
+                                toFrame:CGRectMake((int)self.frame.size.width,
+                                                   kFloatZero,
+                                                   view.frame.size.width,
+                                                   kFloatZero)
+                           withDuration:kTextAnimationMoveTime
+                             completion:^{}];
+             
+        [_viewAnimation changeViewLightness:view
+                                      alpha:0.f
+                                   duration:kTextAnimationFadeOutTime
+                                 completion:^{
+                                     [view removeFromSuperview];
+                                 }];
         
         [viewArray removeObjectAtIndex:range.location];
     }
