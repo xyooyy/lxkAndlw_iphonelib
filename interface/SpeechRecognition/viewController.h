@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwitchButtonTouchAction.h"
+#import "TranslateRecognizeResult.h"
+#import "DataProcessing.h"
 
 @interface viewController : UIViewController
-
+{
+    SwitchButtonTouchAction *switchButtonTouchAction;
+    TranslateRecognizeResult *translate;
+    DataProcessing *dataProcessing;
+    
+}
 @end

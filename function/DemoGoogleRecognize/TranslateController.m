@@ -109,6 +109,7 @@
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mResult]];
     mStrResult = [[[dic objectForKey:@"trans_result"] objectAtIndex:0] objectForKey:@"dst"];
+    NSLog(@"%@",mStrResult);
     [mBodyContentView setTextRewirteAll:mStrResult];
 }
 

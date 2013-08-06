@@ -11,18 +11,25 @@
 #import "SoundWaveView.h"
 #import "Data.h"
 #import "UIViewAnimation.h"
+#import "ASGoogleVoiceRecognizer.h"
+#import "LayoutMainController.h"
+#import "CurrentDataViewController.h"
 
 @interface viewController ()
 {
     TextView *_textView;
     SoundWaveView *_soundWaveView;
     UIViewAnimation *m_viewAnimation;
+    
+    ASGoogleVoiceRecognizer *gooleVoiceRecognizer;
+    
+    LayoutMainController *layout;
 
     UIImageView *_CDImageView;
     UIView *_CDCoverView;
     UIImageView *_CDInnerImageView;
     
-    UIButton *button;
+    UIButton *buttonStart;
    
 }
 
@@ -30,6 +37,7 @@
 
 @implementation viewController
 
+#pragma mark-初始化用到的函数
 - (UIImageView *)addImageWithName:(NSString *)name frame:(CGRect)frame
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
@@ -37,15 +45,7 @@
     [self.view addSubview:imageView];
     return imageView;
 }
-- (BOOL)createButton
-{
-    button = [[UIButton alloc] initWithFrame:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,
-                                                        kButtonRecogniseWidth, kButtonRecogniseHeight)];
-    [button setBackgroundImage:[UIImage imageNamed:kImageRecognise] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(startRecogniseButtonTouch:) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:button];
-    return YES;
-}
+
 - (BOOL)createCDImageView
 {
     _CDImageView = [self addImageWithName:kImageCD
@@ -67,6 +67,21 @@
     _CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     return YES;
 }
+- (BOOL)createSwitchButtonTouchActionMember
+{
+    switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
+    return YES;
+}
+- (BOOL)createStartButton
+{
+    buttonStart = [[UIButton alloc]initWithFrame:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,
+                                                            kButtonRecogniseWidth, kButtonRecogniseHeight)];
+    [buttonStart setBackgroundImage:[UIImage imageNamed:kImageRecognise] forState:UIControlStateNormal];
+    [buttonStart addTarget:self action:@selector(startRecogniseButtonTouch:) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:buttonStart];
+    return YES;
+}
+#pragma mark-init函数
 - (id)init
 {
     self = [super init];
@@ -81,16 +96,21 @@
         [self createCDImageView];
         [self createCDCoverView:frame];
         [self createInnerImageView];
+        [self createSwitchButtonTouchActionMember];
         
         
         _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
         _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
         m_viewAnimation = [[UIViewAnimation alloc]init];
         
+        gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
+        layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
+        translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
+        dataProcessing = [[DataProcessing alloc]init];
+        
         [self.view addSubview:_textView];
         [self.view addSubview:_soundWaveView];
-        [self createButton];
-       
+        [self createStartButton];
     }
     return self;
 }
@@ -98,94 +118,62 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
+    self.navigationItem.rightBarButtonItem = barButtontem;
+    if(buttonStart)NSLog(@"s");
+     
 }
-- (void)testText
+-(void)checkHistoryRecord
 {
-    static int number = 0;
-    NSArray *array = [NSArray arrayWithObjects:
-                      @"google语音识别我阿斯顿发生地df发送到奥迪飞阿斯顿发生地方水电费",
-                      @"adflkajdsfhkasdfhkajsdfhjkasdhfkjasdasdfasdf",
-                      @"阿士大夫撒旦哈库拉水电费",
-                      @"154789123541328947123678969784789", nil];
-    [self addText:[array objectAtIndex:(number++ % [array count])]];
+    UIViewController *controller = [[UIViewController alloc]init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (void)testSound
 {
     [_soundWaveView addSoundStrong:random() % 500];
 }
 
-- (BOOL)switchButton:(UIButton *)parmButton
-           oldAction:(SEL)oldAction
-          withTarget:(id)oldTarget
-           newAction:(SEL)newAction
-          withTarget:(id)newTarget
-{
-    [parmButton removeTarget:oldTarget action:oldAction forControlEvents:UIControlEventTouchDown];
-    [parmButton addTarget:newTarget action:newAction forControlEvents:UIControlEventTouchDown];
-    return YES;
-}
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
-    button.enabled = NO;
-    [self switchButton:sender
+    buttonStart.enabled = NO;
+    [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
              newAction:@selector(stopRecogniseButtonTouch:)
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
-   
-    [NSTimer scheduledTimerWithTimeInterval:2.f target:self selector:@selector(testText) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(testSound) userInfo:nil repeats:YES];
-    NSLog(@"start");
-    return YES;
-}
-- (BOOL)beginStartAnimation
-{
-    [m_viewAnimation changeViewFrame:_CDImageView
-                             toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
-                                                kImageCDAfterWidth, kImageCDAfterHeight)
-                        withDuration:kImageCDTransformDuration
-                          completion:^{
-                              [self darkenCDCoverView];
-                              [self brightenCDInnerImageView];
-                              [self rotateCDInnerImageView];
-                              button.enabled = YES;
-                          }];
+    //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(testSound) userInfo:nil repeats:YES];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
+    NSString *dateTime = [formatter stringFromDate:[NSDate date]];
+    [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
+    [gooleVoiceRecognizer startRecording];
+    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
-//    [_animationView stopRecogniseAnimation:sender];
-//    
-    [self switchButton:sender
-                      oldAction:@selector(stopRecogniseButtonTouch:)
-                     withTarget:self
-                      newAction:@selector(startRecogniseButtonTouch:)
-                     withTarget:self];
+    [switchButtonTouchAction switchButtonTouchAction:sender
+                                           oldAction:@selector(stopRecogniseButtonTouch:)
+                                          withTarget:self
+                                           newAction:@selector(startRecogniseButtonTouch:)
+                                          withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
-    
-    [m_viewAnimation animationWithLayer:_CDCoverView.layer
-                          keypath:kAnimationDarknessKeyPath
-                        fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
-                                                                  alpha:kAnimationDarknessAlpha].CGColor)
-                          toValue:(__bridge id)[UIColor clearColor].CGColor
-                         duration:kAnimationDarknessDuration
-                      repeatCount:kAnimationDarknessRepeatCount
-                    animationName:kAnimationDarknessName];
-    [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
-        [m_viewAnimation changeViewFrame:_CDImageView
-                                 toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
-                                                    kImageCDBeforeWidth, kImageCDBeforeHeight)
-                            withDuration:kImageCDTransformDuration
-                              completion:^{}];
-        [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
-        [button setEnabled:YES];
-    }];
-     NSLog(@"stop");
+    [self brightenCDCoverView];
+    [self beginStopAnimation];
+   
     return YES;
 }
+- (BOOL)speechRecognitionResult :(NSString*)str
+{
+    [self addText:str];
+    //[translate translate:str];
+    [dataProcessing recordRecognizedStr:str];
+    return YES;
+}
+
+
 
 #pragma mark - 
 
@@ -215,6 +203,17 @@
     [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:1.0f
                                 duration:kImageCDInnerTransformTime                           completion:^{}];
 }
+- (void)brightenCDCoverView
+{
+    [m_viewAnimation animationWithLayer:_CDCoverView.layer
+                                keypath:kAnimationDarknessKeyPath
+                              fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
+                                                                        alpha:kAnimationDarknessAlpha].CGColor)
+                                toValue:(__bridge id)[UIColor clearColor].CGColor
+                               duration:kAnimationDarknessDuration
+                            repeatCount:kAnimationDarknessRepeatCount
+                          animationName:kAnimationDarknessName];
+}
 - (void)darkenCDCoverView
 {
     [m_viewAnimation animationWithLayer:_CDCoverView.layer
@@ -225,5 +224,38 @@
                                duration:kAnimationDarknessDuration
                             repeatCount:kAnimationDarknessRepeatCount
                           animationName:kAnimationDarknessName];
+}
+- (BOOL)beginStopAnimation
+{
+    [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
+        [m_viewAnimation changeViewFrame:_CDImageView
+                                 toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
+                                                    kImageCDBeforeWidth, kImageCDBeforeHeight)
+                            withDuration:kImageCDTransformDuration
+                              completion:^{}];
+        [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
+        [gooleVoiceRecognizer stopRecording];
+        
+        NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
+        [[dataProcessing getRecognizedData] removeAllObjects];
+        CurrentDataViewController *dataViewController = [[CurrentDataViewController alloc]initWithData:copyData];
+        [self.navigationController pushViewController:dataViewController animated:YES];
+        [buttonStart setEnabled:YES];
+    }];
+    return YES;
+}
+- (BOOL)beginStartAnimation
+{
+    [m_viewAnimation changeViewFrame:_CDImageView
+                             toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
+                                                kImageCDAfterWidth, kImageCDAfterHeight)
+                        withDuration:kImageCDTransformDuration
+                          completion:^{
+                              [self darkenCDCoverView];
+                              [self brightenCDInnerImageView];
+                              [self rotateCDInnerImageView];
+                              buttonStart.enabled = YES;
+                          }];
+    return YES;
 }
 @end
