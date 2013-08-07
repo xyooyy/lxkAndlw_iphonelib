@@ -9,7 +9,7 @@
 #import "WavHeaderFactory.h"
 #import "ASGoogleVoiceRecognizer.h"
 #import "SBJson.h"
-#define SOUNDSTRONGTH_THRESHOLD 120
+#define SOUNDSTRONGTH_THRESHOLD 150
 #define WAIT_TIME 32
 
 @interface ASGoogleVoiceRecognizer ()
@@ -49,6 +49,8 @@
         mHeaderFact = new WavHeaderFactory();
         
         uploadData = [[NSMutableData alloc]init];
+        
+        uploadQueue = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -107,9 +109,16 @@
 }
 -(BOOL)upLoadWAV:(NSData *)aDataWav
 {
-    [mRequest setHTTPBody:aDataWav];
-    [NSURLConnection connectionWithRequest:mRequest delegate:self];
-    NSLog(@"开始请求..");
+    [uploadQueue addObject:aDataWav];
+    if([uploadQueue count] == 1 && !isBeginRecgnise)
+    {
+        isBeginRecgnise = YES;
+        [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
+        [uploadQueue removeObjectAtIndex:0];
+        [NSURLConnection connectionWithRequest:mRequest delegate:self];
+        NSLog(@"开始请求..");
+    }
+    
     return YES;
 }
 
@@ -165,7 +174,17 @@
     NSLog(@"已经得到完整的数据");
     [currentUpLoad setLength:0];
     [connection cancel];
-    [self transResult];
+    [self transResult:^{
+    
+        if([uploadQueue count] >= 1)
+        {
+            [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
+            [uploadQueue removeObjectAtIndex:0];
+            [NSURLConnection connectionWithRequest:mRequest delegate:self];
+            NSLog(@"开始请求..");
+        }
+        isBeginRecgnise = NO;
+    }];
 }
 
 -(void)setController:(id)aCon andFunction:(SEL)aSEL
@@ -175,7 +194,7 @@
 }
 
 //识别结果处理
--(void)transResult
+-(void)transResult :(void(^)(void))finish
 {
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     
@@ -189,6 +208,7 @@
     {
         NSLog(@"没有识别");
     }
+    finish();
     [mRecivedData setLength:0];
 }
 

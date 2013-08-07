@@ -23,6 +23,7 @@
     //标志位
     BOOL isRecording;
     BOOL canRecgnise;
+    BOOL isBeginRecgnise;
 
     //录音
     ASRecordWav *mRecorder;
@@ -44,6 +45,8 @@
     int upLoadStart;
     int upLoadEnd;
     int mDataEnd;
+    
+    NSMutableArray *uploadQueue;
 }
 
 -(id)init;

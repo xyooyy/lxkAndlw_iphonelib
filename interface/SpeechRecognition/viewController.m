@@ -86,7 +86,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"viewDidLoad");
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
@@ -112,9 +111,6 @@
     [self.view addSubview:_textView];
     [self.view addSubview:_soundWaveView];
     [self createStartButton];
-    
-    
-    
 }
 #pragma mark- 查看历史纪录
 -(void)checkHistoryRecord
