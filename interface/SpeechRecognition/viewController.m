@@ -15,10 +15,12 @@
 #import "LayoutMainController.h"
 #import "CurrentDataViewController.h"
 #import "HistoryViewController.h"
+#import "TextViewScroll.h"
 
 @interface viewController ()
 {
-    TextView *_textView;
+    //TextView *_textView;
+    TextViewScroll *_textView;
     SoundWaveView *_soundWaveView;
     UIViewAnimation *m_viewAnimation;
     
@@ -139,7 +141,8 @@
     
     
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
-    _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
+    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
+    
     m_viewAnimation = [[UIViewAnimation alloc]init];
     
     gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
@@ -147,8 +150,9 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     
-    [self.view addSubview:_textView];
+    
     [self.view addSubview:_soundWaveView];
+    [self.view addSubview:_textView];
     [self createStartButton];
     [self createEditButton];
     [self createPlayButton];

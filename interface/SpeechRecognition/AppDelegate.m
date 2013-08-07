@@ -62,9 +62,6 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self.window];
-    NSLog(@"x: %f, y: %f", point.x, point.y);
 }
 
 - (BOOL)navbarRightButtonItemTouch:(id)sender
