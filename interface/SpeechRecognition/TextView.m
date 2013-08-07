@@ -85,7 +85,7 @@
 
     for (int i = 0; i < range.length; i++)
     {
-        UIView *view = [viewArray objectAtIndex:range.location];
+        UIView *view = [viewArray objectAtIndex:i];
         
         [_viewAnimation changeViewFrame:view
                                 toFrame:CGRectMake((int)self.frame.size.width,
@@ -102,7 +102,7 @@
                                      [view removeFromSuperview];
                                  }];
         
-        [viewArray removeObjectAtIndex:range.location];
+        [viewArray removeObjectAtIndex:i];
     }
     return YES;
 }

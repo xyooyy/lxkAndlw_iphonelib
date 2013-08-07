@@ -10,6 +10,7 @@
 #import "ASGoogleVoiceRecognizer.h"
 #import "SBJson.h"
 #define SOUNDSTRONGTH_THRESHOLD 150
+#define SOUNDSTRONGTH_THRESHOLD_SHIFT 2
 #define WAIT_TIME 32
 
 @interface ASGoogleVoiceRecognizer ()
@@ -51,6 +52,8 @@
         uploadData = [[NSMutableData alloc]init];
         
         uploadQueue = [[NSMutableArray alloc]init];
+        
+        soundStrengthThreshold = 150;
     }
     return self;
 }
@@ -133,8 +136,9 @@
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
     
     
-    if (soundStrongh > SOUNDSTRONGTH_THRESHOLD)
+    if (soundStrongh > soundStrengthThreshold)
     {
+        //soundStrengthThreshold -= 1;
         canRecgnise = YES;
         count = 0;
     }

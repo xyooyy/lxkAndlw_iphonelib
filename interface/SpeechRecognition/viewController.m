@@ -31,6 +31,9 @@
     UIImageView *_CDInnerImageView;
     
     UIButton *buttonStart;
+    UIButton *buttonEdit;
+    UIButton *buttonPlay;
+    UIButton *buttonTranslate;
    
 }
 
@@ -73,13 +76,48 @@
     switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
     return YES;
 }
+- (BOOL)createButton :(UIButton*)button :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
+{
+    button = [[UIButton alloc]initWithFrame:frame];
+    [button setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button addTarget:obj action:action forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:button];
+    return YES;
+}
+- (BOOL)createTranslateButton
+{
+    [self createButton:buttonTranslate
+                      :CGRectMake(kButtonTranslateX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
+                      :kImageTranslate
+                      :@selector(translateButtonTouch:)
+                      :self];
+    return YES;
+}
+- (BOOL)createPlayButton
+{
+    [self createButton:buttonPlay
+                      :CGRectMake(kButtonPlayX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
+                      :kImagePlay
+                      :@selector(playButtonTouch:)
+                      :self];
+    return YES;
+}
+- (BOOL)createEditButton
+{
+    [self createButton:buttonEdit
+                      :CGRectMake(kButtonEditX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
+                      :kImageEdit
+                      :@selector(editButtonTouch:)
+                      :self];
+    return YES;
+}
 - (BOOL)createStartButton
 {
-    buttonStart = [[UIButton alloc]initWithFrame:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,
-                                                            kButtonRecogniseWidth, kButtonRecogniseHeight)];
-    [buttonStart setBackgroundImage:[UIImage imageNamed:kImageRecognise] forState:UIControlStateNormal];
-    [buttonStart addTarget:self action:@selector(startRecogniseButtonTouch:) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:buttonStart];
+    [self createButton:buttonStart
+                      :CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight)
+                      :kImageRecognise
+                      :@selector(startRecogniseButtonTouch:)
+                      :self];
     return YES;
 }
 #pragma mark-init函数
@@ -99,6 +137,7 @@
     [self createSwitchButtonTouchActionMember];
     
     
+    
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
     _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
     m_viewAnimation = [[UIViewAnimation alloc]init];
@@ -111,6 +150,9 @@
     [self.view addSubview:_textView];
     [self.view addSubview:_soundWaveView];
     [self createStartButton];
+    [self createEditButton];
+    [self createPlayButton];
+    [self createTranslateButton];
 }
 #pragma mark- 查看历史纪录
 -(void)checkHistoryRecord
@@ -123,6 +165,23 @@
     [_soundWaveView addSoundStrong:random() % 500];
 }
 
+#pragma mark-按钮的操作
+
+- (BOOL)translateButtonTouch :(UIButton*)sender
+{
+    NSLog(@"translateButtonTouch");
+    return YES;
+}
+- (BOOL)playButtonTouch :(UIButton*)sneder
+{
+    NSLog(@"playButtonTouch");
+    return YES;
+}
+- (BOOL)editButtonTouch:(UIButton *)sender
+{
+    NSLog(@"editButtonTouch");
+    return YES;
+}
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
@@ -134,7 +193,7 @@
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
-    //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(testSound) userInfo:nil repeats:YES];
+
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];

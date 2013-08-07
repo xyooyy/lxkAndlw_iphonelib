@@ -47,6 +47,8 @@
     int mDataEnd;
     
     NSMutableArray *uploadQueue;
+    
+    int soundStrengthThreshold;
 }
 
 -(id)init;
