@@ -17,5 +17,7 @@
     TranslateRecognizeResult *translate;
     DataProcessing *dataProcessing;
     
+    NSString *filePath;
+    
 }
 @end

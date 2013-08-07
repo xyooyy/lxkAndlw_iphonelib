@@ -14,6 +14,7 @@
 #import "ASGoogleVoiceRecognizer.h"
 #import "LayoutMainController.h"
 #import "CurrentDataViewController.h"
+#import "HistoryViewController.h"
 
 @interface viewController ()
 {
@@ -118,15 +119,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
-    self.navigationItem.rightBarButtonItem = barButtontem;
-    if(buttonStart)NSLog(@"s");
+    
+    
      
 }
+#pragma mark- 查看历史纪录
 -(void)checkHistoryRecord
 {
-    UIViewController *controller = [[UIViewController alloc]init];
-    [self.navigationController pushViewController:controller animated:YES];
+    HistoryViewController *historyController = [[HistoryViewController alloc]initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:historyController animated:YES];
 }
 - (void)testSound
 {
@@ -136,6 +137,7 @@
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
+    self.navigationItem.rightBarButtonItem = nil;
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -147,6 +149,10 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
+    filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+   filePath = [filePath stringByAppendingPathComponent:dateTime];
+    filePath = [filePath stringByAppendingFormat:@".data"];
+    
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
@@ -161,14 +167,21 @@
                                           withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
-    [self beginStopAnimation];
+    [self beginStopAnimation:^{
+        NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
+        [copyData writeToFile:filePath atomically:YES];
+        [[dataProcessing getRecognizedData] removeAllObjects];
+        UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
+        self.navigationItem.rightBarButtonItem = barButtontem;
+        //CurrentDataViewController *dataViewController = [[CurrentDataViewController alloc]initWithData:copyData];
+        //[self.navigationController pushViewController:dataViewController animated:YES];
+    }];
    
     return YES;
 }
 - (BOOL)speechRecognitionResult :(NSString*)str
 {
     [self addText:str];
-    //[translate translate:str];
     [dataProcessing recordRecognizedStr:str];
     return YES;
 }
@@ -225,7 +238,7 @@
                             repeatCount:kAnimationDarknessRepeatCount
                           animationName:kAnimationDarknessName];
 }
-- (BOOL)beginStopAnimation
+- (BOOL)beginStopAnimation:(void(^)(void)) finish
 {
     [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
         [m_viewAnimation changeViewFrame:_CDImageView
@@ -235,11 +248,7 @@
                               completion:^{}];
         [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
         [gooleVoiceRecognizer stopRecording];
-        
-        NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
-        [[dataProcessing getRecognizedData] removeAllObjects];
-        CurrentDataViewController *dataViewController = [[CurrentDataViewController alloc]initWithData:copyData];
-        [self.navigationController pushViewController:dataViewController animated:YES];
+        finish();
         [buttonStart setEnabled:YES];
     }];
     return YES;

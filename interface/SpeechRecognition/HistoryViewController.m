@@ -1,30 +1,51 @@
 //
-//  CurrentDataViewController.m
+//  HistoryViewController.m
 //  SpeechRecognition
 //
-//  Created by xyooyy on 13-8-6.
+//  Created by xyooyy on 13-8-7.
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 
+#import "HistoryViewController.h"
 #import "CurrentDataViewController.h"
-#import "EnglishViewController.h"
 
-@interface CurrentDataViewController ()
-
+@interface HistoryViewController ()
+{
+    NSMutableArray *historyRecord;
+}
 @end
 
-@implementation CurrentDataViewController
+@implementation HistoryViewController
 
-- (id)initWithData:(NSArray *)data
+#pragma mark- 获得.data文件
+
+- (BOOL)getExtendNamedataSet :(NSMutableArray*)fileNameSet
 {
-    self = [super init];
-    if(self)
+    NSMutableArray *temp = [[NSMutableArray alloc]init];
+    for (NSString *fileName in fileNameSet)
     {
-        recognizedData = data;
-        translateDict = [[NSMutableDictionary alloc]init];
-        return self;
+        if([fileName rangeOfString:@".data"].location == NSNotFound)
+            [temp addObject:fileName];
     }
-    return nil;
+    for (NSString *fileName in temp)
+    {
+        [fileNameSet removeObject:fileName];
+    }
+    return YES;
+}
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+        NSFileManager *manger = [NSFileManager defaultManager];
+        NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSArray *fileNameSet = [manger subpathsAtPath:docDir];
+        historyRecord = [NSMutableArray arrayWithArray:fileNameSet];
+        [self getExtendNamedataSet:historyRecord];
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -46,10 +67,6 @@
 
 #pragma mark - Table view data source
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 30.0;
-}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -57,23 +74,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  [recognizedData count];
+    return [historyRecord count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"DocListCell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if(cell == nil)
-    {
+    if(!cell)
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.textLabel.font =  [UIFont fontWithName:@"Arial-BoldItalicMT" size:15];;
-    }
-        
-    cell.textLabel.text = [recognizedData objectAtIndex:indexPath.row];
-        
     
-    // Configure the cell...
+    cell.textLabel.text = [historyRecord objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -121,18 +132,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *translateStr = cell.textLabel.text;
-    EnglishViewController *englishView = [[EnglishViewController alloc]initWithData:translateStr :[translateDict objectForKey:translateStr] :self :@selector(translateFinished::)];
+    NSString *fileName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    doc = [doc stringByAppendingPathComponent:fileName];
+    NSArray *record = [[NSArray alloc]initWithContentsOfFile:doc];
     
-     [self.navigationController pushViewController:englishView animated:YES];
-     
+    CurrentDataViewController *currentDataController = [[CurrentDataViewController alloc]initWithData:record];
+    [self.navigationController pushViewController:currentDataController animated:YES];
+    
 }
 
-#pragma mark - 翻译回调
-- (void)translateFinished :(NSString*)sourceStr :(NSString*)destStr
-{
-    if(![translateDict objectForKey:sourceStr])
-        [translateDict setValue:destStr forKey:sourceStr];
-}
 @end

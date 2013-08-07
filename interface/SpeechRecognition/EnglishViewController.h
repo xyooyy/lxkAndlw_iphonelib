@@ -13,6 +13,9 @@
 {
     TranslateRecognizeResult *translateRecognizeResult;
     NSString *sourceStr;
+    NSString *destStr;
+    id obj;
+    SEL action;
 }
-- (id)initWithSourceStr :(NSString*)str;
+- (id)initWithData :(NSString*)sourceStr :(NSString*)destStr :(id)parmObj :(SEL)parmAction;
 @end

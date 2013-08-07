@@ -9,7 +9,7 @@
 #import "WavHeaderFactory.h"
 #import "ASGoogleVoiceRecognizer.h"
 #import "SBJson.h"
-#define SOUNDSTRONGTH_THRESHOLD 90
+#define SOUNDSTRONGTH_THRESHOLD 120
 #define WAIT_TIME 32
 
 @interface ASGoogleVoiceRecognizer ()
@@ -97,6 +97,7 @@
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     path = [path stringByAppendingPathComponent:parmFileName];
+    NSLog(@"%@",path);
     WAVE_HEAD *header = mHeaderFact->getHeader();
     mHeaderFact->setFileSize([data length]+sizeof(WAVE_HEAD));
     mHeaderFact->setDataSize([data length]);

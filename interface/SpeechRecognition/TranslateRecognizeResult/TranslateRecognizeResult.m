@@ -47,10 +47,9 @@
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mTranslateResult]];
     NSString *mStrResult = [[[dic objectForKey:@"trans_result"] objectAtIndex:0] objectForKey:@"dst"];
-    NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:mStrResult,translateStr, nil];
     NSLog(@"%@->%@",translateStr,mStrResult);
     if(obj && translateFinish)
-    [obj performSelector:translateFinish withObject:mStrResult];
+        [obj performSelector:translateFinish withObject:translateStr withObject:mStrResult];
     [mTranslateResult setLength:0];
     //[mBodyContentView setTextRewirteAll:mStrResult];
 }

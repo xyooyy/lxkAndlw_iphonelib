@@ -14,13 +14,16 @@
 
 @implementation EnglishViewController
 
-- (id)initWithSourceStr:(NSString *)str
+- (id)initWithData :(NSString*)parmSourceStr :(NSString*)parmDestStr :(id)parmObj :(SEL)parmAction
 {
     self = [super init];
     if(self)
     {
-        sourceStr = str;
-        translateRecognizeResult = [[TranslateRecognizeResult alloc]initWithData:self :@selector(translate:)];
+        sourceStr = parmSourceStr;
+        destStr = parmDestStr;
+        obj = parmObj;
+        action = parmAction;
+        translateRecognizeResult = [[TranslateRecognizeResult alloc]initWithData:self :@selector(translateFinished::)];
         self.view.backgroundColor =[UIColor whiteColor];
         return self;
     }
@@ -30,17 +33,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if(!destStr)
 	[translateRecognizeResult translate:sourceStr];
 }
-
+- (void)translateFinished :(NSString*)parmSourceStr :(NSString*)parmDestStr
+{
+    [obj performSelector:action withObject:parmSourceStr withObject:parmDestStr];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark - translate
-- (BOOL)translate :(NSString*)englishStr
-{
-    return YES;
-}
+
 @end

@@ -11,6 +11,7 @@
 @interface CurrentDataViewController : UITableViewController
 {
     NSArray *recognizedData;
+    NSMutableDictionary *translateDict;
 }
 - (id)initWithData :(NSArray*)data;
 @end
