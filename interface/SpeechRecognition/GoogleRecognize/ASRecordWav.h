@@ -30,7 +30,9 @@
     int mFramesPerSecond;
     int m_sampleRate;
     
+   // NSMutableData *recordData;
     NSMutableDictionary *recordDatadict;
+    NSTimer *timer;
     BOOL isSave;
     BOOL isInitTimer;
     int bufferSize;

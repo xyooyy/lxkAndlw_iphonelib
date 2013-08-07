@@ -26,8 +26,13 @@
         AudioSessionInitialize(NULL, NULL, NULL, (__bridge void *)(self));
         UInt32 sessionCategory = kAudioSessionCategory_PlayAndRecord;
         AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
-        bufferSize = parmMSampleRate*parmSeconds;
+        bufferSize = parmMSampleRate*parmSeconds*2;
+       // Float32 bufferSizeInSec = 0.0056f;
+       // AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration,
+        //                        sizeof(Float32), &bufferSizeInSec);
+        
         AudioSessionSetActive(true);
+        //recordData = [[NSMutableData alloc]init];
         recordDatadict = [[NSMutableDictionary alloc]init];
         
         return self;
@@ -64,6 +69,11 @@
     recorderState.mIsRunning = YES;
     OSStatus status = AudioQueueStart((*recorderState.mQueue),nil);
     if (status != noErr)  return FALSE;
+    if(!isInitTimer)
+    {
+         timer = [NSTimer scheduledTimerWithTimeInterval:1 / 32.0 target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
+        isInitTimer = YES;
+    }
     return TRUE;
 }//开始录音
 
@@ -84,6 +94,7 @@
         OSStatus status = AudioQueuePause(*recorderState.mQueue);
         //isInvalidate = TRUE;
         if (status != noErr) return FALSE;
+        [timer invalidate];
         isInitTimer = FALSE;
         [recordDatadict removeAllObjects];
         isSave = FALSE;
@@ -175,6 +186,63 @@
     (*recorderState.mRecordFormat).mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     
 }
+-(BOOL)cutIntegralBuffer :(NSData*)soundData :(NSData*)formatData
+{
+    Byte *soundByte = (Byte*)[soundData bytes];
+    Byte *integralBuffer = malloc(sizeof(Byte)*bufferSize);
+    Byte *trace = malloc(([soundData length] - bufferSize)*sizeof(Byte));
+    memcpy(integralBuffer, soundByte, bufferSize);
+    memcpy(trace, soundByte+bufferSize, [soundData length] - bufferSize);
+    
+    [recordDatadict setValue:[[NSMutableData alloc]initWithBytes:trace length:[soundData length] - bufferSize] forKey:@"soundData"];
+    
+    
+    NSMutableDictionary *cyLineDataDict = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[[NSData alloc]initWithBytes:integralBuffer length:bufferSize],@"soundData",formatData,@"format", nil];
+    
+    [self performSelectorOnMainThread:@selector(reportReceiveData:) withObject:cyLineDataDict waitUntilDone:NO];
+    free(integralBuffer);
+    free(trace);
+    return YES;
+}
+-(BOOL)cutNotIntegralBuffer:(NSData*)soundData :(NSData*)formatData
+{
+    Byte *soundByte = (Byte*)[soundData bytes];
+    Byte *noIntegralBuffer = malloc(sizeof(Byte)*[soundData length]);
+    memcpy(noIntegralBuffer, soundByte, [soundData length]);
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[[NSData alloc]initWithBytes:noIntegralBuffer length:bufferSize],@"soundData",formatData,@"format", nil];
+    
+    [self performSelectorOnMainThread:@selector(reportReceiveData:) withObject:dict waitUntilDone:NO];
+    free(noIntegralBuffer);
+    [recordDatadict removeAllObjects];
+    isSave = FALSE;
+    return YES;
+}
+-(void)timerCallBack
+{
+    if([recordDatadict count] == 0)
+        return;
+    NSMutableData *soundData = [recordDatadict objectForKey:@"soundData"];
+    NSMutableData *format = [recordDatadict objectForKey:@"format"];
+    if(!format) return;
+    if([soundData length] > bufferSize)
+        [self cutIntegralBuffer:soundData :format];
+    if([soundData length] <= bufferSize)
+        [self cutNotIntegralBuffer:soundData :format];
+}
+-(void)fillBuffer:(NSDictionary*)parmRecordDataDict
+{
+
+    if(!isSave)
+    {
+        [recordDatadict setValue:[parmRecordDataDict objectForKey:@"format"] forKey:@"format"];
+        [recordDatadict setValue:[[NSMutableData alloc]initWithData:[parmRecordDataDict objectForKey:@"soundData"]] forKey:@"soundData"];
+        isSave = TRUE;
+    }
+    [[recordDatadict objectForKey:@"soundData"] appendData:[parmRecordDataDict objectForKey:@"soundData"]];
+    //NSLog(@"add");
+    
+}
 void customAudioQueueInputCallback( void  *inUserData,
                                       AudioQueueRef inAQ,
                                       AudioQueueBufferRef inBuffer,
@@ -198,10 +266,10 @@ void customAudioQueueInputCallback( void  *inUserData,
             
              NSDictionary *recordDataDict = [[NSDictionary alloc]initWithObjectsAndKeys:fileData,@"format",voice_data,@"soundData", nil];
             
-           // [recorder performSelectorOnMainThread:@selector(fillBuffer:) withObject:recordDataDict waitUntilDone:NO];
+            [recorder performSelectorOnMainThread:@selector(fillBuffer:) withObject:recordDataDict waitUntilDone:NO];
             
            
-         [recorder performSelectorOnMainThread:@selector(reportReceiveData:) withObject:recordDataDict waitUntilDone:NO];
+         //[recorder performSelectorOnMainThread:@selector(reportReceiveData:) withObject:recordDataDict waitUntilDone:NO];
         recorderState.mCurrentPacket += inNumberPacketDescriptions;
         recorderState.m_test++;
         }   
