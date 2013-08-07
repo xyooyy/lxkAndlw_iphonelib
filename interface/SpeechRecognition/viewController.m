@@ -83,45 +83,38 @@
     return YES;
 }
 #pragma mark-init函数
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
-        
-       
-        [self addImageWithName:kImageBackground
-                         frame:CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight)];
-       
-        [self createCDImageView];
-        [self createCDCoverView:frame];
-        [self createInnerImageView];
-        [self createSwitchButtonTouchActionMember];
-        
-        
-        _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
-        _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
-        m_viewAnimation = [[UIViewAnimation alloc]init];
-        
-        gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
-        layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
-        translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
-        dataProcessing = [[DataProcessing alloc]init];
-        
-        [self.view addSubview:_textView];
-        [self.view addSubview:_soundWaveView];
-        [self createStartButton];
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
+    NSLog(@"viewDidLoad");
     [super viewDidLoad];
+    CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
     
-     
+    [self addImageWithName:kImageBackground
+                     frame:CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight)];
+    
+    [self createCDImageView];
+    [self createCDCoverView:frame];
+    [self createInnerImageView];
+    [self createSwitchButtonTouchActionMember];
+    
+    
+    _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
+    _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
+    m_viewAnimation = [[UIViewAnimation alloc]init];
+    
+    gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
+    layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
+    translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
+    dataProcessing = [[DataProcessing alloc]init];
+    
+    [self.view addSubview:_textView];
+    [self.view addSubview:_soundWaveView];
+    [self createStartButton];
+    
+    
+    
 }
 #pragma mark- 查看历史纪录
 -(void)checkHistoryRecord
