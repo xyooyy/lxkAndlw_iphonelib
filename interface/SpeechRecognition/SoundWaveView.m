@@ -32,34 +32,53 @@
     return self;
 }
 
+// 每一根波形柱的宽度
+#define kSoundWaveWidth 2
+#define kSoundWaveHeight 370
+
 - (void)drawRect:(CGRect)rect
 {
-#define kSoundWaveWidth 3
     if (0 == _strong) return;
     
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    // 生成渐变的image
     GradientColorImage *gradient = [[GradientColorImage alloc] init];
-    //int height = 0;
+    UIImage *gradientImage = [gradient imageLinearGradientWithRect:CGRectMake(0, 0, kSoundWaveWidth, 100.f)
+                                            startColor:[UIColor colorWithRed:0.111 green:0.063 blue:0.059 alpha:0.000].CGColor
+                                              endColor:[UIColor colorWithRed:1.000 green:0.408 blue:0.317 alpha:1.000].CGColor];
+
+    int height = 0;
     for (int i = 0; i < kScreenWidth; i+=kSoundWaveWidth)
     {
-       // height = (rand() % _strong) / 9.f + _strong / rand() % 100;
-        CGContextRef context = UIGraphicsGetCurrentContext();
-       // if(height == 0)
-       //     height = 2;
+        // 波形柱高度基于音强的随机数
+        if (_strong > 10)
+        {
+            height = (rand() % _strong / 5.f);
+            if (i < 100 || i > 220)
+            {
+                height /= 1.7f;
+                
+            }
+        }
+        else
+        {
+            height = rand() % _strong;
+        }
+        // 波形柱最小为1
+        height = MAX(height, 2);
         
-        UIImage *image = [gradient imageLinearGradientWithRect:CGRectMake(0, 0, kSoundWaveWidth, _strong)
-                                                    startColor:kSoundWaveEndCGColor
-                                                      endColor:[UIColor colorWithRed:0.700 green:0.137 blue:0.297 alpha:1.000].CGColor];
-        [image drawInRect:CGRectMake(i, 350 - _strong, kSoundWaveWidth, _strong)];
-        CGContextSetShadowWithColor(context, CGSizeMake(3, 0), 5, [UIColor redColor].CGColor);
+        [gradientImage drawInRect:CGRectMake(i, kSoundWaveHeight - height, kSoundWaveWidth, height)];
+        // 画波形柱的阴影
+        CGContextSetShadowWithColor(context, CGSizeMake(3, -3), 10, [UIColor redColor].CGColor);
     }
-    
+//    NSLog(@"%i", _strong);
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong
 {
     _strong = strong;
     [self setNeedsDisplay];
-    //[NSThread sleepForTimeInterval:1.0f];
     return YES;
 }
 

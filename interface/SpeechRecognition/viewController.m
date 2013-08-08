@@ -16,6 +16,7 @@
 #import "CurrentDataViewController.h"
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
+#import "CalculateSoundStrength.h"
 
 @interface viewController ()
 {
@@ -36,6 +37,8 @@
     UIButton *buttonEdit;
     UIButton *buttonPlay;
     UIButton *buttonTranslate;
+    
+    CalculateSoundStrength *calculateSoundStrength;
    
 }
 
@@ -84,17 +87,18 @@
     switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
     return YES;
 }
-- (BOOL)createButton :(UIButton*)button :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
+- (UIButton*)createButton :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
 {
-    button = [[UIButton alloc]initWithFrame:frame];
+   UIButton *button = [[UIButton alloc]initWithFrame:frame];
     [button setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [button addTarget:obj action:action forControlEvents:UIControlEventTouchDown];
+    button.enabled = NO;
     [self.view addSubview:button];
-    return YES;
+    return button;
 }
 - (BOOL)createTranslateButton
 {
-    [self createButton:buttonTranslate
+   buttonTranslate = [self createButton
                       :CGRectMake(kButtonTranslateX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
                       :kImageTranslate
                       :@selector(translateButtonTouch:)
@@ -103,7 +107,7 @@
 }
 - (BOOL)createPlayButton
 {
-    [self createButton:buttonPlay
+   buttonPlay = [self createButton
                       :CGRectMake(kButtonPlayX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
                       :kImagePlay
                       :@selector(playButtonTouch:)
@@ -112,7 +116,7 @@
 }
 - (BOOL)createEditButton
 {
-    [self createButton:buttonEdit
+   buttonEdit = [self createButton
                       :CGRectMake(kButtonEditX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
                       :kImageEdit
                       :@selector(editButtonTouch:)
@@ -121,7 +125,7 @@
 }
 - (BOOL)createStartButton
 {
-    [self createButton:buttonStart
+   buttonStart = [self createButton
                       :CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight)
                       :kImageRecognise
                       :@selector(startRecogniseButtonTouch:)
@@ -136,8 +140,7 @@
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
     
-    [self addImageWithName:kImageBackground
-                     frame:CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight)];
+    [self addImageWithName:kImageBackground frame:frame];
     
     [self createCDImageView];
     [self createCDCoverView:frame];
@@ -146,12 +149,14 @@
     
     
     
-    _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
-    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
+    _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
+    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160)maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
+    calculateSoundStrength = [[CalculateSoundStrength alloc]init];
     
     gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
+    [gooleVoiceRecognizer setDelegate:self];
     layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
@@ -163,6 +168,7 @@
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
+    buttonStart.enabled = TRUE;
     
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
     {
@@ -172,13 +178,20 @@
         
         
 }
+
 #pragma mark- 查看历史纪录
+
 -(void)checkHistoryRecord
 {
     HistoryViewController *historyController = [[HistoryViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:historyController animated:YES];
 }
 
+- (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong
+{
+    [_soundWaveView addSoundStrong:[calculateSoundStrength voiceStrengthConvertHeight:soundStrong :120]];
+    return YES;
+}
 
 #pragma mark-按钮的操作
 
@@ -200,7 +213,9 @@
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
-   
+    buttonEdit.enabled = NO;
+    buttonPlay.enabled = NO;
+    buttonTranslate.enabled = NO;
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -208,22 +223,24 @@
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
-
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-   filePath = [filePath stringByAppendingPathComponent:dateTime];
+    filePath = [filePath stringByAppendingPathComponent:dateTime];
     filePath = [filePath stringByAppendingFormat:@".data"];
     
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
      [_textView clearLastRecognition];
+    _soundWaveView.alpha = 1.0;
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
+    buttonStart.enabled = NO;
+    
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
@@ -237,6 +254,10 @@
         [[dataProcessing getRecognizedData] removeAllObjects];
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
+        _soundWaveView.alpha = 0.0;
+        buttonEdit.enabled = YES;
+        buttonPlay.enabled = YES;
+        buttonTranslate.enabled = YES;
        
     }];
    
@@ -249,8 +270,6 @@
     return YES;
 }
 
-
-
 #pragma mark - 
 
 - (BOOL)addText:(NSString *)text
@@ -262,7 +281,9 @@
                spacing:kTextRowSpacing];
     return YES;
 }
+
 #pragma mark - 封装动画函数
+
 - (BOOL)rotateCDInnerImageView
 {
     [m_viewAnimation animationWithLayer:_CDInnerImageView.layer
@@ -292,6 +313,7 @@
 }
 - (void)darkenCDCoverView
 {
+    
     [m_viewAnimation animationWithLayer:_CDCoverView.layer
                                 keypath:kAnimationDarknessKeyPath
                               fromValue:(__bridge id)(_CDCoverView.backgroundColor.CGColor)

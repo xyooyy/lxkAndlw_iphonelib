@@ -21,7 +21,6 @@
 		9AA79F2117AF3A0400298409 /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2017AF3A0400298409 /* viewController.m */; };
 		9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2317AF403600298409 /* UIViewAnimation.m */; };
 		9AA79F2817AF896200298409 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2717AF896200298409 /* ASGoogleVoiceRecognizer.mm */; };
-		9AA79F2D17AF89DB00298409 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2A17AF89DB00298409 /* ASRecordWav.m */; };
 		9AA79F2E17AF89DB00298409 /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2C17AF89DB00298409 /* RecordInfo.m */; };
 		9AA79F3217AF8AC200298409 /* WavHeaderFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F3017AF8AC200298409 /* WavHeaderFactory.cpp */; };
 		9AA79F3517AF8B3600298409 /* CalculateSoundStrength.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F3417AF8B3600298409 /* CalculateSoundStrength.m */; };
@@ -49,6 +48,7 @@
 		BE0B8DF317A74E6700C49DBC /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DE817A74E6700C49DBC /* play.png */; };
 		BE0B8DF517A74E6700C49DBC /* translate.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DEA17A74E6700C49DBC /* translate.png */; };
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
+		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
 		BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE457F1C17A4A5BC00123896 /* QuartzCore.framework */; };
 		BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4D1A3C17A761B300756FF4 /* recognise.png */; };
 		BE589A4217AA412400E88166 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE589A4117AA412400E88166 /* SoundWaveView.m */; };
@@ -92,8 +92,6 @@
 		9AA79F2317AF403600298409 /* UIViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimation.m; sourceTree = "<group>"; };
 		9AA79F2617AF896200298409 /* ASGoogleVoiceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGoogleVoiceRecognizer.h; sourceTree = "<group>"; };
 		9AA79F2717AF896200298409 /* ASGoogleVoiceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASGoogleVoiceRecognizer.mm; sourceTree = "<group>"; };
-		9AA79F2917AF89DB00298409 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
-		9AA79F2A17AF89DB00298409 /* ASRecordWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRecordWav.m; sourceTree = "<group>"; };
 		9AA79F2B17AF89DB00298409 /* RecordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordInfo.h; sourceTree = "<group>"; };
 		9AA79F2C17AF89DB00298409 /* RecordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordInfo.m; sourceTree = "<group>"; };
 		9AA79F2F17AF89F100298409 /* ASRecordDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordDelegate.h; sourceTree = "<group>"; };
@@ -139,6 +137,8 @@
 		BE0B8DEA17A74E6700C49DBC /* translate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = translate.png; path = SpeechRecognition/images/translate.png; sourceTree = SOURCE_ROOT; };
 		BE19607017A8E4E600073ADF /* TextToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToImage.h; sourceTree = "<group>"; };
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
+		BE2FD5BA17B337400086AF47 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
+		BE2FD5BB17B337400086AF47 /* ASRecordWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRecordWav.m; sourceTree = "<group>"; };
 		BE457F1C17A4A5BC00123896 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BE4D1A3C17A761B300756FF4 /* recognise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recognise.png; path = SpeechRecognition/images/recognise.png; sourceTree = SOURCE_ROOT; };
 		BE589A4017AA412400E88166 /* SoundWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundWaveView.h; sourceTree = "<group>"; };
@@ -233,13 +233,13 @@
 		9AA79F2517AF892400298409 /* GoogleRecognize */ = {
 			isa = PBXGroup;
 			children = (
+				BE2FD5BA17B337400086AF47 /* ASRecordWav.h */,
+				BE2FD5BB17B337400086AF47 /* ASRecordWav.m */,
 				9AA79F3317AF8B3600298409 /* CalculateSoundStrength.h */,
 				9AA79F3417AF8B3600298409 /* CalculateSoundStrength.m */,
 				9AA79F3017AF8AC200298409 /* WavHeaderFactory.cpp */,
 				9AA79F3117AF8AC200298409 /* WavHeaderFactory.h */,
 				9AA79F2F17AF89F100298409 /* ASRecordDelegate.h */,
-				9AA79F2917AF89DB00298409 /* ASRecordWav.h */,
-				9AA79F2A17AF89DB00298409 /* ASRecordWav.m */,
 				9AA79F2B17AF89DB00298409 /* RecordInfo.h */,
 				9AA79F2C17AF89DB00298409 /* RecordInfo.m */,
 				9AA79F2617AF896200298409 /* ASGoogleVoiceRecognizer.h */,
@@ -511,7 +511,6 @@
 				9AA79F2117AF3A0400298409 /* viewController.m in Sources */,
 				9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */,
 				9AA79F2817AF896200298409 /* ASGoogleVoiceRecognizer.mm in Sources */,
-				9AA79F2D17AF89DB00298409 /* ASRecordWav.m in Sources */,
 				9AA79F2E17AF89DB00298409 /* RecordInfo.m in Sources */,
 				9AA79F3217AF8AC200298409 /* WavHeaderFactory.cpp in Sources */,
 				9AA79F3517AF8B3600298409 /* CalculateSoundStrength.m in Sources */,
@@ -536,6 +535,7 @@
 				9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */,
 				9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */,
 				9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */,
+				BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

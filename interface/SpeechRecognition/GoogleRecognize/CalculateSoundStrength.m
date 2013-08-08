@@ -9,8 +9,8 @@
 #import "CalculateSoundStrength.h"
 
 #define MASK_SIZE 6
-int weightArray[MASK_SIZE] = {512,512,1024,2048,4096,8192};
-int maskArray[MASK_SIZE] = {4,8,8,8,8,8};
+int weightArray[MASK_SIZE] = {16,32,32,32,4096,8192};
+int maskArray[MASK_SIZE] = {1,2,2,2,8,8};
 
 @implementation CalculateSoundStrength
 

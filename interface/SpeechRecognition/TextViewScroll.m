@@ -24,8 +24,10 @@
         self.alwaysBounceHorizontal = NO;
         self.alwaysBounceVertical = YES;
         self.showsHorizontalScrollIndicator = NO;
+        self.showsVerticalScrollIndicator = NO;
         self.contentSize = CGSizeMake(0, 340);
-        self.scrollEnabled = NO;
+        self.scrollEnabled = YES;
+
     }
     return self;
 }
