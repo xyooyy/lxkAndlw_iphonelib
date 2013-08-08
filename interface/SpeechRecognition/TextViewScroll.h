@@ -23,4 +23,6 @@
        withFont:(UIFont *)font
           color:(UIColor *)color
         spacing:(CGFloat)spacing;
+- (BOOL)clearLastRecognition;
+
 @end

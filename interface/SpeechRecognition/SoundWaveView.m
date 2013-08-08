@@ -34,7 +34,7 @@
 
 // 每一根波形柱的宽度
 #define kSoundWaveWidth 2
-#define kSoundWaveHeight 330.f
+#define kSoundWaveHeight 370
 
 - (void)drawRect:(CGRect)rect
 {
@@ -70,7 +70,7 @@
         // 画波形柱的阴影
         CGContextSetShadowWithColor(context, CGSizeMake(3, -3), 10, [UIColor redColor].CGColor);
     }
-    NSLog(@"%i", _strong);
+//    NSLog(@"%i", _strong);
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong
