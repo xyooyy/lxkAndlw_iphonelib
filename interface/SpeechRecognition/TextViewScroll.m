@@ -25,6 +25,7 @@
         self.alwaysBounceVertical = YES;
         self.showsHorizontalScrollIndicator = NO;
         self.contentSize = CGSizeMake(0, 340);
+        self.scrollEnabled = NO;
     }
     return self;
 }
@@ -154,6 +155,16 @@
     
     [mutableArray addObject:mutableString];
     return mutableArray;
+}
+#pragma mark - 清屏
+- (BOOL)clearLastRecognition
+{
+    NSArray *subViews = [self subviews];
+    for (UIView *view in subViews)
+    {
+        [view removeFromSuperview];
+    }
+    return YES;
 }
 //#pragma mark - swip
 //- (void)swipDown

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */; };
 		9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */; };
 		9A501AD117B095550063FF9D /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A501ACF17B095550063FF9D /* stop.png */; };
 		9A501AD217B095550063FF9D /* stop1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A501AD017B095550063FF9D /* stop1.png */; };
@@ -65,6 +66,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A17B97117B33A2700E49CC1 /* SandBoxOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandBoxOperation.h; sourceTree = "<group>"; };
+		9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandBoxOperation.m; sourceTree = "<group>"; };
 		9A501AC417B0867C0063FF9D /* SwitchButtonTouchAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchButtonTouchAction.h; sourceTree = "<group>"; };
 		9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchButtonTouchAction.m; sourceTree = "<group>"; };
 		9A501ACF17B095550063FF9D /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = SpeechRecognition/images/stop.png; sourceTree = SOURCE_ROOT; };
@@ -177,6 +180,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A17B97017B33A0800E49CC1 /* SandBox */ = {
+			isa = PBXGroup;
+			children = (
+				9A17B97117B33A2700E49CC1 /* SandBoxOperation.h */,
+				9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */,
+			);
+			name = SandBox;
+			path = SpeechRecognition/SandBox;
+			sourceTree = "<group>";
+		};
 		9A501AC317B086570063FF9D /* SwitchButtonAction */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +303,7 @@
 		BE7B5B5A17A278BD00BF9C1E = {
 			isa = PBXGroup;
 			children = (
+				9A17B97017B33A0800E49CC1 /* SandBox */,
 				9A501ADB17B0F01D0063FF9D /* DataProcessing */,
 				9A501AD717B0E1F90063FF9D /* TranslateRecognizeResult */,
 				9A501AD317B095C30063FF9D /* LayOut */,
@@ -521,6 +535,7 @@
 				9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */,
 				9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */,
 				9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */,
+				9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,14 +614,15 @@
 		BE7B5B8117A278BD00BF9C1E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ADDITIONAL_SDKS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: liu baoci (7WSW47F94V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: liu baoci (7WSW47F94V)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechRecognition/SpeechRecognition-Prefix.pch";
 				INFOPLIST_FILE = "SpeechRecognition/SpeechRecognition-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "44657BBF-247E-48FC-8F23-8ADF1E8D1DAB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44657BBF-247E-48FC-8F23-8ADF1E8D1DAB";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

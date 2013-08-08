@@ -44,6 +44,12 @@
 @implementation viewController
 
 #pragma mark-初始化用到的函数
+- (BOOL)displayHistoryButton
+{
+    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
+    self.navigationItem.rightBarButtonItem = barButtontem;
+    return YES;
+}
 - (UIImageView *)addImageWithName:(NSString *)name frame:(CGRect)frame
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
@@ -149,7 +155,7 @@
     layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
-    
+    sandBoxOperation = [[SandBoxOperation alloc]init];
     
     [self.view addSubview:_soundWaveView];
     [self.view addSubview:_textView];
@@ -157,6 +163,14 @@
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
+    
+    if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
+    {
+        [self displayHistoryButton];
+        isHistoryBtnDisplay = YES;
+    }
+        
+        
 }
 #pragma mark- 查看历史纪录
 -(void)checkHistoryRecord
@@ -164,10 +178,7 @@
     HistoryViewController *historyController = [[HistoryViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:historyController animated:YES];
 }
-- (void)testSound
-{
-    [_soundWaveView addSoundStrong:random() % 500];
-}
+
 
 #pragma mark-按钮的操作
 
@@ -189,7 +200,7 @@
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
-    self.navigationItem.rightBarButtonItem = nil;
+   
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -208,6 +219,7 @@
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
+     [_textView clearLastRecognition];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
@@ -223,10 +235,9 @@
         NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
         [copyData writeToFile:filePath atomically:YES];
         [[dataProcessing getRecognizedData] removeAllObjects];
-        UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
-        self.navigationItem.rightBarButtonItem = barButtontem;
-        //CurrentDataViewController *dataViewController = [[CurrentDataViewController alloc]initWithData:copyData];
-        //[self.navigationController pushViewController:dataViewController animated:YES];
+        if(!isHistoryBtnDisplay)
+            [self displayHistoryButton];
+       
     }];
    
     return YES;
