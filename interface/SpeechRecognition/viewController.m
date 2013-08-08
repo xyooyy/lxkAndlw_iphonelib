@@ -39,7 +39,6 @@
     UIButton *buttonTranslate;
     
     CalculateSoundStrength *calculateSoundStrength;
-   
 }
 
 @end
@@ -168,7 +167,7 @@
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
-    buttonStart.enabled = TRUE;
+    buttonStart.enabled = YES;
     
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
     {
@@ -200,11 +199,17 @@
     NSLog(@"translateButtonTouch");
     return YES;
 }
-- (BOOL)playButtonTouch :(UIButton*)sneder
+- (BOOL)playButtonTouch :(UIButton*)sender
 {
     NSLog(@"playButtonTouch");
     return YES;
 }
+
+- (BOOL)stopPlayButtonTouch:(UIButton *)sender
+{
+    return YES;
+}
+
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     NSLog(@"editButtonTouch");
@@ -258,7 +263,6 @@
         buttonEdit.enabled = YES;
         buttonPlay.enabled = YES;
         buttonTranslate.enabled = YES;
-       
     }];
    
     return YES;

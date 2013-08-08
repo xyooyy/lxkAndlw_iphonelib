@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A12FB0917B3788C00C9F9B9 /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A12FB0617B3788C00C9F9B9 /* AudioInfo.m */; };
-		9A12FB0A17B3788C00C9F9B9 /* PlayAudioWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A12FB0817B3788C00C9F9B9 /* PlayAudioWav.m */; };
 		9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */; };
 		9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */; };
 		9A501AD117B095550063FF9D /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A501ACF17B095550063FF9D /* stop.png */; };
@@ -68,11 +66,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9A12FB0517B3788C00C9F9B9 /* AudioInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioInfo.h; sourceTree = "<group>"; };
-		9A12FB0617B3788C00C9F9B9 /* AudioInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioInfo.m; sourceTree = "<group>"; };
-		9A12FB0717B3788C00C9F9B9 /* PlayAudioWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayAudioWav.h; sourceTree = "<group>"; };
-		9A12FB0817B3788C00C9F9B9 /* PlayAudioWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioWav.m; sourceTree = "<group>"; };
-		9A12FB0B17B378B100C9F9B9 /* ASPlayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPlayDelegate.h; sourceTree = "<group>"; };
 		9A17B97117B33A2700E49CC1 /* SandBoxOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandBoxOperation.h; sourceTree = "<group>"; };
 		9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandBoxOperation.m; sourceTree = "<group>"; };
 		9A501AC417B0867C0063FF9D /* SwitchButtonTouchAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchButtonTouchAction.h; sourceTree = "<group>"; };
@@ -187,19 +180,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9A12FB0417B3786D00C9F9B9 /* PlayRecordData */ = {
-			isa = PBXGroup;
-			children = (
-				9A12FB0B17B378B100C9F9B9 /* ASPlayDelegate.h */,
-				9A12FB0517B3788C00C9F9B9 /* AudioInfo.h */,
-				9A12FB0617B3788C00C9F9B9 /* AudioInfo.m */,
-				9A12FB0717B3788C00C9F9B9 /* PlayAudioWav.h */,
-				9A12FB0817B3788C00C9F9B9 /* PlayAudioWav.m */,
-			);
-			name = PlayRecordData;
-			path = SpeechRecognition/PlayRecordData;
-			sourceTree = "<group>";
-		};
 		9A17B97017B33A0800E49CC1 /* SandBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,7 +303,6 @@
 		BE7B5B5A17A278BD00BF9C1E = {
 			isa = PBXGroup;
 			children = (
-				9A12FB0417B3786D00C9F9B9 /* PlayRecordData */,
 				9A17B97017B33A0800E49CC1 /* SandBox */,
 				9A501ADB17B0F01D0063FF9D /* DataProcessing */,
 				9A501AD717B0E1F90063FF9D /* TranslateRecognizeResult */,
@@ -557,8 +536,6 @@
 				9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */,
 				9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */,
 				BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */,
-				9A12FB0917B3788C00C9F9B9 /* AudioInfo.m in Sources */,
-				9A12FB0A17B3788C00C9F9B9 /* PlayAudioWav.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

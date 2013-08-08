@@ -42,7 +42,6 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    // 生成渐变的image
     GradientColorImage *gradient = [[GradientColorImage alloc] init];
     UIImage *gradientImage = [gradient imageLinearGradientWithRect:CGRectMake(0, 0, kSoundWaveWidth, 100.f)
                                             startColor:[UIColor colorWithRed:0.111 green:0.063 blue:0.059 alpha:0.000].CGColor
@@ -58,21 +57,19 @@
             if (i < 100 || i > 220)
             {
                 height /= 1.7f;
-                
             }
         }
         else
         {
             height = rand() % _strong;
         }
-        // 波形柱最小为1
+        // 波形柱最小为2
         height = MAX(height, 2);
         
         [gradientImage drawInRect:CGRectMake(i, kSoundWaveHeight - height, kSoundWaveWidth, height)];
         // 画波形柱的阴影
         CGContextSetShadowWithColor(context, CGSizeMake(3, -3), 10, [UIColor redColor].CGColor);
     }
-//    NSLog(@"%i", _strong);
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong
