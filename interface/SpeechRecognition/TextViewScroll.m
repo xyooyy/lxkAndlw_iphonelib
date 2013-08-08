@@ -1,28 +1,16 @@
 //
-//  SpeechRecognitionTextView.m
+//  TextViewScroll.m
 //  SpeechRecognition
 //
-//  Created by Lovells on 13-7-30.
+//  Created by xyooyy on 13-8-7.
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
-#import <QuartzCore/QuartzCore.h>
-#import "TextView.h"
+
+#import "TextViewScroll.h"
 #import "TextToImage.h"
 #import "Data.h"
-#import "UIViewAnimation.h"
 
-@interface TextView ()
-{
-    NSMutableArray *_viewArray;
-    NSUInteger _maxRow;
-    CGFloat _height;
-    UIViewAnimation *_viewAnimation;
-    NSMutableArray *allTextView;
-}
-
-@end
-
-@implementation TextView
+@implementation TextViewScroll
 
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number
 {
@@ -32,18 +20,11 @@
         _viewArray = [[NSMutableArray alloc] init];
         _maxRow = number;
         _viewAnimation = [[UIViewAnimation alloc] init];
-        allTextView = [[NSMutableArray alloc]init];
         [self setBackgroundColor:[UIColor clearColor]];
-        UISwipeGestureRecognizer *recognizer;
-        
-        
-        recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipUp)];
-        [recognizer setDirection:(UISwipeGestureRecognizerDirectionUp)];
-        [self  addGestureRecognizer:recognizer];
-        
-        recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipDown)];
-        [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
-        [self  addGestureRecognizer:recognizer];
+        self.alwaysBounceHorizontal = NO;
+        self.alwaysBounceVertical = YES;
+        self.showsHorizontalScrollIndicator = NO;
+        self.contentSize = CGSizeMake(0, 340);
     }
     return self;
 }
@@ -55,7 +36,7 @@
         spacing:(CGFloat)spacing
 {
     NSArray *textArray = [self lineBreakWithString:text maxWidth:maxWidth font:font];
-
+    
     if (textArray.count + _viewArray.count > _maxRow)
     {
         [self removeViewArray:_viewArray
@@ -94,27 +75,30 @@
 // 删除指定的view
 - (BOOL)removeViewArray:(NSMutableArray *)viewArray range:(NSRange)range
 {
-
+    
     for (int i = 0; i < range.length; i++)
     {
         UIView *view = [viewArray objectAtIndex:i];
         
-        [_viewAnimation changeViewFrame:view
-                                toFrame:CGRectMake((int)self.frame.size.width,
-                                                   kFloatZero,
-                                                   view.frame.size.width,
-                                                   kFloatZero)
-                           withDuration:kTextAnimationMoveTime
-                             completion:^{}];
-             
-        [_viewAnimation changeViewLightness:view
-                                      alpha:0.f
-                                   duration:kTextAnimationFadeOutTime
-                                 completion:^{
-                                     [view removeFromSuperview];
-                                 }];
+//        [_viewAnimation changeViewFrame:view
+//                                toFrame:CGRectMake((int)self.frame.size.width,
+//                                                   kFloatZero,
+//                                                   view.frame.size.width,
+//                                                   kFloatZero)
+//                           withDuration:kTextAnimationMoveTime
+//                             completion:^{}];
+//        
+//        [_viewAnimation changeViewLightness:view
+//                                      alpha:0.f
+//                                   duration:kTextAnimationFadeOutTime
+//                                 completion:^{
+//                                     [view removeFromSuperview];
+//                                 }];
+        CGPoint offset = self.contentOffset;
+        offset.y += view.frame.size.height;
+        [self setContentOffset:offset animated:YES];
         
-        [viewArray removeObjectAtIndex:i];
+        //[viewArray removeObjectAtIndex:i];
     }
     return YES;
 }
@@ -122,10 +106,10 @@
 // 根据text生成的image,添加新的imageView
 // 返回的事生成的image的实际大小
 - (CGRect)addViewArray:(NSMutableArray *)viewArray
-       withTextArray:(NSArray *)textArray
-             andFont:(UIFont *)font
-               color:(UIColor *)color
-             spacing:(CGFloat)spacing
+         withTextArray:(NSArray *)textArray
+               andFont:(UIFont *)font
+                 color:(UIColor *)color
+               spacing:(CGFloat)spacing
 {
     TextToImage *textToImage = [[TextToImage alloc] init];
     CGRect rect;
@@ -144,8 +128,6 @@
                                 kFloatZero);
         view.alpha = kFloatZero;
         [viewArray addObject:view];
-        [allTextView addObject:view];
-        NSLog(@"allTextView->%d",[allTextView count]);
         [self addSubview:view];
     }
     
@@ -154,8 +136,8 @@
 
 // 对字符串string根据所给的最大宽度和字体计算折行位置
 - (NSArray *)lineBreakWithString:(NSString *)string
-                   maxWidth:(NSUInteger)maxWidth
-                       font:(UIFont *)font
+                        maxWidth:(NSUInteger)maxWidth
+                            font:(UIFont *)font
 {
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
     NSMutableString *mutableString = [[NSMutableString alloc] initWithString:string];
@@ -173,13 +155,14 @@
     [mutableArray addObject:mutableString];
     return mutableArray;
 }
-#pragma mark - swip
-- (void)swipDown
-{
-    NSLog(@"swipDown");
-}
-- (void)swipUp
-{
-     NSLog(@"swipUp");
-}
+//#pragma mark - swip
+//- (void)swipDown
+//{
+//    NSLog(@"swipDown");
+//}
+//- (void)swipUp
+//{
+//    NSLog(@"swipUp");
+//}
+
 @end

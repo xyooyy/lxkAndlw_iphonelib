@@ -29,6 +29,7 @@
     //标志位
     BOOL isRecording;
     BOOL canRecgnise;
+    BOOL isBeginRecgnise;
 
     //录音
     ASRecordWav *mRecorder;
@@ -51,8 +52,14 @@
     int upLoadEnd;
     int mDataEnd;
     
+<<<<<<< HEAD
     // 音强代理
     id<GoogleVoiveDelegate> _delegate;
+=======
+    NSMutableArray *uploadQueue;
+    
+    int soundStrengthThreshold;
+>>>>>>> origin/master
 }
 
 -(id)init;

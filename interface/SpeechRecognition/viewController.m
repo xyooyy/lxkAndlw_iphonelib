@@ -15,10 +15,12 @@
 #import "LayoutMainController.h"
 #import "CurrentDataViewController.h"
 #import "HistoryViewController.h"
+#import "TextViewScroll.h"
 
 @interface viewController ()
 {
-    TextView *_textView;
+    //TextView *_textView;
+    TextViewScroll *_textView;
     SoundWaveView *_soundWaveView;
     UIViewAnimation *m_viewAnimation;
     
@@ -31,6 +33,9 @@
     UIImageView *_CDInnerImageView;
     
     UIButton *buttonStart;
+    UIButton *buttonEdit;
+    UIButton *buttonPlay;
+    UIButton *buttonTranslate;
    
 }
 
@@ -73,13 +78,48 @@
     switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
     return YES;
 }
+- (BOOL)createButton :(UIButton*)button :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
+{
+    button = [[UIButton alloc]initWithFrame:frame];
+    [button setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button addTarget:obj action:action forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:button];
+    return YES;
+}
+- (BOOL)createTranslateButton
+{
+    [self createButton:buttonTranslate
+                      :CGRectMake(kButtonTranslateX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
+                      :kImageTranslate
+                      :@selector(translateButtonTouch:)
+                      :self];
+    return YES;
+}
+- (BOOL)createPlayButton
+{
+    [self createButton:buttonPlay
+                      :CGRectMake(kButtonPlayX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
+                      :kImagePlay
+                      :@selector(playButtonTouch:)
+                      :self];
+    return YES;
+}
+- (BOOL)createEditButton
+{
+    [self createButton:buttonEdit
+                      :CGRectMake(kButtonEditX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
+                      :kImageEdit
+                      :@selector(editButtonTouch:)
+                      :self];
+    return YES;
+}
 - (BOOL)createStartButton
 {
-    buttonStart = [[UIButton alloc]initWithFrame:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,
-                                                            kButtonRecogniseWidth, kButtonRecogniseHeight)];
-    [buttonStart setBackgroundImage:[UIImage imageNamed:kImageRecognise] forState:UIControlStateNormal];
-    [buttonStart addTarget:self action:@selector(startRecogniseButtonTouch:) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:buttonStart];
+    [self createButton:buttonStart
+                      :CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight)
+                      :kImageRecognise
+                      :@selector(startRecogniseButtonTouch:)
+                      :self];
     return YES;
 }
 #pragma mark-init函数
@@ -99,10 +139,16 @@
     [self createSwitchButtonTouchActionMember];
     
     
+    
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
+<<<<<<< HEAD
 
     _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)
                                         maxRows:kTextRowNumber];
+=======
+    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
+    
+>>>>>>> origin/master
     m_viewAnimation = [[UIViewAnimation alloc]init];
     
     gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
@@ -111,9 +157,16 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     
-    [self.view addSubview:_textView];
+    
     [self.view addSubview:_soundWaveView];
+    [self.view addSubview:_textView];
     [self createStartButton];
+<<<<<<< HEAD
+=======
+    [self createEditButton];
+    [self createPlayButton];
+    [self createTranslateButton];
+>>>>>>> origin/master
 }
 
 #pragma mark- 查看历史纪录
@@ -130,6 +183,23 @@
     return YES;
 }
 
+#pragma mark-按钮的操作
+
+- (BOOL)translateButtonTouch :(UIButton*)sender
+{
+    NSLog(@"translateButtonTouch");
+    return YES;
+}
+- (BOOL)playButtonTouch :(UIButton*)sneder
+{
+    NSLog(@"playButtonTouch");
+    return YES;
+}
+- (BOOL)editButtonTouch:(UIButton *)sender
+{
+    NSLog(@"editButtonTouch");
+    return YES;
+}
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
@@ -141,6 +211,10 @@
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];

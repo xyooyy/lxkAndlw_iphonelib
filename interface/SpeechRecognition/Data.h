@@ -24,7 +24,7 @@
 
 #define kFloatZero              0.f
 #define kIntZero                0
-#define kButtonMargin           2.f
+#define kButtonMargin           36.f
 #define kNavigationBarHeight    44.f
 #define kStatusBarHeight        20.f
 #define kAbsoluteScreenHeight   480.f
@@ -40,7 +40,7 @@
 #pragma mark - 按钮
 
 // 开始/结束语音识别按钮
-#define kButtonRecogniseWidth  78.f
+#define kButtonRecogniseWidth  50 /*78.f*/
 #define kButtonRecogniseHeight 42.f
 #define kButtonRecogniseX      1.f
 #define kButtonRecogniseY      (kScreenHeight - kNavigationBarHeight - kButtonRecogniseHeight)
