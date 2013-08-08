@@ -14,6 +14,12 @@
 
 #define RequestURL @"http://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=zh-CN&maxresults=1"
 
+@protocol GoogleVoiveDelegate <NSObject>
+
+- (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong;
+
+@end
+
 @interface ASGoogleVoiceRecognizer : NSObject <NSURLConnectionDataDelegate,ASRecordDelegate>
 {
     //http请求
@@ -44,6 +50,9 @@
     int upLoadStart;
     int upLoadEnd;
     int mDataEnd;
+    
+    // 音强代理
+    id<GoogleVoiveDelegate> _delegate;
 }
 
 -(id)init;
@@ -53,5 +62,7 @@
 
 -(BOOL)upLoadWAV:(NSData *)aDataWav;
 -(void)setController:(id)aCon andFunction:(SEL)aSEL;
+
+-(BOOL)setDelegate:(id)delegate;
 
 @end

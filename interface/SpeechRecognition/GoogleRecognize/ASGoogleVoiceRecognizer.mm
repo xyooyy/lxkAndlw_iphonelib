@@ -26,9 +26,9 @@
 {
     self = [super init];
     if (self) {
-        mRecorder = [[ASRecordWav alloc]initWithData:1/32.0 :16000];
+        mRecorder = [[ASRecordWav alloc]initWithData:1/10.f :16000];
         [mRecorder setReceiveDataDelegate:self];
-        mRecorderInfo = [mRecorder createRecord];
+       
         
         //初始化数据接收容器
         mRecord = [[NSMutableData alloc]init];
@@ -75,6 +75,7 @@
     upLoadEnd = 0;
     mDataEnd = 0;
     [mRecord setLength:0];
+     mRecorderInfo = [mRecorder createRecord];
     return [mRecorder startRecord:mRecorderInfo];
 }
 
@@ -121,7 +122,7 @@
     short *soundDataShort = (short*)soundDataByte;
     int size = [soundData length]*sizeof(Byte)/sizeof(short);
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
-    int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
+    NSUInteger soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
     
     
     if (soundStrongh > SOUNDSTRONGTH_THRESHOLD)
@@ -145,8 +146,11 @@
         [self upLoadWAV:data];
         count = 0;
     }
+    
     if(count >= WAIT_TIME)
         count = 0;
+    
+    [_delegate googleVoiceSoundStrong:soundStrongh];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -190,6 +194,12 @@
         NSLog(@"没有识别");
     }
     [mRecivedData setLength:0];
+}
+
+-(BOOL)setDelegate:(id<GoogleVoiveDelegate>)delegate
+{
+    _delegate = delegate;
+    return YES;
 }
 
 @end

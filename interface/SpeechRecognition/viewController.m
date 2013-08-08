@@ -86,7 +86,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"viewDidLoad");
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
@@ -101,10 +100,13 @@
     
     
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
-    _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
+
+    _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)
+                                        maxRows:kTextRowNumber];
     m_viewAnimation = [[UIViewAnimation alloc]init];
     
     gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
+    [gooleVoiceRecognizer setDelegate:self];
     layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
@@ -112,19 +114,20 @@
     [self.view addSubview:_textView];
     [self.view addSubview:_soundWaveView];
     [self createStartButton];
-    
-    
-    
 }
+
 #pragma mark- 查看历史纪录
+
 -(void)checkHistoryRecord
 {
     HistoryViewController *historyController = [[HistoryViewController alloc]initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:historyController animated:YES];
 }
-- (void)testSound
+
+- (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong
 {
-    [_soundWaveView addSoundStrong:random() % 500];
+    [_soundWaveView addSoundStrong:soundStrong];
+    return YES;
 }
 
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
@@ -138,12 +141,11 @@
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
-    //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(testSound) userInfo:nil repeats:YES];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-   filePath = [filePath stringByAppendingPathComponent:dateTime];
+    filePath = [filePath stringByAppendingPathComponent:dateTime];
     filePath = [filePath stringByAppendingFormat:@".data"];
     
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
@@ -179,8 +181,6 @@
     return YES;
 }
 
-
-
 #pragma mark - 
 
 - (BOOL)addText:(NSString *)text
@@ -192,7 +192,9 @@
                spacing:kTextRowSpacing];
     return YES;
 }
+
 #pragma mark - 封装动画函数
+
 - (BOOL)rotateCDInnerImageView
 {
     [m_viewAnimation animationWithLayer:_CDInnerImageView.layer
