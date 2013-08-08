@@ -17,6 +17,7 @@
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
 #import "CalculateSoundStrength.h"
+#import "PlayAudioWav.h"
 
 @interface viewController ()
 {
@@ -39,7 +40,7 @@
     UIButton *buttonTranslate;
     
     CalculateSoundStrength *calculateSoundStrength;
-   
+    PlayAudioWav *_playAudio;
 }
 
 @end
@@ -161,6 +162,7 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
+    _playAudio = [[PlayAudioWav alloc] init:(1.f / 32.f)];
     
     [self.view addSubview:_soundWaveView];
     [self.view addSubview:_textView];
@@ -168,7 +170,7 @@
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
-    buttonStart.enabled = TRUE;
+    buttonStart.enabled = YES;
     
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
     {
@@ -200,11 +202,20 @@
     NSLog(@"translateButtonTouch");
     return YES;
 }
-- (BOOL)playButtonTouch :(UIButton*)sneder
+- (BOOL)playButtonTouch :(UIButton*)sender
 {
+    AudioInfo *audioInfo = [_playAudio CreateAudioBuffer:gooleVoiceRecognizer.currentAudioData
+                                                        :*(gooleVoiceRecognizer.recordInfo.mRecordFormat)];
+    [_playAudio startAudio:audioInfo];
     NSLog(@"playButtonTouch");
     return YES;
 }
+
+- (BOOL)stopPlayButtonTouch:(UIButton *)sender
+{
+    return YES;
+}
+
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     NSLog(@"editButtonTouch");

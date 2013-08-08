@@ -63,14 +63,13 @@
         {
             height = rand() % _strong;
         }
-        // 波形柱最小为1
+        // 波形柱最小为2
         height = MAX(height, 2);
         
         [gradientImage drawInRect:CGRectMake(i, kSoundWaveHeight - height, kSoundWaveWidth, height)];
         // 画波形柱的阴影
         CGContextSetShadowWithColor(context, CGSizeMake(3, -3), 10, [UIColor redColor].CGColor);
     }
-//    NSLog(@"%i", _strong);
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong

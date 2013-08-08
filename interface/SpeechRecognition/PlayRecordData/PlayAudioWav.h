@@ -21,10 +21,13 @@
     NSString *m_strSongName;
     BOOL iscallBack;
 }
+
 @property(atomic,assign) id<ASPlayDelegate> delegate;
+
 - (id) init : (double) smallestTime ;
 - (AudioInfo*)CreateAudioFile :(NSString *)strSongName :(NSString *)strSongType ;
 - (AudioInfo*)CreateAudioBuffer : (NSData*) arrayData : (AudioStreamBasicDescription) RecordFormat;
+
 -(BOOL) startAudio : (AudioInfo*) audioQueue;
 -(BOOL) stopAudio : (AudioInfo*) audioQueue;
 -(BOOL) closeAudio : (AudioInfo*) audioInfo;
@@ -32,4 +35,5 @@
 -(BOOL) pausePlay :(AudioInfo*)audioInfo;
 
 -(BOOL)setVolumn :(Float32)gain;
+
 @end

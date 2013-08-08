@@ -47,7 +47,6 @@
     SEL mSetText;
     
     //文件大小
-    
     int upLoadStart;
     int upLoadEnd;
     int mDataEnd;
@@ -70,5 +69,7 @@
 -(void)setController:(id)aCon andFunction:(SEL)aSEL;
 
 -(BOOL)setDelegate:(id)delegate;
+-(RecordInfo *)recordInfo;
+-(NSData *)currentAudioData;
 
 @end
