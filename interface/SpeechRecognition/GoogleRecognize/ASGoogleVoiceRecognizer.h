@@ -52,14 +52,13 @@
     int upLoadEnd;
     int mDataEnd;
     
-<<<<<<< HEAD
     // 音强代理
     id<GoogleVoiveDelegate> _delegate;
-=======
+
     NSMutableArray *uploadQueue;
     
     int soundStrengthThreshold;
->>>>>>> origin/master
+
 }
 
 -(id)init;

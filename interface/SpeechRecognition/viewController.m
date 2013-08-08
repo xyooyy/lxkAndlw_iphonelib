@@ -141,14 +141,8 @@
     
     
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:frame];
-<<<<<<< HEAD
-
-    _textView = [[TextView alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)
-                                        maxRows:kTextRowNumber];
-=======
     _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kTextViewX, kTextViewY, kTextViewWidth, kTextViewHeight)maxRows:kTextRowNumber];
     
->>>>>>> origin/master
     m_viewAnimation = [[UIViewAnimation alloc]init];
     
     gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
@@ -161,12 +155,9 @@
     [self.view addSubview:_soundWaveView];
     [self.view addSubview:_textView];
     [self createStartButton];
-<<<<<<< HEAD
-=======
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
->>>>>>> origin/master
 }
 
 #pragma mark- 查看历史纪录
@@ -211,10 +202,6 @@
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
