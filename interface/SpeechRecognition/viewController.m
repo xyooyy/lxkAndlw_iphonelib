@@ -17,7 +17,7 @@
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
 #import "CalculateSoundStrength.h"
-#import "PlayAudioWav.h"
+#import "AudioPlayer.h"
 
 @interface viewController ()
 {
@@ -40,7 +40,6 @@
     UIButton *buttonTranslate;
     
     CalculateSoundStrength *calculateSoundStrength;
-    PlayAudioWav *_playAudio;
 }
 
 @end
@@ -50,7 +49,10 @@
 #pragma mark-初始化用到的函数
 - (BOOL)displayHistoryButton
 {
-    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
+    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录"
+                                                                    style:UIBarButtonItemStyleBordered
+                                                                   target:self
+                                                                   action:@selector(checkHistoryRecord)];
     self.navigationItem.rightBarButtonItem = barButtontem;
     return YES;
 }
@@ -90,7 +92,7 @@
 }
 - (UIButton*)createButton :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
 {
-   UIButton *button = [[UIButton alloc]initWithFrame:frame];
+    UIButton *button = [[UIButton alloc]initWithFrame:frame];
     [button setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [button addTarget:obj action:action forControlEvents:UIControlEventTouchDown];
     button.enabled = NO;
@@ -147,9 +149,7 @@
     [self createCDCoverView:frame];
     [self createInnerImageView];
     [self createSwitchButtonTouchActionMember];
-    
-    
-    
+        
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
     _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160)maxRows:kTextRowNumber];
     
@@ -162,7 +162,6 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
-    _playAudio = [[PlayAudioWav alloc] init:(1.f / 32.f)];
     
     [self.view addSubview:_soundWaveView];
     [self.view addSubview:_textView];
@@ -177,8 +176,6 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
-        
-        
 }
 
 #pragma mark- 查看历史纪录
@@ -204,15 +201,17 @@
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
-    AudioInfo *audioInfo = [_playAudio CreateAudioBuffer:gooleVoiceRecognizer.currentAudioData
-                                                        :*(gooleVoiceRecognizer.recordInfo.mRecordFormat)];
-    [_playAudio startAudio:audioInfo];
-    NSLog(@"playButtonTouch");
+    AudioPlayer *player = [[AudioPlayer alloc] initWithFile:filePath];
+    [player play];
+    [player setVolume:1.f];
+    [player playCompletion:^{NSLog(@"play finish...");}];
+    sender.enabled = NO;
     return YES;
 }
 
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
+    NSLog(@"stopPlayButtonTouch");
     return YES;
 }
 
@@ -235,11 +234,11 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimation];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
-    filePath = [filePath stringByAppendingFormat:@".data"];
+    filePath = [filePath stringByAppendingFormat:@".wav"];
     
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
