@@ -34,7 +34,7 @@
 
 // 每一根波形柱的宽度
 #define kSoundWaveWidth 2
-#define kSoundWaveHeight 370.f
+#define kSoundWaveHeight 330.f
 
 - (void)drawRect:(CGRect)rect
 {
@@ -42,7 +42,6 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    // 生成渐变的image
     GradientColorImage *gradient = [[GradientColorImage alloc] init];
     UIImage *gradientImage = [gradient imageLinearGradientWithRect:CGRectMake(0, 0, kSoundWaveWidth, 100.f)
                                             startColor:[UIColor colorWithRed:0.111 green:0.063 blue:0.059 alpha:0.000].CGColor
@@ -58,7 +57,6 @@
             if (i < 100 || i > 220)
             {
                 height /= 1.7f;
-                
             }
         }
         else
@@ -72,7 +70,7 @@
         // 画波形柱的阴影
         CGContextSetShadowWithColor(context, CGSizeMake(3, -3), 10, [UIColor redColor].CGColor);
     }
-//    NSLog(@"%i", _strong);
+    NSLog(@"%i", _strong);
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong

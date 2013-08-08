@@ -229,8 +229,6 @@
         [[dataProcessing getRecognizedData] removeAllObjects];
         UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
         self.navigationItem.rightBarButtonItem = barButtontem;
-        //CurrentDataViewController *dataViewController = [[CurrentDataViewController alloc]initWithData:copyData];
-        //[self.navigationController pushViewController:dataViewController animated:YES];
     }];
    
     return YES;

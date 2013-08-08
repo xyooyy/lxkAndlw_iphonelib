@@ -65,7 +65,6 @@
     delete(mHeaderFact);
 }
 
-
 -(void)setFilePath:(NSString *)aPath
 {
     [fileName setString:aPath];
