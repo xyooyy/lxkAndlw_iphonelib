@@ -82,6 +82,7 @@
     mDataEnd = 0;
     [mRecord setLength:0];
     mRecorderInfo = [mRecorder createRecord];
+    [uploadData setLength:0];
     return [mRecorder startRecord:mRecorderInfo];
 }
 
@@ -95,7 +96,6 @@
         [currentUpLoad appendData:[mRecord subdataWithRange:range]];
         [self upLoadWAV:currentUpLoad];
     }
-    [uploadData setLength:0];
     isRecording = NO;
     return YES;
 }

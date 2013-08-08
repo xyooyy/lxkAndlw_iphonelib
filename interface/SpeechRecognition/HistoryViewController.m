@@ -46,6 +46,7 @@
         [self getExtendNamedataSet:historyRecord];
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.separatorColor = [UIColor clearColor];
+        self.tableView.showsVerticalScrollIndicator = NO;
     }
     return self;
 }
