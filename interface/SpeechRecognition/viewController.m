@@ -150,7 +150,7 @@
     [self createSwitchButtonTouchActionMember];
         
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
-    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160)maxRows:kTextRowNumber];
+    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
@@ -201,11 +201,11 @@
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
-    AudioPlayer *player = [[AudioPlayer alloc] initWithFile:filePath];
-    [player play];
-    [player setVolume:1.f];
-    [player playCompletion:^{NSLog(@"play finish...");}];
-    sender.enabled = NO;
+//    AudioPlayer *player = [[AudioPlayer alloc] initWithFile:filePath];
+//    [player play];
+//    [player setVolume:1.f];
+//    [player playCompletion:^{NSLog(@"play finish...");}];
+//    sender.enabled = NO;
     return YES;
 }
 
@@ -238,13 +238,15 @@
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
-    filePath = [filePath stringByAppendingFormat:@".wav"];
+    //filePath = [filePath stringByAppendingFormat:@".wav"];
     
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
      [_textView clearLastRecognition];
     _soundWaveView.alpha = 1.0;
+    [_textView resetPosition];
+    [_textView clearData];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
@@ -260,7 +262,8 @@
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
         NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
-        [copyData writeToFile:filePath atomically:YES];
+        NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
+        [copyData writeToFile:dataFilePath atomically:YES];
         [[dataProcessing getRecognizedData] removeAllObjects];
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];

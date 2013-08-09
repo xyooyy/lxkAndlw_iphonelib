@@ -24,5 +24,7 @@
           color:(UIColor *)color
         spacing:(CGFloat)spacing;
 - (BOOL)clearLastRecognition;
+- (BOOL)resetPosition;
+- (BOOL)clearData;
 
 @end
