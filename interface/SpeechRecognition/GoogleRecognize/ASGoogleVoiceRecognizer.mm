@@ -135,7 +135,6 @@
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
 
-    
     if (soundStrongh > 40/*soundStrengthThreshold*/)
     {
         //soundStrengthThreshold -= 1;

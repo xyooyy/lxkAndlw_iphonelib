@@ -222,10 +222,9 @@
     }];
     
     buttonStart.enabled = NO;
+    buttonTranslate.enabled = NO;
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
-    buttonTranslate.enabled = NO;
-
     return YES;
 }
 
