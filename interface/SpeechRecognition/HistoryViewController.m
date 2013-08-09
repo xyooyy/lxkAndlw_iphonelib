@@ -44,6 +44,9 @@
         NSArray *fileNameSet = [manger subpathsAtPath:docDir];
         historyRecord = [NSMutableArray arrayWithArray:fileNameSet];
         [self getExtendNamedataSet:historyRecord];
+        self.tableView.backgroundColor = [UIColor clearColor];
+        self.tableView.separatorColor = [UIColor clearColor];
+        self.tableView.showsVerticalScrollIndicator = NO;
     }
     return self;
 }
@@ -85,6 +88,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     cell.textLabel.text = [historyRecord objectAtIndex:indexPath.row];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
 }

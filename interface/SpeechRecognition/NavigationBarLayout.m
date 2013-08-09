@@ -28,10 +28,12 @@
         
         // 添加导航栏背景
         [self addImageNamed:kImageNavBackground
-                      frame:CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kNavigationBarHeight)];
+                      frame:CGRectMake(kFloatZero, kFloatZero,
+                                       kScreenWidth, kNavigationBarHeight)];
         // 添加按钮
         [self addButtonWithImageNamed:kImageHistoryButton
-                                 rect:CGRectMake(kButtonHistoryX, kButtonHistoryY, kButtonHistoryWidth, kButtonHistoryHeight)
+                                 rect:CGRectMake(kButtonHistoryX, kButtonHistoryY,
+                                                 kButtonHistoryWidth, kButtonHistoryHeight)
                              delegate:_delegate
                                action:@selector(navbarRightButtonItemTouch:)];
     }
