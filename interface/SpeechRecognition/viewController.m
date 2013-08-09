@@ -16,6 +16,7 @@
 #import "CurrentDataViewController.h"
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
+#import <AVFoundation/AVFoundation.h>
 #import "CalculateSoundStrength.h"
 #import "AudioPlayer.h"
 
@@ -49,10 +50,7 @@
 #pragma mark-初始化用到的函数
 - (BOOL)displayHistoryButton
 {
-    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录"
-                                                                    style:UIBarButtonItemStyleBordered
-                                                                   target:self
-                                                                   action:@selector(checkHistoryRecord)];
+    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
     self.navigationItem.rightBarButtonItem = barButtontem;
     return YES;
 }
@@ -139,6 +137,7 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
@@ -176,6 +175,7 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
+    
 }
 
 #pragma mark- 查看历史纪录

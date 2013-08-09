@@ -79,10 +79,8 @@
     upLoadStart = 0;
     upLoadEnd = 0;
     mDataEnd = 0;
-    [mRecord setLength:0];
     [uploadData setLength:0];
     mRecorderInfo = [mRecorder createRecord];
-   
     return [mRecorder startRecord:mRecorderInfo];
 }
 
@@ -136,7 +134,8 @@
     short *soundDataShort = (short*)soundDataByte;
     int size = [soundData length]*sizeof(Byte)/sizeof(short);
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
-    NSUInteger soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
+    int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
+
     
     if (soundStrongh > soundStrengthThreshold)
     {

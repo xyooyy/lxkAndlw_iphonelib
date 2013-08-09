@@ -41,12 +41,12 @@
     if (0 == _strong) return;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-
+    
     GradientColorImage *gradient = [[GradientColorImage alloc] init];
     UIImage *gradientImage = [gradient imageLinearGradientWithRect:CGRectMake(0, 0, kSoundWaveWidth, 100.f)
-                                            startColor:[UIColor colorWithRed:0.111 green:0.063 blue:0.059 alpha:0.000].CGColor
-                                              endColor:[UIColor colorWithRed:1.000 green:0.408 blue:0.317 alpha:1.000].CGColor];
-
+                                                        startColor:[UIColor colorWithRed:0.111 green:0.063 blue:0.059 alpha:0.000].CGColor
+                                                          endColor:[UIColor colorWithRed:1.000 green:0.408 blue:0.317 alpha:1.000].CGColor];
+    
     int height = 0;
     for (int i = 0; i < kScreenWidth; i+=kSoundWaveWidth)
     {
@@ -70,7 +70,6 @@
         // 画波形柱的阴影
         CGContextSetShadowWithColor(context, CGSizeMake(3, -3), 10, [UIColor redColor].CGColor);
     }
-    NSLog(@"%i", _strong);
 }
 
 - (BOOL)addSoundStrong:(NSUInteger)strong

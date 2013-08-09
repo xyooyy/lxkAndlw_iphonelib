@@ -26,8 +26,6 @@
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.contentSize = CGSizeMake(0, 340);
-        self.scrollEnabled = YES;
-
     }
     return self;
 }
