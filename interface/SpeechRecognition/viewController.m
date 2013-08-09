@@ -243,7 +243,6 @@
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
-    //filePath = [filePath stringByAppendingFormat:@".wav"];
 
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
