@@ -213,16 +213,21 @@
 //识别结果处理
 -(void)transResult :(void(^)(void))finish
 {
+    if(!isRecording)return;
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mRecivedData]];
     
     //判断是否能识别出结果
-    if ([[dic objectForKey:@"hypotheses"] count]!=0) {
-        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"]];
+    if ([[dic objectForKey:@"hypotheses"] count]!=0)
+    {
+        NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
+        //[mCotroller performSelector:mSetText withObject: :withObject:size];
+        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithUnsignedInt:size]];
     }
     else
     {
+        ;
         NSLog(@"没有识别");
         [uploadDataArray removeLastObject];
     }

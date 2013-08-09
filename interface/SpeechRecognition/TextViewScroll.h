@@ -12,12 +12,15 @@
 @interface TextViewScroll : UIScrollView
 {
     NSMutableArray *_viewArray;
+    NSMutableArray *_viewArrayKey;
+    NSMutableDictionary *ViewToImageDic;
     NSUInteger _maxRow;
     CGFloat _height;
     UIViewAnimation *_viewAnimation;
     double moveStep;
     int viewCount;
-    NSTimer *moveTimer;
+    double _duration;
+    
 }
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
 
@@ -30,6 +33,6 @@
 - (BOOL)resetPosition;
 - (BOOL)clearData;
 - (BOOL)scrollsToTopWithAnimation;
-- (BOOL)scrollsSubTitle :(double)duration;
+- (BOOL)scrollsSubTitle:(NSDictionary*)StrToTimeDic :(NSInteger)totalLength :(double)duration;
 
 @end

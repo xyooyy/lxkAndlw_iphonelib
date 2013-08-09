@@ -14,11 +14,14 @@
     
     // 播放完成的回调
     void (^_playCompletion) (void);
+    NSUInteger fileDataLength;
 }
 
 @end
 
 @implementation AudioPlayer
+
+
 
 - (id)initWithFile:(NSString *)path
 {
@@ -26,9 +29,11 @@
     if (self)
     {
         NSLog(@"-->%@",path);
-        NSURL *url = [NSURL fileURLWithPath:path];
+       // NSURL *url = [NSURL fileURLWithPath:path];
+        NSData *soundData = [[NSData alloc]initWithContentsOfFile:path];
+        fileDataLength = [soundData length];
         NSError *error;
-        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        _audioPlayer = [[AVAudioPlayer alloc] initWithData:soundData error:&error];
         if (nil == _audioPlayer) {
             NSLog(@"audio player Error :%@", error.description);
         }
@@ -80,6 +85,11 @@
 {
     _playCompletion  = completion;
     return YES;
+}
+
+- (NSUInteger)getFileLength
+{
+    return fileDataLength;
 }
 
 #pragma mark - AVAudioPlayerDelegate

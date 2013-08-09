@@ -18,6 +18,7 @@
     if (self)
     {
         _viewArray = [[NSMutableArray alloc] init];
+        _viewArrayKey = [[NSMutableArray alloc]init];
         _maxRow = number;
         _viewAnimation = [[UIViewAnimation alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
@@ -26,6 +27,7 @@
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.contentSize = CGSizeMake(0, 1);
+        ViewToImageDic = [[NSMutableDictionary alloc]init];
         viewCount = 0;
     }
     return self;
@@ -138,6 +140,8 @@
                                 kFloatZero);
         view.alpha = kFloatZero;
         [viewArray addObject:view];
+        [_viewArrayKey addObject:[textArray objectAtIndex:i]];
+        //[ViewToImageDic setValue:view forKey:[textArray objectAtIndex:i]];
         [drawViewArray addObject:view];
         [self addSubview:view];
        
@@ -183,12 +187,14 @@
     [self scrollsToTop];
     viewCount = 0;
     [_viewArray removeAllObjects];
+    [ViewToImageDic removeAllObjects];
     [self setContentSize:CGSizeMake(0, 1)];
     return YES;
 }
 - (BOOL)clearData
 {
     [_viewArray removeAllObjects];
+    [ViewToImageDic removeAllObjects];
     return YES;
 }
 
@@ -199,32 +205,32 @@
     [self setContentOffset:offset animated:YES];
     return YES;
 }
-- (BOOL)beginScroll
+- (BOOL)beginScrolls :(NSDictionary *)timeSet :(NSNumber*)totalLength
 {
-    CGPoint offset = self.contentOffset;
-    offset.y += moveStep;
-    [self setContentOffset:offset animated:YES];
+    ;
+    NSLog(@"totalLength = %d",[totalLength unsignedIntValue]);
+    for (NSString *key in _viewArrayKey)
+    {
+        NSNumber *num = [timeSet objectForKey:key];
+        NSLog(@"正在播放=%@",key);
+        NSLog(@"时长为%f",[num doubleValue]/[totalLength unsignedIntValue]*_duration);
+        [NSThread sleepForTimeInterval:[num doubleValue]/[totalLength unsignedIntValue]*_duration];
+        NSLog(@"结束播放=%@",key);
+    }
+   return YES;
+}
+- (BOOL)scrollsSubTitle:(NSDictionary *)timeSet :(NSInteger)totalLength :(double)duration
+{
+    _duration = duration;
+    NSUInteger total = 0;
+    for (NSString *key in [timeSet keyEnumerator])
+    {
+        double dur = [[timeSet objectForKey:key] doubleValue];
+        total += dur;
+    }
+    NSLog(@"duration = %f",duration);
+    [self performSelector:@selector(beginScrolls::) withObject:timeSet withObject:[NSNumber numberWithUnsignedInt:total]];
     return YES;
 }
-- (BOOL)scrollsSubTitle:(double)duration
-{
-    if(self.contentSize.height > 22*_maxRow)
-    {
-        CGSize size = self.contentSize;
-        moveStep = duration / (size.height - 22*_maxRow);
-        moveTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(beginScroll) userInfo:nil repeats:YES];
-    }
-   
-    
-}
-//#pragma mark - swip
-//- (void)swipDown
-//{
-//    NSLog(@"swipDown");
-//}
-//- (void)swipUp
-//{
-//    NSLog(@"swipUp");
-//}
 
 @end

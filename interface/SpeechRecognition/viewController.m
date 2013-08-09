@@ -218,7 +218,11 @@
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-       double duration = [_audioPlayer play];
+        NSUInteger fileDateLength = [_audioPlayer getFileLength];
+        NSDictionary *dic = [dataProcessing getDic];
+      double dur =  [_audioPlayer play];
+        [_textView scrollsSubTitle:dic :fileDateLength :dur];
+        
     }];
     
     buttonStart.enabled = NO;
@@ -254,9 +258,9 @@
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     NSLog(@"editButtonTouch");
-    for (NSString *str in [dataProcessing getRecognizedData])
+    for (NSString *key in [dataProcessing getKeyEnumerator])
     {
-        NSLog(@"%@",str);
+        NSLog(@"%@->%f",key,[[dataProcessing getValue:key] doubleValue]);
     }
     return YES;
 }
@@ -266,7 +270,8 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
-    [[dataProcessing getRecognizedData] removeAllObjects];
+    //[[dataProcessing getRecognizedData] removeAllObjects];
+    [dataProcessing clearDicData];
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -282,7 +287,7 @@
 
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
-    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
+    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult::)];
     [_textView clearLastRecognition];
     _soundWaveView.alpha = 1.0;
     [_textView resetPosition];
@@ -302,9 +307,10 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
-        NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
+       // NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
-        [copyData writeToFile:dataFilePath atomically:YES];
+        [dataProcessing saveDicToFile:dataFilePath];
+       // [copyData writeToFile:dataFilePath atomically:YES];
 
        
         if(!isHistoryBtnDisplay)
@@ -317,10 +323,11 @@
    
     return YES;
 }
-- (BOOL)speechRecognitionResult :(NSString*)str
+- (BOOL)speechRecognitionResult :(NSString*)str :(NSNumber*)number
 {
     [self addText:str];
-    [dataProcessing recordRecognizedStr:str];
+    [dataProcessing recognizedStrAndDuration:str :[number doubleValue]];
+    //[dataProcessing recordRecognizedStr:str];
     return YES;
 }
 
