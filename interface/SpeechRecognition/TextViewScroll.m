@@ -199,6 +199,24 @@
     [self setContentOffset:offset animated:YES];
     return YES;
 }
+- (BOOL)beginScroll
+{
+    CGPoint offset = self.contentOffset;
+    offset.y += moveStep;
+    [self setContentOffset:offset animated:YES];
+    return YES;
+}
+- (BOOL)scrollsSubTitle:(double)duration
+{
+    if(self.contentSize.height > 22*_maxRow)
+    {
+        CGSize size = self.contentSize;
+        moveStep = duration / (size.height - 22*_maxRow);
+        moveTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(beginScroll) userInfo:nil repeats:YES];
+    }
+   
+    
+}
 //#pragma mark - swip
 //- (void)swipDown
 //{

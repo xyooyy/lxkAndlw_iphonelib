@@ -15,7 +15,9 @@
     NSUInteger _maxRow;
     CGFloat _height;
     UIViewAnimation *_viewAnimation;
+    double moveStep;
     int viewCount;
+    NSTimer *moveTimer;
 }
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
 
@@ -28,5 +30,6 @@
 - (BOOL)resetPosition;
 - (BOOL)clearData;
 - (BOOL)scrollsToTopWithAnimation;
+- (BOOL)scrollsSubTitle :(double)duration;
 
 @end

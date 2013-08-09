@@ -218,7 +218,7 @@
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        [_audioPlayer play];
+       double duration = [_audioPlayer play];
     }];
     
     buttonStart.enabled = NO;

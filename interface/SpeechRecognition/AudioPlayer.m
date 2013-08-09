@@ -37,12 +37,13 @@
     return self;
 }
 
-- (BOOL)play
+- (double)play
 {
     NSLog(@"%f",_audioPlayer.duration);
     [_audioPlayer prepareToPlay];
+    double duration = _audioPlayer.duration;
     [_audioPlayer play];
-    return YES;
+    return duration;
 }
 
 - (BOOL)pause

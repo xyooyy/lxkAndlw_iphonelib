@@ -38,7 +38,8 @@
     NSMutableData *mFullRecord;
     NSMutableData *currentUpLoad;
     
-    NSMutableData *uploadData;
+    //NSMutableData *uploadData;
+    NSMutableArray *uploadDataArray;
     
     NSMutableString *fileName;
 

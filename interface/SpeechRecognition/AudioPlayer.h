@@ -13,7 +13,7 @@
 
 - (id)initWithFile:(NSString *)path;
 
-- (BOOL)play;
+- (double)play;
 - (BOOL)pause;
 - (BOOL)stop;
 
