@@ -19,6 +19,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CalculateSoundStrength.h"
 #import "AudioPlayer.h"
+#import "EditViewController.h"
 
 @interface viewController ()
 {
@@ -138,10 +139,8 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
-    
     
     [self addImageWithName:kImageBackground frame:frame];
     
@@ -162,7 +161,6 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
-    
     [self.view addSubview:_soundWaveView];
     [self.view addSubview:_textView];
     [self createStartButton];
@@ -231,6 +229,7 @@
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
     buttonPlay.enabled = NO;
+//    [_audioPlayer stop];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopPlayButtonTouch:)
                                           withTarget:self
@@ -251,7 +250,12 @@
 
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
-    NSLog(@"editButtonTouch");
+    EditViewController *editViewController = [[EditViewController alloc] init];
+    [self.navigationController pushViewController:editViewController animated:YES];
+
+    NSArray *textArray = [dataProcessing getRecognizedData];
+    [editViewController setTextArray:textArray];
+    
     return YES;
 }
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
@@ -260,6 +264,7 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
+    [[dataProcessing getRecognizedData] removeAllObjects];
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -285,7 +290,7 @@
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
-    
+    [gooleVoiceRecognizer stopRecording];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
@@ -298,7 +303,7 @@
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
         [copyData writeToFile:dataFilePath atomically:YES];
 
-        [[dataProcessing getRecognizedData] removeAllObjects];
+        
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
         _soundWaveView.alpha = 0.0;
@@ -344,7 +349,8 @@
 - (void)brightenCDInnerImageView
 {
     [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:1.0f
-                                duration:kImageCDInnerTransformTime                           completion:^{}];
+                                duration:kImageCDInnerTransformTime
+                              completion:^{}];
 }
 - (void)brightenCDCoverView
 {
@@ -378,7 +384,6 @@
                             withDuration:kImageCDTransformDuration
                               completion:^{}];
         [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
-        [gooleVoiceRecognizer stopRecording];
         finish();
         button.enabled = YES;
     }];
