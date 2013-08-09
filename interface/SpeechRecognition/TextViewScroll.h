@@ -15,6 +15,7 @@
     NSUInteger _maxRow;
     CGFloat _height;
     UIViewAnimation *_viewAnimation;
+    int viewCount;
 }
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
 

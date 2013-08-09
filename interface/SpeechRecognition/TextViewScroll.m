@@ -24,9 +24,9 @@
         self.alwaysBounceHorizontal = NO;
         self.alwaysBounceVertical = YES;
         self.showsHorizontalScrollIndicator = NO;
-        //self.showsVerticalScrollIndicator = NO;
-        //CGSize size = [[UIFont boldSystemFontOfSize:kTextFontSize]];
+        self.showsVerticalScrollIndicator = NO;
         self.contentSize = CGSizeMake(0, 1);
+        viewCount = 0;
     }
     return self;
 }
@@ -39,13 +39,14 @@
 {
     NSArray *textArray = [self lineBreakWithString:text maxWidth:maxWidth font:font];
     
-    if (textArray.count + _viewArray.count > _maxRow)
+    if (textArray.count + viewCount > _maxRow)
     {
         [self removeViewArray:_viewArray
-                        range:NSMakeRange(kIntZero, (textArray.count + _viewArray.count) - _maxRow)];
+                        range:NSMakeRange(kIntZero, (textArray.count + viewCount) - _maxRow)];
     }
-    CGRect rect = [self addViewArray:_viewArray withTextArray:textArray andFont:font color:color spacing:spacing];
-    [self animationWithViewArray:_viewArray toRect:rect];
+    NSMutableArray *drawViewArray = [[NSMutableArray alloc]initWithCapacity:2];
+    CGRect rect = [self addViewArray:_viewArray withTextArray:textArray andFont:font color:color spacing:spacing needDrawViewArray:drawViewArray];
+    [self animationWithViewArray:drawViewArray toRect:rect];
     
     return YES;
 }
@@ -53,22 +54,22 @@
 #pragma mark - 内部函数
 
 // 动画显示出添加好的imageView
-- (BOOL)animationWithViewArray:(NSMutableArray *)viewArray toRect:(CGRect)rect
+- (BOOL)animationWithViewArray:(NSArray *)viewArray toRect:(CGRect)rect
 {
     for (int i = 0; i < viewArray.count; i++)
     {
         UIView *view = [viewArray objectAtIndex:i];
         CGSize size = self.contentSize;
-        size.height += 22;
+        size.height += rect.size.height;
         self.contentSize = size;
         [_viewAnimation changeViewFrame:view
                                 toFrame:CGRectMake(view.frame.origin.x,
-                                                   rect.size.height * i,
+                                                   rect.size.height * viewCount,
                                                    view.frame.size.width,
                                                    rect.size.height)
                            withDuration:kTextAnimationMoveTime
                              completion:^{
-                                
+                                 viewCount++;
                              }];
         
         [_viewAnimation changeViewLightness:view
@@ -76,6 +77,7 @@
                                    duration:kTextAnimationFadeInTime
                                  completion:^{}];
     }
+   // [viewArray removeAllObjects];
     return YES;
 }
 
@@ -117,6 +119,7 @@
                andFont:(UIFont *)font
                  color:(UIColor *)color
                spacing:(CGFloat)spacing
+     needDrawViewArray:(NSMutableArray*)drawViewArray
 {
     TextToImage *textToImage = [[TextToImage alloc] init];
     CGRect rect;
@@ -135,6 +138,7 @@
                                 kFloatZero);
         view.alpha = kFloatZero;
         [viewArray addObject:view];
+        [drawViewArray addObject:view];
         [self addSubview:view];
        
         
@@ -177,6 +181,9 @@
 - (BOOL)resetPosition
 {
     [self scrollsToTop];
+    viewCount = 0;
+    [_viewArray removeAllObjects];
+    [self setContentSize:CGSizeMake(0, 1)];
     return YES;
 }
 - (BOOL)clearData

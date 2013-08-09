@@ -228,8 +228,8 @@
 
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
+    [_audioPlayer stop];
     buttonPlay.enabled = NO;
-//    [_audioPlayer stop];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopPlayButtonTouch:)
                                           withTarget:self

@@ -25,6 +25,7 @@
     self = [super init];
     if (self)
     {
+        NSLog(@"-->%@",path);
         NSURL *url = [NSURL fileURLWithPath:path];
         NSError *error;
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
@@ -38,6 +39,7 @@
 
 - (BOOL)play
 {
+    NSLog(@"%f",_audioPlayer.duration);
     [_audioPlayer prepareToPlay];
     [_audioPlayer play];
     return YES;
