@@ -41,6 +41,7 @@
     UIButton *buttonTranslate;
     
     CalculateSoundStrength *calculateSoundStrength;
+    AudioPlayer *_audioPlayer;
 }
 
 @end
@@ -201,11 +202,15 @@
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
-//    AudioPlayer *player = [[AudioPlayer alloc] initWithFile:filePath];
-//    [player play];
-//    [player setVolume:1.f];
-//    [player playCompletion:^{NSLog(@"play finish...");}];
-//    sender.enabled = NO;
+
+    NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
+    _audioPlayer = [[AudioPlayer alloc] initWithFile:soundPath];
+    buttonPlay.enabled = NO;
+    [_audioPlayer playCompletion:^{
+        buttonPlay.enabled = YES;
+    }];
+    
+    [_audioPlayer play];
     return YES;
 }
 
@@ -238,12 +243,11 @@
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
-    //filePath = [filePath stringByAppendingFormat:@".wav"];
-    
+
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
-     [_textView clearLastRecognition];
+    [_textView clearLastRecognition];
     _soundWaveView.alpha = 1.0;
     [_textView resetPosition];
     [_textView clearData];
@@ -264,6 +268,7 @@
         NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
         [copyData writeToFile:dataFilePath atomically:YES];
+
         [[dataProcessing getRecognizedData] removeAllObjects];
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];

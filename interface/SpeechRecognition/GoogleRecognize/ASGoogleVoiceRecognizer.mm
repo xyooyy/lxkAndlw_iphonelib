@@ -103,7 +103,7 @@
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     path = [path stringByAppendingPathComponent:parmFileName];
-    NSLog(@"%@",path);
+//    NSLog(@"%@",path);
     WAVE_HEAD *header = mHeaderFact->getHeader();
     mHeaderFact->setFileSize([data length]+sizeof(WAVE_HEAD));
     mHeaderFact->setDataSize([data length]);
