@@ -10,12 +10,15 @@
 #import "SwitchButtonTouchAction.h"
 #import "TranslateRecognizeResult.h"
 #import "DataProcessing.h"
+#import "SandBoxOperation.h"
 
 @interface viewController : UIViewController
 {
     SwitchButtonTouchAction *switchButtonTouchAction;
     TranslateRecognizeResult *translate;
     DataProcessing *dataProcessing;
+    SandBoxOperation *sandBoxOperation;
+    BOOL isHistoryBtnDisplay;
     
     NSString *filePath;
     

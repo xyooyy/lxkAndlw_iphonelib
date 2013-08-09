@@ -9,6 +9,8 @@
 #import "WavHeaderFactory.h"
 #import "ASGoogleVoiceRecognizer.h"
 #import "SBJson.h"
+#import "Data.h"
+
 #define SOUNDSTRONGTH_THRESHOLD 150
 #define SOUNDSTRONGTH_THRESHOLD_SHIFT 2
 #define WAIT_TIME 32
@@ -29,7 +31,7 @@
     if (self) {
         mRecorder = [[ASRecordWav alloc]initWithData:1/32.0 :16000];
         [mRecorder setReceiveDataDelegate:self];
-        mRecorderInfo = [mRecorder createRecord];
+        
         
         //初始化数据接收容器
         mRecord = [[NSMutableData alloc]init];
@@ -54,6 +56,7 @@
         uploadQueue = [[NSMutableArray alloc]init];
         
         soundStrengthThreshold = 150;
+        
     }
     return self;
 }
@@ -80,6 +83,7 @@
     upLoadEnd = 0;
     mDataEnd = 0;
     [mRecord setLength:0];
+    mRecorderInfo = [mRecorder createRecord];
     return [mRecorder startRecord:mRecorderInfo];
 }
 
@@ -134,7 +138,6 @@
     int size = [soundData length]*sizeof(Byte)/sizeof(short);
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
-    
     
     if (soundStrongh > soundStrengthThreshold)
     {
