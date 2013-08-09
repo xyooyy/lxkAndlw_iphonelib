@@ -254,6 +254,10 @@
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     NSLog(@"editButtonTouch");
+    for (NSString *str in [dataProcessing getRecognizedData])
+    {
+        NSLog(@"%@",str);
+    }
     return YES;
 }
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
@@ -262,6 +266,7 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
+    [[dataProcessing getRecognizedData] removeAllObjects];
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -300,7 +305,7 @@
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
         [copyData writeToFile:dataFilePath atomically:YES];
 
-        [[dataProcessing getRecognizedData] removeAllObjects];
+       
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
         _soundWaveView.alpha = 0.0;
