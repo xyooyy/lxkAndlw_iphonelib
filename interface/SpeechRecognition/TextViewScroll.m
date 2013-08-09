@@ -24,8 +24,9 @@
         self.alwaysBounceHorizontal = NO;
         self.alwaysBounceVertical = YES;
         self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = NO;
-        self.contentSize = CGSizeMake(0, 340);
+        //self.showsVerticalScrollIndicator = NO;
+        //CGSize size = [[UIFont boldSystemFontOfSize:kTextFontSize]];
+        self.contentSize = CGSizeMake(0, 1);
     }
     return self;
 }
@@ -57,13 +58,18 @@
     for (int i = 0; i < viewArray.count; i++)
     {
         UIView *view = [viewArray objectAtIndex:i];
+        CGSize size = self.contentSize;
+        size.height += 22;
+        self.contentSize = size;
         [_viewAnimation changeViewFrame:view
                                 toFrame:CGRectMake(view.frame.origin.x,
                                                    rect.size.height * i,
                                                    view.frame.size.width,
                                                    rect.size.height)
                            withDuration:kTextAnimationMoveTime
-                             completion:^{}];
+                             completion:^{
+                                
+                             }];
         
         [_viewAnimation changeViewLightness:view
                                       alpha:1.f
@@ -130,6 +136,8 @@
         view.alpha = kFloatZero;
         [viewArray addObject:view];
         [self addSubview:view];
+       
+        
     }
     
     return rect;
@@ -164,6 +172,16 @@
     {
         [view removeFromSuperview];
     }
+    return YES;
+}
+- (BOOL)resetPosition
+{
+    [self scrollsToTop];
+    return YES;
+}
+- (BOOL)clearData
+{
+    [_viewArray removeAllObjects];
     return YES;
 }
 //#pragma mark - swip

@@ -151,7 +151,7 @@
     [self createSwitchButtonTouchActionMember];
         
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
-    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160)maxRows:kTextRowNumber];
+    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
@@ -202,6 +202,7 @@
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
+
     NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
     _audioPlayer = [[AudioPlayer alloc] initWithFile:soundPath];
     buttonPlay.enabled = NO;
@@ -210,7 +211,6 @@
     }];
     
     [_audioPlayer play];
-
     return YES;
 }
 
@@ -249,6 +249,8 @@
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
     [_textView clearLastRecognition];
     _soundWaveView.alpha = 1.0;
+    [_textView resetPosition];
+    [_textView clearData];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
@@ -264,8 +266,9 @@
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
         NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
-        NSString *dataPath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
-        [copyData writeToFile:dataPath atomically:YES];
+        NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
+        [copyData writeToFile:dataFilePath atomically:YES];
+
         [[dataProcessing getRecognizedData] removeAllObjects];
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];

@@ -50,7 +50,6 @@
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
 		BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE457F1C17A4A5BC00123896 /* QuartzCore.framework */; };
-		BE49507917B48B3E007F82B7 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = BE49507817B48B3E007F82B7 /* test.wav */; };
 		BE49507A17B48D6D007F82B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA79F5917AF8C1400298409 /* AVFoundation.framework */; };
 		BE49507D17B4907D007F82B7 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49507C17B4907D007F82B7 /* AudioPlayer.m */; };
 		BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4D1A3C17A761B300756FF4 /* recognise.png */; };
@@ -143,7 +142,6 @@
 		BE2FD5BA17B337400086AF47 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
 		BE2FD5BB17B337400086AF47 /* ASRecordWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRecordWav.m; sourceTree = "<group>"; };
 		BE457F1C17A4A5BC00123896 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BE49507817B48B3E007F82B7 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = test.wav; path = ../../../../test.wav; sourceTree = "<group>"; };
 		BE49507B17B4907D007F82B7 /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioPlayer.h; path = SpeechRecognition/AudioPlayer.h; sourceTree = "<group>"; };
 		BE49507C17B4907D007F82B7 /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioPlayer.m; path = SpeechRecognition/AudioPlayer.m; sourceTree = "<group>"; };
 		BE4D1A3C17A761B300756FF4 /* recognise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recognise.png; path = SpeechRecognition/images/recognise.png; sourceTree = SOURCE_ROOT; };
@@ -372,7 +370,6 @@
 		BE7B5B6D17A278BD00BF9C1E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BE49507817B48B3E007F82B7 /* test.wav */,
 				BE7B5B6E17A278BD00BF9C1E /* SpeechRecognition-Info.plist */,
 				BE7B5B6F17A278BD00BF9C1E /* InfoPlist.strings */,
 				BE7B5B7217A278BD00BF9C1E /* main.m */,
@@ -508,7 +505,6 @@
 				BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */,
 				9A501AD117B095550063FF9D /* stop.png in Resources */,
 				9A501AD217B095550063FF9D /* stop1.png in Resources */,
-				BE49507917B48B3E007F82B7 /* test.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
