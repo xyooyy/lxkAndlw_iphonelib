@@ -27,7 +27,6 @@
     {
         NSURL *url = [NSURL fileURLWithPath:path];
         NSError *error;
-        NSLog(@"%@", path);
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         if (nil == _audioPlayer) {
             NSLog(@"audio player Error :%@", error.description);
@@ -80,7 +79,7 @@
     return YES;
 }
 
-#pragma mark - delegate
+#pragma mark - AVAudioPlayerDelegate
 
 // 播放结束时执行的动作
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
@@ -91,17 +90,6 @@
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
     NSLog(@"audio player decode error :%@", error.description);
 }
-
-//处理中断
-- (void)audioPlayerBeginInteruption:(AVAudioPlayer *)player {
-    NSLog(@"audio player beign interuption");
-}
-
-//处理中断结束
-- (void)audioPlayerEndInteruption:(AVAudioPlayer *)player {
-    NSLog(@"audio player end interuption");
-}
-
 
 @end
 

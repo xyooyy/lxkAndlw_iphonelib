@@ -129,8 +129,8 @@
         
         UIImageView *view = [[UIImageView alloc] initWithImage:image];
         rect = view.frame;
-        view.frame = CGRectMake((self.frame.size.width - view.frame.size.width) / 2.f,
-                                self.frame.size.height,
+        view.frame = CGRectMake((int)((self.frame.size.width - view.frame.size.width) / 2.f),
+                                (int)(self.frame.size.height),
                                 view.frame.size.width,
                                 kFloatZero);
         view.alpha = kFloatZero;

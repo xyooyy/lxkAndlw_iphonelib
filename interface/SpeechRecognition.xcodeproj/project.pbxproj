@@ -401,8 +401,8 @@
 			children = (
 				BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */,
 				BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */,
-				9AC9E9C217B473C300E46871 /* SoundWaveView.m */,
 				BE589A4017AA412400E88166 /* SoundWaveView.h */,
+				9AC9E9C217B473C300E46871 /* SoundWaveView.m */,
 				9A5E232D17B24A0A00B04C73 /* TextViewScroll.h */,
 				9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */,
 			);
