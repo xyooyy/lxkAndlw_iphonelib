@@ -191,6 +191,14 @@
     [_viewArray removeAllObjects];
     return YES;
 }
+
+- (BOOL)scrollsToTopWithAnimation
+{
+    CGPoint offset = self.contentOffset;
+    offset.y = 0;
+    [self setContentOffset:offset animated:YES];
+    return YES;
+}
 //#pragma mark - swip
 //- (void)swipDown
 //{

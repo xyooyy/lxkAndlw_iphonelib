@@ -27,5 +27,6 @@
 - (BOOL)clearLastRecognition;
 - (BOOL)resetPosition;
 - (BOOL)clearData;
+- (BOOL)scrollsToTopWithAnimation;
 
 @end

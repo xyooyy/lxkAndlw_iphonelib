@@ -293,6 +293,7 @@
 {
     buttonStart.enabled = NO;
     [gooleVoiceRecognizer stopRecording];
+    [_textView scrollsToTopWithAnimation];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
