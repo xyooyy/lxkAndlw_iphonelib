@@ -136,7 +136,7 @@
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
 
     
-    if (soundStrongh > 40/*soundStrengthThreshold*/)
+    if (soundStrongh > soundStrengthThreshold)
     {
         //soundStrengthThreshold -= 1;
         canRecgnise = YES;

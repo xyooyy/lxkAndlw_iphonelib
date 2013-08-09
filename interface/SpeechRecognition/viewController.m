@@ -231,6 +231,7 @@
 
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
+    [_audioPlayer stop];
     buttonPlay.enabled = NO;
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopPlayButtonTouch:)
@@ -286,7 +287,7 @@
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
-    
+    [gooleVoiceRecognizer stopRecording];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
@@ -379,7 +380,7 @@
                             withDuration:kImageCDTransformDuration
                               completion:^{}];
         [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
-        [gooleVoiceRecognizer stopRecording];
+
         finish();
         button.enabled = YES;
     }];
