@@ -202,21 +202,51 @@
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
+    [switchButtonTouchAction switchButtonTouchAction:sender
+                                           oldAction:@selector(playButtonTouch:)
+                                          withTarget:self
+                                           newAction:@selector(stopPlayButtonTouch:)
+                                          withTarget:self];
 
     NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
     _audioPlayer = [[AudioPlayer alloc] initWithFile:soundPath];
-    buttonPlay.enabled = NO;
     [_audioPlayer playCompletion:^{
         buttonPlay.enabled = YES;
+        [self stopPlayButtonTouch:sender];
     }];
     
-    [_audioPlayer play];
+    // 动画
+    [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
+    [self beginStartAnimationWithButton:sender completion:^{
+        [_audioPlayer play];
+    }];
+    
+    buttonStart.enabled = NO;
+    buttonEdit.enabled = NO;
+    buttonPlay.enabled = NO;
+    buttonTranslate.enabled = NO;
+
     return YES;
 }
 
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
-    NSLog(@"stopPlayButtonTouch");
+    buttonPlay.enabled = NO;
+    [switchButtonTouchAction switchButtonTouchAction:sender
+                                           oldAction:@selector(stopPlayButtonTouch:)
+                                          withTarget:self
+                                           newAction:@selector(playButtonTouch:)
+                                          withTarget:self];
+
+    [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
+    [self brightenCDCoverView];
+
+    [self beginStopAnimation:^{
+        buttonPlay.enabled = YES;
+        buttonEdit.enabled = YES;
+        buttonStart.enabled = YES;
+        buttonTranslate.enabled = YES;
+    } withButton:sender];
     return YES;
 }
 
@@ -237,7 +267,7 @@
              newAction:@selector(stopRecogniseButtonTouch:)
             withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
-    [self beginStartAnimation];
+    [self beginStartAnimationWithButton:sender completion:^{}];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
@@ -276,7 +306,7 @@
         buttonEdit.enabled = YES;
         buttonPlay.enabled = YES;
         buttonTranslate.enabled = YES;
-    }];
+    } withButton:sender];
    
     return YES;
 }
@@ -340,7 +370,7 @@
                             repeatCount:kAnimationDarknessRepeatCount
                           animationName:kAnimationDarknessName];
 }
-- (BOOL)beginStopAnimation:(void(^)(void)) finish
+- (BOOL)beginStopAnimation:(void(^)(void)) finish withButton:(UIButton *)button
 {
     [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
         [m_viewAnimation changeViewFrame:_CDImageView
@@ -351,11 +381,11 @@
         [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
         [gooleVoiceRecognizer stopRecording];
         finish();
-        [buttonStart setEnabled:YES];
+        button.enabled = YES;
     }];
     return YES;
 }
-- (BOOL)beginStartAnimation
+- (BOOL)beginStartAnimationWithButton:(UIButton *)button completion:(void(^)(void))completion
 {
     [m_viewAnimation changeViewFrame:_CDImageView
                              toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
@@ -365,7 +395,8 @@
                               [self darkenCDCoverView];
                               [self brightenCDInnerImageView];
                               [self rotateCDInnerImageView];
-                              buttonStart.enabled = YES;
+                              button.enabled = YES;
+                              completion();
                           }];
     return YES;
 }

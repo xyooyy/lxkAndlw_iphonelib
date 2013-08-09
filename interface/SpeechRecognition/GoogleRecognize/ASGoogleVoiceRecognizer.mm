@@ -103,7 +103,6 @@
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     path = [path stringByAppendingPathComponent:parmFileName];
-//    NSLog(@"%@",path);
     WAVE_HEAD *header = mHeaderFact->getHeader();
     mHeaderFact->setFileSize([data length]+sizeof(WAVE_HEAD));
     mHeaderFact->setDataSize([data length]);
@@ -137,7 +136,7 @@
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
 
     
-    if (soundStrongh > soundStrengthThreshold)
+    if (soundStrongh > 40/*soundStrengthThreshold*/)
     {
         //soundStrengthThreshold -= 1;
         canRecgnise = YES;
