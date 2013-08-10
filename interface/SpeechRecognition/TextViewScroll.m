@@ -222,7 +222,6 @@
     for (int i = 0; i != [_viewArray count]; i++)
     {
         
-        
         UIView *view = [_viewArray objectAtIndex:i];
         if(i >= _maxRow)
         {
@@ -237,7 +236,6 @@
         
         [NSThread sleepForTimeInterval:[num doubleValue]/[totalLength unsignedIntValue]*_duration];
         [self performSelectorOnMainThread:@selector(changeViewalphaToTwoTimes:) withObject:view waitUntilDone:NO];
-        
         
     }
         
@@ -254,6 +252,13 @@
     }
     NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:strToTimeDic,@"strToTimeDic",[NSNumber numberWithUnsignedInt:total],@"duration", nil];
     [self performSelectorInBackground:@selector(beginScrolls:) withObject:parmDic];
+    return YES;
+}
+
+- (BOOL)clearView
+{
+    [_viewArray removeAllObjects];
+    [ViewToImageDic removeAllObjects];
     return YES;
 }
 

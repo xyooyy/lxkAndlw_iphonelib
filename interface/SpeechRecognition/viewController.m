@@ -19,6 +19,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CalculateSoundStrength.h"
 #import "AudioPlayer.h"
+#import "EditViewController.h"
 
 @interface viewController ()
 {
@@ -138,12 +139,11 @@
 
 - (void)viewDidLoad
 {
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"新建" style :UIBarButtonItemStyleDone target:self action:@selector(createNewRecognization)];
-    backBtn.tintColor = [UIColor redColor];
-    self.navigationItem.backBarButtonItem = backBtn;
+//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"新建" style :UIBarButtonItemStyleDone target:self action:@selector(createNewRecognization)];
+//    backBtn.tintColor = [UIColor redColor];
+//    self.navigationItem.backBarButtonItem = backBtn;
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
-    
     
     [self addImageWithName:kImageBackground frame:frame];
     
@@ -164,7 +164,6 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
-    
     [self.view addSubview:_soundWaveView];
     [self.view addSubview:_textView];
     [self createStartButton];
@@ -178,7 +177,10 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
-    
+
+    // ----- TEST:-----
+    buttonEdit.enabled = YES;
+    // ----------------
 }
 #pragma mark - 新建按钮的Action
 
@@ -236,10 +238,9 @@
     }];
     
     buttonStart.enabled = NO;
+    buttonTranslate.enabled = NO;
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
-    buttonTranslate.enabled = NO;
-
     return YES;
 }
 
@@ -267,11 +268,12 @@
 
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
-    NSLog(@"editButtonTouch");
-    for (NSString *key in [dataProcessing getKeyEnumerator])
-    {
-        NSLog(@"%@->%f",key,[[dataProcessing getValue:key] doubleValue]);
-    }
+    EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
+    [self.navigationController pushViewController:editViewController animated:YES];
+
+    NSString *path = [filePath stringByAppendingString:@".data"];
+    [editViewController setSavePath:path];
+    
     return YES;
 }
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
@@ -322,7 +324,6 @@
         [dataProcessing saveDicToFile:dataFilePath];
        // [copyData writeToFile:dataFilePath atomically:YES];
 
-       
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
         _soundWaveView.alpha = 0.0;
@@ -369,7 +370,8 @@
 - (void)brightenCDInnerImageView
 {
     [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:1.0f
-                                duration:kImageCDInnerTransformTime                           completion:^{}];
+                                duration:kImageCDInnerTransformTime
+                              completion:^{}];
 }
 - (void)brightenCDCoverView
 {
@@ -403,7 +405,6 @@
                             withDuration:kImageCDTransformDuration
                               completion:^{}];
         [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
-
         finish();
         button.enabled = YES;
     }];

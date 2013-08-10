@@ -64,6 +64,11 @@
 {
     [recognizedStrArray addObject:str];
 }
+- (BOOL)setDictionary:(NSMutableDictionary *)dictionary
+{
+    recognizedStrAndDurationDic = dictionary;
+    return YES;
+}
 - (NSMutableArray*)getRecognizedData
 {
     return recognizedStrArray;
@@ -72,4 +77,5 @@
 {
     return recognizedStrAndDurationDic;
 }
+
 @end

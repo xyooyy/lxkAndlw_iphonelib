@@ -15,6 +15,7 @@
     NSMutableDictionary *recognizedStrAndDurationDic;
 }
 
+- (BOOL)setDictionary:(NSMutableDictionary *)dictionary;
 - (NSMutableArray*)getRecognizedData;
 - (void)recordRecognizedStr :(NSString*)str;
 

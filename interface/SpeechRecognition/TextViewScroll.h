@@ -35,4 +35,6 @@
 - (BOOL)scrollsToTopWithAnimation;
 - (BOOL)scrollsSubTitle:(NSDictionary*)StrToTimeDic :(NSInteger)totalLength :(double)duration;
 
+- (BOOL)clearView;
+
 @end
