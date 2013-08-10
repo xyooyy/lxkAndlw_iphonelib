@@ -24,9 +24,8 @@
         _textLabel.numberOfLines = 0;
         _textLabel.font = [UIFont systemFontOfSize:17];
         _textLabel.textColor = [UIColor whiteColor];
-        _textLabel.textAlignment = UITextAlignmentCenter;
         _textLabel.backgroundColor = [UIColor clearColor];
-        _textLabel.textAlignment = UITextAlignmentCenter;
+        _textLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_textLabel];
         _queueCount = 0;
     }

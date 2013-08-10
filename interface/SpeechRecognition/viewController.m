@@ -174,7 +174,10 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
-    
+
+    // ----- TEST:-----
+    buttonEdit.enabled = YES;
+    // ----------------
 }
 
 #pragma mark- 查看历史纪录
@@ -253,9 +256,15 @@
     EditViewController *editViewController = [[EditViewController alloc] init];
     [self.navigationController pushViewController:editViewController animated:YES];
 
-    NSArray *textArray = [dataProcessing getRecognizedData];
-    [editViewController setTextArray:textArray];
+//    NSArray *textArray = [dataProcessing getRecognizedData];
     
+    // ---- TEST: ----
+    NSArray *textArray = [NSArray arrayWithObjects:@"asdfjk",@"asfdloiidsfgjk",@"879124612", nil];
+    // ---------------
+    
+    [editViewController setTextArray:textArray];
+    filePath = [filePath stringByAppendingString:@".data"];
+    [editViewController setSavePath:filePath];
     return YES;
 }
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
@@ -303,7 +312,6 @@
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
         [copyData writeToFile:dataFilePath atomically:YES];
 
-        
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
         _soundWaveView.alpha = 0.0;

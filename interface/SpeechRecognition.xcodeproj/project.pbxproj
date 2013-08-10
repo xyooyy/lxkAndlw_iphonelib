@@ -49,11 +49,11 @@
 		BE0B8DF517A74E6700C49DBC /* translate.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0B8DEA17A74E6700C49DBC /* translate.png */; };
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
+		BE300D4417B4E49600E642FD /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE300D4217B4E49600E642FD /* PopupView.m */; };
 		BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE457F1C17A4A5BC00123896 /* QuartzCore.framework */; };
 		BE49507A17B48D6D007F82B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA79F5917AF8C1400298409 /* AVFoundation.framework */; };
 		BE49507D17B4907D007F82B7 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49507C17B4907D007F82B7 /* AudioPlayer.m */; };
 		BE49508317B4C3FF007F82B7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49508217B4C3FF007F82B7 /* EditViewController.m */; };
-		BE49508617B4C922007F82B7 /* EditTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49508517B4C922007F82B7 /* EditTextView.m */; };
 		BE4D1A3D17A761B300756FF4 /* recognise.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4D1A3C17A761B300756FF4 /* recognise.png */; };
 		BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */; };
 		BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */; };
@@ -143,13 +143,13 @@
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
 		BE2FD5BA17B337400086AF47 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
 		BE2FD5BB17B337400086AF47 /* ASRecordWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRecordWav.m; sourceTree = "<group>"; };
+		BE300D4217B4E49600E642FD /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
+		BE300D4317B4E49600E642FD /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
 		BE457F1C17A4A5BC00123896 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BE49507B17B4907D007F82B7 /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioPlayer.h; path = SpeechRecognition/AudioPlayer.h; sourceTree = "<group>"; };
 		BE49507C17B4907D007F82B7 /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioPlayer.m; path = SpeechRecognition/AudioPlayer.m; sourceTree = "<group>"; };
 		BE49508117B4C3FF007F82B7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		BE49508217B4C3FF007F82B7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
-		BE49508417B4C922007F82B7 /* EditTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTextView.h; sourceTree = "<group>"; };
-		BE49508517B4C922007F82B7 /* EditTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTextView.m; sourceTree = "<group>"; };
 		BE4D1A3C17A761B300756FF4 /* recognise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recognise.png; path = SpeechRecognition/images/recognise.png; sourceTree = SOURCE_ROOT; };
 		BE589A4017AA412400E88166 /* SoundWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundWaveView.h; sourceTree = "<group>"; };
 		BE5A050317ACAD9D00B7CD4A /* GradientColorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientColorImage.h; sourceTree = "<group>"; };
@@ -407,14 +407,14 @@
 		BE7B5B8717A27EC300BF9C1E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BE300D4317B4E49600E642FD /* PopupView.h */,
+				BE300D4217B4E49600E642FD /* PopupView.m */,
 				BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */,
 				BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */,
 				BE589A4017AA412400E88166 /* SoundWaveView.h */,
 				9AC9E9C217B473C300E46871 /* SoundWaveView.m */,
 				9A5E232D17B24A0A00B04C73 /* TextViewScroll.h */,
 				9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */,
-				BE49508417B4C922007F82B7 /* EditTextView.h */,
-				BE49508517B4C922007F82B7 /* EditTextView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -561,7 +561,7 @@
 				9AC9E9C317B473C300E46871 /* SoundWaveView.m in Sources */,
 				BE49507D17B4907D007F82B7 /* AudioPlayer.m in Sources */,
 				BE49508317B4C3FF007F82B7 /* EditViewController.m in Sources */,
-				BE49508617B4C922007F82B7 /* EditTextView.m in Sources */,
+				BE300D4417B4E49600E642FD /* PopupView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

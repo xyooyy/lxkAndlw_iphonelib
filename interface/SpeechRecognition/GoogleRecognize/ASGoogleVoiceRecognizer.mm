@@ -54,6 +54,7 @@
         uploadQueue = [[NSMutableArray alloc]init];
         
         soundStrengthThreshold = 150;
+        soundStrengthArray = [[NSMutableArray alloc]init];
         
     }
     return self;
@@ -134,7 +135,9 @@
     int size = [soundData length]*sizeof(Byte)/sizeof(short);
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
-
+    
+    [soundStrengthArray addObject:[NSNumber numberWithInt:soundStrongh]];
+    
     if (soundStrongh > /*soundStrengthThreshold*/40)
     {
         //soundStrengthThreshold -= 1;

@@ -10,6 +10,9 @@
 
 @interface EditViewController : UIViewController
 
+- (BOOL)setSavePath:(NSString *)path;
+
 - (BOOL)setTextArray:(NSArray *)textArray;
+- (BOOL)setTextString:(NSString *)textString;
 
 @end

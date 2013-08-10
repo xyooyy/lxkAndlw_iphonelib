@@ -57,6 +57,7 @@
     NSMutableArray *uploadQueue;
     
     int soundStrengthThreshold;
+    NSMutableArray *soundStrengthArray;
 
 }
 
