@@ -78,14 +78,15 @@
     return cell;
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
+   // [self.tableView setEditing:!self.tableView.editing animated:YES];
     return YES;
 }
-*/
+
 
 /*
 // Override to support editing the table view.
@@ -121,12 +122,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *translateStr = cell.textLabel.text;
-    EnglishViewController *englishView = [[EnglishViewController alloc]initWithData:translateStr :[translateDict objectForKey:translateStr] :self :@selector(translateFinished::)];
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    NSString *translateStr = cell.textLabel.text;
+//    EnglishViewController *englishView = [[EnglishViewController alloc]initWithData:translateStr :[translateDict objectForKey:translateStr] :self :@selector(translateFinished::)];
+//    
+//     [self.navigationController pushViewController:englishView animated:YES];
     
-     [self.navigationController pushViewController:englishView animated:YES];
-     
 }
 
 #pragma mark - 翻译回调
