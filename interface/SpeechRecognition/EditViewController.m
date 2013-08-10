@@ -39,7 +39,6 @@
 {
     [super viewDidLoad];
     _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, 350) andData:_data];
-    self.view.backgroundColor = [UIColor redColor];
     
     [self.view addSubview:_tableView];
     
