@@ -205,34 +205,53 @@
     [self setContentOffset:offset animated:YES];
     return YES;
 }
-- (BOOL)beginScrolls :(NSDictionary *)timeSet :(NSNumber*)totalLength
+#pragma mark - 字幕同步
+- (void)changeViewalphaToHalf :(UIView*)view;
 {
-    ;
-    NSLog(@"totalLength = %d",[totalLength unsignedIntValue]);
-    for (NSString *key in _viewArrayKey)
+    view.alpha = view.alpha / 2;
+}
+- (void)changeViewalphaToTwoTimes :(UIView*)view
+{
+    view.alpha = 2*view.alpha;
+}
+- (BOOL)beginScrolls :(NSDictionary *)parmDic
+{
+    NSDictionary *strToTimeDic = [parmDic objectForKey:@"strToTimeDic"];
+    NSNumber *totalLength = [parmDic objectForKey:@"duration"];
+    
+    for (int i = 0; i != [_viewArray count]; i++)
     {
-        NSNumber *num = [timeSet objectForKey:key];
-        NSLog(@"正在播放=%@",key);
-        NSLog(@"时长为%f",[num doubleValue]/[totalLength unsignedIntValue]*_duration);
+        
+        UIView *view = [_viewArray objectAtIndex:i];
+        if(i >= _maxRow)
+        {
+            CGPoint offset = self.contentOffset;
+            offset.y += view.frame.size.height;
+            [self setContentOffset:offset animated:YES];
+        }
+        [self performSelectorOnMainThread:@selector(changeViewalphaToHalf:) withObject:view waitUntilDone:NO];
+        
+        NSString *key = [_viewArrayKey objectAtIndex:i];
+        NSNumber *num = [strToTimeDic objectForKey:key];
         
         [NSThread sleepForTimeInterval:[num doubleValue]/[totalLength unsignedIntValue]*_duration];
+        [self performSelectorOnMainThread:@selector(changeViewalphaToTwoTimes:) withObject:view waitUntilDone:NO];
         
-        
-        NSLog(@"结束播放=%@",key);
     }
+        
    return YES;
 }
-- (BOOL)scrollsSubTitle:(NSDictionary *)timeSet :(NSInteger)totalLength :(double)duration
+- (BOOL)scrollsSubTitle:(NSDictionary *)strToTimeDic :(NSInteger)totalLength :(double)duration
 {
     _duration = duration;
     NSUInteger total = 0;
-    for (NSString *key in [timeSet keyEnumerator])
+    for (NSString *key in [strToTimeDic keyEnumerator])
     {
-        double dur = [[timeSet objectForKey:key] doubleValue];
+        double dur = [[strToTimeDic objectForKey:key] doubleValue];
         total += dur;
     }
-    NSLog(@"duration = %f",duration);
-    [self performSelector:@selector(beginScrolls::) withObject:timeSet withObject:[NSNumber numberWithUnsignedInt:total]];
+    NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:strToTimeDic,@"strToTimeDic",[NSNumber numberWithUnsignedInt:total],@"duration", nil];
+    [self performSelectorInBackground:@selector(beginScrolls:) withObject:parmDic];
     return YES;
 }
 
