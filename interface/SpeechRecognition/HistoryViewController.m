@@ -139,7 +139,15 @@
     NSString *fileName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     doc = [doc stringByAppendingPathComponent:fileName];
-    NSArray *record = [[NSArray alloc]initWithContentsOfFile:doc];
+    NSDictionary *recordDict = [NSDictionary dictionaryWithContentsOfFile:doc];
+    NSEnumerator *enumerator = [recordDict keyEnumerator];
+    NSMutableArray *record = [[NSMutableArray alloc]init];
+    
+    for (NSString *str in enumerator)
+    {
+        [record addObject:str];
+    }
+    
     
     CurrentDataViewController *currentDataController = [[CurrentDataViewController alloc]initWithData:record];
     [self.navigationController pushViewController:currentDataController animated:YES];

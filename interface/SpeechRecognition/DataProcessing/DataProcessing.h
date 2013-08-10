@@ -7,12 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SandBoxOperation.h"
 
 @interface DataProcessing : NSObject
 {
     NSMutableArray *recognizedStrArray;
+    NSMutableDictionary *recognizedStrAndDurationDic;
 }
 
+- (BOOL)setDictionary:(NSMutableDictionary *)dictionary;
 - (NSMutableArray*)getRecognizedData;
 - (void)recordRecognizedStr :(NSString*)str;
+
+- (void)recognizedStrAndDuration :(NSString*)str :(double)duration;
+- (int)getDicCount;
+- (BOOL)clearDicData;
+- (NSEnumerator*)getKeyEnumerator;
+- (NSNumber*)getValue :(NSString*)key;
+- (NSArray*)getValueSet;
+- (BOOL)saveDicToFile :(NSString*)fileName;
+- (NSDictionary*)getDic;
 @end

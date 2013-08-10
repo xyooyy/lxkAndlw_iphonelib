@@ -39,10 +39,10 @@
     self.alpha = 1.0f;
     _textLabel.text = text;
     [_textLabel sizeToFit];
-    CGRect frame = CGRectMake(5, 0, _textLabel.frame.size.width, _textLabel.frame.size.height);
+    CGRect frame = CGRectMake(10, 0, _textLabel.frame.size.width, _textLabel.frame.size.height);
     _textLabel.frame = frame;
     _textLabel.frame = CGRectMake(_textLabel.frame.origin.x, _textLabel.frame.origin.y+10, _textLabel.frame.size.width, _textLabel.frame.size.height);
-    frame =  CGRectMake((_parentView.frame.size.width - frame.size.width)/2, _height, _textLabel.frame.size.width+10, _textLabel.frame.size.height+20);
+    frame =  CGRectMake((_parentView.frame.size.width - frame.size.width)/2, _height, _textLabel.frame.size.width+20, _textLabel.frame.size.height+20);
     self.frame = frame;
     [UIView animateWithDuration:3.0
                           delay:0.0

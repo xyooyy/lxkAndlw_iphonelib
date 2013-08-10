@@ -23,7 +23,8 @@
     navController.navigationBar.tintColor = [UIColor blackColor];
     self.window.rootViewController = navController;
     
-    //NavigationBarLayout *navbarLayout = [[NavigationBarLayout alloc] initNavigationBar:navController.navigationBar delegate:self];
+    NavigationBarLayout *navbarLayout = [[NavigationBarLayout alloc] initNavigationBar:navController.navigationBar delegate:self];
+    [navbarLayout setBackgroundImage];
     
     // 设置状态栏颜色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
@@ -57,17 +58,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-}
-
-- (BOOL)navbarRightButtonItemTouch:(id)sender
-{
-    NSLog(@"history");
-    return YES;
 }
 
 @end

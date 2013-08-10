@@ -7,66 +7,82 @@
 //
 
 #import "EditViewController.h"
+#import "EditTableView.h"
 #import "PopupView.h"
+#import "DataProcessing.h"
+#import "TextViewScroll.h"
+#import "Data.h"
 
 @interface EditViewController ()
 {
-    UITextView *_textView;
+    EditTableView *_tableView;
     NSString *_savePath;
+    DataProcessing *_data;
+    TextViewScroll *_textView;
+    
 }
 @end
 
 @implementation EditViewController
 
+- (id)initWithData:(DataProcessing *)data
+{
+    self = [super init];
+    if (self)
+    {
+        _data = data;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
+    _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, 350) andData:_data];
+    self.view.backgroundColor = [UIColor redColor];
     
-    // 添加键盘上面的工具条
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
-    toolbar.barStyle = UIBarStyleBlack;
+    [self.view addSubview:_tableView];
     
-    // 占位符
-    UIBarButtonItem * blank1 =[[UIBarButtonItem  alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                             target:self action:nil];
-    UIBarButtonItem * blank2 =[[UIBarButtonItem  alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                             target:self action:nil];
-    // 完成按钮
-    UIBarButtonItem *completionButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
-                                                                             style:UIBarButtonItemStyleDone
-                                                                            target:self
-                                                                            action:@selector(completionButtonTouch:)];
-    NSArray *buttonItemArray = [NSArray arrayWithObjects:blank1, blank2, completionButtonItem, nil];
-    [toolbar setItems:buttonItemArray];
-    [_textView setInputAccessoryView:toolbar];
-    
-    [self.view addSubview:_textView];
+//    [self addButtonWithImageNamed:kImageCompletionButton
+//                             rect:CGRectMake(200, 5, 70, 29)
+//                         delegate:self
+//                           action:@selector(completionButtonTouch:)
+//                           toView:self.navigationController.navigationBar];
+//    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kImageCompletionButton]
+//                                                                      style:UIBarButtonItemStylePlain
+//                                                                     target:self
+//                                                                     action:@selector(completionButtonTouch:)];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                      style:UIBarButtonItemStylePlain
+                                                                     target:self
+                                                                     action:@selector(completionButtonTouch:)];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 
-    [self addButtonWithNamed:@"复制"
-                        rect:CGRectMake(160, 6, 70, 30)
-                    delegate:self
-                      action:@selector(copyButtonTouch:)];
-    [self addButtonWithNamed:@"保存"
-                        rect:CGRectMake(250, 6, 70, 30)
-                    delegate:self
-                      action:@selector(saveButtonTouch:)];
+    
+    [self addButtonWithImageNamed:kImageCopyButton
+                             rect:CGRectMake(15, 375, 135, 30)
+                         delegate:self
+                           action:@selector(copyButtonTouch:)
+                           toView:self.view];
+    
+    [self addButtonWithImageNamed:kImageSaveButton
+                             rect:CGRectMake(170, 375, 135, 30)
+                         delegate:self
+                           action:@selector(saveButtonTouch:)
+                           toView:self.view];
 }
 
 // 创建一个按钮，并添加到self中
-- (UIButton *) addButtonWithNamed:(NSString *)name
-                             rect:(CGRect)rect
-                         delegate:(id)delegate
-                           action:(SEL)action
+- (UIButton *)addButtonWithImageNamed:(NSString *)name
+                                 rect:(CGRect)rect
+                             delegate:(id)delegate
+                               action:(SEL)action
+                               toView:(UIView *)view
 {
-    UINavigationBar *navbar = self.navigationController.navigationBar;
-
     UIButton *button = [[UIButton alloc] initWithFrame:rect];
-    [button setTitle:name forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
-    button.backgroundColor = [UIColor blackColor];
-    [navbar addSubview:button];
-    
+    [view addSubview:button];
     return button;
 }
 
@@ -76,20 +92,9 @@
     return YES;
 }
 
-- (BOOL)setTextArray:(NSArray *)textArray
+- (BOOL)setTextViewScroll:(TextViewScroll *)textView
 {
-    NSString *text = @"";
-    for (NSString *item in textArray)
-    {
-        text = [text stringByAppendingFormat:@"%@\n", item];
-    }
-    [_textView setText:text];
-    return YES;
-}
-
-- (BOOL)setTextString:(NSString *)textString
-{
-    [_textView setText:textString];
+    _textView = textView;
     return YES;
 }
 
@@ -97,7 +102,9 @@
 
 - (BOOL)completionButtonTouch:(UIButton *)sender
 {
-    [_textView resignFirstResponder];
+    // 获得当前firstResponder
+    UIView *firstResponder = [[[UIApplication sharedApplication] keyWindow] performSelector:@selector(firstResponder)];
+    [firstResponder resignFirstResponder];
     return YES;
 }
 
@@ -106,19 +113,35 @@
     PopupView *popupView = [[PopupView alloc] init];
     [popupView showWithText:@"复制成功"
                AndSuperView:self.view
-                  andHeight:self.view.frame.size.height * 0.4];
+                  andHeight:self.view.frame.size.height * 0.7];
     
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    [pasteboard setString:[_textView text]];
+    [pasteboard setString:[_tableView getTextStringInEditView]];
 
     return YES;
 }
 
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-    NSError *error;
-    if (![[_textView text] writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
-        NSLog(@"%s error :%@", __func__, error.description);
+    NSLog(@"%s-->%@", __func__, _savePath);
+    NSMutableDictionary *newDictionary = [[NSMutableDictionary alloc] init];
+    NSArray *newTextArray = [_tableView getTextArrayStringInEditView];
+    NSArray *oldTextArray = [_tableView getTExtArrayArrayInData];
+    NSDictionary *oldDictionary = [_data getDic];
+    
+    for (int i = 0; i < oldTextArray.count; i++)
+    {
+        NSString *oldKey = [oldTextArray objectAtIndex:i];
+        NSString *newKey = [newTextArray objectAtIndex:i];
+        [newDictionary setObject:[oldDictionary objectForKey:oldKey] forKey:newKey];
+    }
+
+    if (![newDictionary writeToFile:_savePath atomically:YES])
+        NSLog(@"%s error", __func__);
+    
+    [_data setDictionary:newDictionary];
+    
+    [_textView clearData];
     
     [self.navigationController popViewControllerAnimated:YES];
     

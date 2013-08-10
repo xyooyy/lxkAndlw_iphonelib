@@ -49,12 +49,15 @@
         //文件头
         mHeaderFact = new WavHeaderFactory();
         
-        uploadData = [[NSMutableData alloc]init];
+        //uploadData = [[NSMutableData alloc]init];
         
         uploadQueue = [[NSMutableArray alloc]init];
         
         soundStrengthThreshold = 150;
         soundStrengthArray = [[NSMutableArray alloc]init];
+        
+        uploadDataArray = [[NSMutableArray alloc]init];
+        
         
     }
     return self;
@@ -80,7 +83,8 @@
     upLoadStart = 0;
     upLoadEnd = 0;
     mDataEnd = 0;
-    [uploadData setLength:0];
+    //[uploadData setLength:0];
+    [uploadDataArray removeAllObjects];
     mRecorderInfo = [mRecorder createRecord];
     return [mRecorder startRecord:mRecorderInfo];
 }
@@ -88,6 +92,7 @@
 -(BOOL)stopRecording
 {
     [mRecorder pauseRecord:mRecorderInfo];
+    NSData *uploadData = [self getUplodaData];
     [self saveWav:uploadData :fileName];
 //    if (upLoadEnd != upLoadStart  && canRecgnise) {
 //        canRecgnise = NO;
@@ -95,7 +100,8 @@
 //        [currentUpLoad appendData:[mRecord subdataWithRange:range]];
 //        [self upLoadWAV:currentUpLoad];
 //    }
-    [uploadData setLength:0];
+   // [uploadData setLength:0];
+    [uploadDataArray removeAllObjects];
     isRecording = NO;
     return YES;
 }
@@ -118,6 +124,7 @@
     {
         isBeginRecgnise = YES;
         [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
+        [uploadDataArray addObject:[uploadQueue objectAtIndex:0]];
         [uploadQueue removeObjectAtIndex:0];
         [NSURLConnection connectionWithRequest:mRequest delegate:self];
         NSLog(@"开始请求..");
@@ -155,7 +162,7 @@
     {
         canRecgnise = NO;
         NSData *data = [[NSData alloc]initWithData:mRecord];
-        [uploadData appendData:data];
+        //[uploadData appendData:data];
         [mRecord setLength:0];
         [self upLoadWAV:data];
         count = 0;
@@ -188,6 +195,7 @@
         if([uploadQueue count] >= 1)
         {
             [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
+            [uploadDataArray addObject:[uploadQueue objectAtIndex:0]];
             [uploadQueue removeObjectAtIndex:0];
             [NSURLConnection connectionWithRequest:mRequest delegate:self];
             NSLog(@"开始请求..");
@@ -205,17 +213,23 @@
 //识别结果处理
 -(void)transResult :(void(^)(void))finish
 {
+    if(!isRecording)return;
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mRecivedData]];
     
     //判断是否能识别出结果
-    if ([[dic objectForKey:@"hypotheses"] count]!=0) {
-        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"]];
+    if ([[dic objectForKey:@"hypotheses"] count]!=0)
+    {
+        NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
+        //[mCotroller performSelector:mSetText withObject: :withObject:size];
+        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithUnsignedInt:size]];
     }
     else
     {
+        ;
         NSLog(@"没有识别");
+        [uploadDataArray removeLastObject];
     }
     finish();
     [mRecivedData setLength:0];
@@ -232,9 +246,18 @@
     return mRecorderInfo;
 }
 
+- (NSData*)getUplodaData
+{
+    NSMutableData *uploadData = [[NSMutableData alloc]init];
+    for (NSData *data in uploadDataArray)
+    {
+        [uploadData appendData:data];
+    }
+    return uploadData;
+}
 -(NSData *)currentAudioData
 {
-    return uploadData;
+    return [self getUplodaData];
 }
 
 @end

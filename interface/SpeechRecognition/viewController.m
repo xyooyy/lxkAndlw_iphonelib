@@ -219,7 +219,11 @@
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        [_audioPlayer play];
+        NSUInteger fileDateLength = [_audioPlayer getFileLength];
+        NSDictionary *dic = [dataProcessing getDic];
+      double dur =  [_audioPlayer play];
+        [_textView scrollsSubTitle:dic :fileDateLength :dur];
+        
     }];
     
     buttonStart.enabled = NO;
@@ -253,18 +257,12 @@
 
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
-    EditViewController *editViewController = [[EditViewController alloc] init];
+    EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
     [self.navigationController pushViewController:editViewController animated:YES];
 
-//    NSArray *textArray = [dataProcessing getRecognizedData];
+    NSString *path = [filePath stringByAppendingString:@".data"];
+    [editViewController setSavePath:path];
     
-    // ---- TEST: ----
-    NSArray *textArray = [NSArray arrayWithObjects:@"asdfjk",@"asfdloiidsfgjk",@"879124612", nil];
-    // ---------------
-    
-    [editViewController setTextArray:textArray];
-    filePath = [filePath stringByAppendingString:@".data"];
-    [editViewController setSavePath:filePath];
     return YES;
 }
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
@@ -273,7 +271,8 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
-    [[dataProcessing getRecognizedData] removeAllObjects];
+    //[[dataProcessing getRecognizedData] removeAllObjects];
+    [dataProcessing clearDicData];
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
@@ -289,7 +288,7 @@
 
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
-    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
+    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult::)];
     [_textView clearLastRecognition];
     _soundWaveView.alpha = 1.0;
     [_textView resetPosition];
@@ -300,6 +299,7 @@
 {
     buttonStart.enabled = NO;
     [gooleVoiceRecognizer stopRecording];
+    [_textView scrollsToTopWithAnimation];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
@@ -308,9 +308,10 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
-        NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
+       // NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
-        [copyData writeToFile:dataFilePath atomically:YES];
+        [dataProcessing saveDicToFile:dataFilePath];
+       // [copyData writeToFile:dataFilePath atomically:YES];
 
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
@@ -322,10 +323,11 @@
    
     return YES;
 }
-- (BOOL)speechRecognitionResult :(NSString*)str
+- (BOOL)speechRecognitionResult :(NSString*)str :(NSNumber*)number
 {
     [self addText:str];
-    [dataProcessing recordRecognizedStr:str];
+    [dataProcessing recognizedStrAndDuration:str :[number doubleValue]];
+    //[dataProcessing recordRecognizedStr:str];
     return YES;
 }
 

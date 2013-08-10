@@ -11,5 +11,6 @@
 @interface NavigationBarLayout : NSObject
 
 - (id)initNavigationBar:(UINavigationBar *)navbar delegate:(id)delegate;
+- (BOOL)setBackgroundImage;
 
 @end

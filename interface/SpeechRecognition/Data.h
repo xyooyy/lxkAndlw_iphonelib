@@ -20,6 +20,11 @@
 #define kImageRecognise     @"recognise.png"
 #define kImageTranslate     @"translate.png"
 
+#define kImageCompletionButton  @"completion-button.png"
+#define kImageCopyButton        @"copy-button.png"
+#define kImageSaveButton        @"save-button.png"
+#define kImageReturnButton      @"return-button.png"
+
 #pragma mark - 常用
 
 #define kFloatZero              0.f

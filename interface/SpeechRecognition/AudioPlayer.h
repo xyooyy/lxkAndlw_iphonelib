@@ -13,7 +13,7 @@
 
 - (id)initWithFile:(NSString *)path;
 
-- (BOOL)play;
+- (double)play;
 - (BOOL)pause;
 - (BOOL)stop;
 
@@ -28,5 +28,6 @@
 
 // 设置播放完成后的回调block
 - (BOOL)playCompletion:(void(^)(void))completion;
+- (NSUInteger)getFileLength;
 
 @end

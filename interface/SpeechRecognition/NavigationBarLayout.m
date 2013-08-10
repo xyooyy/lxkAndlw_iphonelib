@@ -26,43 +26,44 @@
     {
         _navbar = navbar;
         
-        // 添加导航栏背景
-        [self addImageNamed:kImageNavBackground
-                      frame:CGRectMake(kFloatZero, kFloatZero,
-                                       kScreenWidth, kNavigationBarHeight)];
-        // 添加按钮
-        [self addButtonWithImageNamed:kImageHistoryButton
-                                 rect:CGRectMake(kButtonHistoryX, kButtonHistoryY,
-                                                 kButtonHistoryWidth, kButtonHistoryHeight)
-                             delegate:_delegate
-                               action:@selector(navbarRightButtonItemTouch:)];
+//        // 添加按钮
+//        [self addButtonWithImageNamed:kImageHistoryButton
+//                                 rect:CGRectMake(kButtonHistoryX, kButtonHistoryY,
+//                                                 kButtonHistoryWidth, kButtonHistoryHeight)
+//                             delegate:_delegate
+//                               action:@selector(navbarRightButtonItemTouch:)];
     }
     return self;
 }
 
-#pragma mark - 
-
-- (UIImageView *)addImageNamed:(NSString *)name frame:(CGRect)frame
+- (BOOL)setBackgroundImage
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
-    imageView.image = [UIImage imageNamed:name];
-    [_navbar addSubview:imageView];
-    
-    return imageView;
+    // 添加导航栏背景
+//    [self addImageNamed:kImageNavBackground
+//                  frame:CGRectMake(kFloatZero, kFloatZero,
+//                                   kScreenWidth, kNavigationBarHeight)];
+    UIImage *image = [UIImage imageNamed:kImageNavBackground];
+
+    [_navbar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+
+    return YES;
 }
 
-// 创建一个按钮，并添加到self中
-- (UIButton *) addButtonWithImageNamed:(NSString *)name
-                                  rect:(CGRect)rect
-                              delegate:(id)delegate
-                                action:(SEL)action
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:rect];
-    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
-    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
-    [_navbar addSubview:button];
-    
-    return button;
-}
+#pragma mark -
+
+//
+//// 创建一个按钮，并添加到self中
+//- (UIButton *) addButtonWithImageNamed:(NSString *)name
+//                                  rect:(CGRect)rect
+//                              delegate:(id)delegate
+//                                action:(SEL)action
+//{
+//    UIButton *button = [[UIButton alloc] initWithFrame:rect];
+//    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
+//    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
+//    [_navbar addSubview:button];
+//    
+//    return button;
+//}
 
 @end

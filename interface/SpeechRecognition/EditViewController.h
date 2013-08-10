@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class DataProcessing;
+@class TextViewScroll;
+
 @interface EditViewController : UIViewController
 
+- (id)initWithData:(DataProcessing *)data;
 - (BOOL)setSavePath:(NSString *)path;
-
-- (BOOL)setTextArray:(NSArray *)textArray;
-- (BOOL)setTextString:(NSString *)textString;
+- (BOOL)setTextViewScroll:(TextViewScroll *)textView;
 
 @end
