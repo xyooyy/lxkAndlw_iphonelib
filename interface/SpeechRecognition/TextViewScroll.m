@@ -205,18 +205,41 @@
     [self setContentOffset:offset animated:YES];
     return YES;
 }
-- (BOOL)beginScrolls :(NSDictionary *)timeSet :(NSNumber*)totalLength
+- (void)changeViewFrameToHalf :(UIView*)view;
 {
-    ;
-    NSLog(@"totalLength = %d",[totalLength unsignedIntValue]);
-    for (NSString *key in _viewArrayKey)
+//    CGRect frame = view.frame;
+//    frame.size.height = frame.size.height / 2;
+//    view.frame = frame;
+    view.alpha = view.alpha / 2;
+}
+- (void)changeViewFrameToTwoTimes :(UIView*)view
+{
+//    CGRect frame = view.frame;
+//    frame.size.height = frame.size.height * 2;
+//    view.frame = frame;
+    view.alpha = 2*view.alpha;
+}
+- (BOOL)beginScrolls :(NSDictionary *)parmDic
+{
+    NSDictionary *timeSet = [parmDic objectForKey:@"timeSet"];
+    NSNumber *totalLength = [parmDic objectForKey:@"duration"];
+    
+    for (int i = 0; i != [_viewArray count]; i++)
     {
+        UIView *view = [_viewArray objectAtIndex:i];
+        [self performSelectorOnMainThread:@selector(changeViewFrameToHalf:) withObject:view waitUntilDone:NO];
+        
+        NSString *key = [_viewArrayKey objectAtIndex:i];
         NSNumber *num = [timeSet objectForKey:key];
-        NSLog(@"正在播放=%@",key);
-        NSLog(@"时长为%f",[num doubleValue]/[totalLength unsignedIntValue]*_duration);
+       
+        NSLog(@"开始");
+        NSLog(@"duration =%f",[num doubleValue]/[totalLength unsignedIntValue]*_duration);
         [NSThread sleepForTimeInterval:[num doubleValue]/[totalLength unsignedIntValue]*_duration];
-        NSLog(@"结束播放=%@",key);
+        [self performSelectorOnMainThread:@selector(changeViewFrameToTwoTimes:) withObject:view waitUntilDone:NO];
+        NSLog(@"结束");
+        
     }
+        
    return YES;
 }
 - (BOOL)scrollsSubTitle:(NSDictionary *)timeSet :(NSInteger)totalLength :(double)duration
@@ -229,7 +252,8 @@
         total += dur;
     }
     NSLog(@"duration = %f",duration);
-    [self performSelector:@selector(beginScrolls::) withObject:timeSet withObject:[NSNumber numberWithUnsignedInt:total]];
+    NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:timeSet,@"timeSet",[NSNumber numberWithUnsignedInt:total],@"duration", nil];
+    [self performSelectorInBackground:@selector(beginScrolls:) withObject:parmDic];
     return YES;
 }
 
