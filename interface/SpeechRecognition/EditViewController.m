@@ -81,8 +81,10 @@
 {
     UIButton *button = [[UIButton alloc] initWithFrame:rect];
     [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
-    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
+    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
+     button.tintColor = [UIColor whiteColor];
     [view addSubview:button];
+   
     return button;
 }
 

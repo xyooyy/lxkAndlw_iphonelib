@@ -10,7 +10,7 @@
 // -------- 图片名称 --------
 #pragma mark - 图片名称
 
-#define kImageBackground    @"background.png"
+#define kImageBackground    @"Rounded-Rectangle-4.png"/*@"background.png"*/
 #define kImageCDInner       @"CD-inner.png"
 #define kImageCD            @"CD.png"
 #define kImageEdit          @"edit.png"
