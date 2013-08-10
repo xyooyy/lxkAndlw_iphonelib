@@ -138,7 +138,9 @@
 
 - (void)viewDidLoad
 {
-    
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"新建" style :UIBarButtonItemStyleDone target:self action:@selector(createNewRecognization)];
+    backBtn.tintColor = [UIColor redColor];
+    self.navigationItem.backBarButtonItem = backBtn;
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
@@ -177,6 +179,14 @@
         isHistoryBtnDisplay = YES;
     }
     
+}
+#pragma mark - 新建按钮的Action
+
+- (BOOL)createNewRecognization
+{
+    [_textView resetPosition];
+    [_textView clearLastRecognition];
+    return YES;
 }
 
 #pragma mark- 查看历史纪录

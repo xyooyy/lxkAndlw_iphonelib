@@ -47,6 +47,7 @@
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.separatorColor = [UIColor clearColor];
         self.tableView.showsVerticalScrollIndicator = NO;
+        
     }
     return self;
 }
@@ -54,17 +55,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+   // [self.navigationItem setBackBarButtonItem:leftbtn];
 
-    UIBarButtonItem *leftbtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(test)];
-    leftbtn.title = @"新建识别";
-    //self.navigationItem.backBarButtonItem = leftbtn;
-    self.navigationItem.backBarButtonItem = leftbtn;
-}
-
-- (void)test
-{
     
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

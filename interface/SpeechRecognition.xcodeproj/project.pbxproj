@@ -635,8 +635,8 @@
 				GCC_PREFIX_HEADER = "SpeechRecognition/SpeechRecognition-Prefix.pch";
 				INFOPLIST_FILE = "SpeechRecognition/SpeechRecognition-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "44657BBF-247E-48FC-8F23-8ADF1E8D1DAB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44657BBF-247E-48FC-8F23-8ADF1E8D1DAB";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
