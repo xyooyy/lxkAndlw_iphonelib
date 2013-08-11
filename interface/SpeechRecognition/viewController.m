@@ -153,7 +153,7 @@
     [self createSwitchButtonTouchActionMember];
         
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
-    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, kTextViewWidth, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
+    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, 320, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];

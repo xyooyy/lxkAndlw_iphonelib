@@ -19,7 +19,7 @@
     {
         _viewArray = [[NSMutableArray alloc] init];
         _viewArrayValue = [[NSMutableArray alloc]init];
-        _maxRow = 4/*number*/;
+        _maxRow = number;
         _viewAnimation = [[UIViewAnimation alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
         self.alwaysBounceHorizontal = NO;
@@ -41,7 +41,7 @@
 {
     NSArray *textArray = [self lineBreakWithString:text maxWidth:maxWidth font:font];
     
-    if (viewCount > _maxRow)
+    if (viewCount >= _maxRow)
     {
         [self removeViewArray:_viewArray
                         range:NSMakeRange(kIntZero, textArray.count)];
@@ -128,7 +128,7 @@
 {
     TextToImage *textToImage = [[TextToImage alloc] init];
     CGRect rect;
-    UIView *merageView = [[UIView alloc]initWithFrame:CGRectMake(40, 100, 240, 22*[textArray count])];
+    UIView *merageView = [[UIView alloc]initWithFrame:CGRectMake(40, 100, 247, 22*[textArray count])];
     NSString *str = [[NSString alloc]init];
     for (int i = 0; i < textArray.count; i++)
     {
@@ -136,7 +136,7 @@
                                            withFont:font
                                               color:color
                                          rowSpacing:spacing];
-        NSLog(@"image.size.height = %f",image.size.height);
+        NSLog(@"image.size.width = %f,merageView.width = %f",image.size.width,merageView.frame.size.width);
         
         UIImageView *view = [[UIImageView alloc] initWithImage:image];
         rect = view.frame;
