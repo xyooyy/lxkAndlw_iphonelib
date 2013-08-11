@@ -269,10 +269,11 @@
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
-    [self.navigationController pushViewController:editViewController animated:YES];
-
     NSString *path = [filePath stringByAppendingString:@".data"];
     [editViewController setSavePath:path];
+    [self.navigationController pushViewController:editViewController animated:YES];
+
+    
     
     return YES;
 }
@@ -334,11 +335,15 @@
    
     return YES;
 }
+#pragma mark - 识别结果的返回
 - (BOOL)speechRecognitionResult :(NSString*)str :(NSNumber*)number
 {
     [self addText:str];
-    [dataProcessing recognizedStrAndDuration:str :[number doubleValue]];
-    //[dataProcessing recordRecognizedStr:str];
+     
+    NSUInteger length = [number unsignedIntValue];
+    if([dataProcessing isKeyHasExist:[NSString stringWithFormat:@"%u",length]])
+        length += 1;
+    [dataProcessing recognizedStrAndDuration:str :length];
     return YES;
 }
 

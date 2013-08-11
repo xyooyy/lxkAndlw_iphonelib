@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SpeechRecognition/TextViewScroll.m"
-         timestampString = "397797152.163678"
+         timestampString = "397907535.072803"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "225"
-         endingLineNumber = "225"
+         startingLineNumber = "243"
+         endingLineNumber = "243"
          landmarkName = "-beginScrolls:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,12 +216,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SpeechRecognition/EditViewController.m"
-         timestampString = "397819263.375989"
+         timestampString = "397821901.415297"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "59"
          endingLineNumber = "59"
          landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SpeechRecognition/EditViewController.m"
+         timestampString = "397821901.415297"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
+         landmarkName = "-addButtonWithImageNamed:rect:delegate:action:toView:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SpeechRecognition/EditViewController.m"
+         timestampString = "397838076.229833"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "136"
+         endingLineNumber = "136"
+         landmarkName = "-saveButtonTouch:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SpeechRecognition/TextViewScroll.m"
+         timestampString = "397883292.301015"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
+         landmarkName = "-animationWithViewArray:toRect:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

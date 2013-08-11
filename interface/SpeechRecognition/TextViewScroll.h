@@ -12,7 +12,7 @@
 @interface TextViewScroll : UIScrollView
 {
     NSMutableArray *_viewArray;
-    NSMutableArray *_viewArrayKey;
+    NSMutableArray *_viewArrayValue;
     NSMutableDictionary *ViewToImageDic;
     NSUInteger _maxRow;
     CGFloat _height;

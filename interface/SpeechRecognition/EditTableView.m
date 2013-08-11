@@ -40,7 +40,7 @@
         
         _textFieldArray = [[NSMutableArray alloc] initWithCapacity:[_data getDicCount]];
         _dataArray = [[NSMutableArray alloc] initWithCapacity:[_data getDicCount]];
-        for (NSString *item in [_data getKeyEnumerator])
+        for (NSString *item in [_data getAllValues])
         {
             [_dataArray addObject:item];
         }
