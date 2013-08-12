@@ -122,7 +122,6 @@
 
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-    NSLog(@"%s-->%@", __func__, _savePath);
     NSMutableDictionary *newDictionary = [[NSMutableDictionary alloc] init];
     NSArray *newTextArray = [_tableView getTextArrayStringInEditView];
     NSArray *oldTextArray = [_tableView getTExtArrayArrayInData];
