@@ -15,6 +15,6 @@
 - (id)initWithFrame:(CGRect)frame andData:(DataProcessing *)data;
 - (NSString *)getTextStringInEditView;
 - (NSArray *)getTextArrayStringInEditView;
-- (NSArray *)getTExtArrayArrayInData;
+- (NSArray *)getSoundDataArray;
 
 @end

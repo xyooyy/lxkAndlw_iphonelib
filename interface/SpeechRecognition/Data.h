@@ -10,7 +10,7 @@
 // -------- 图片名称 --------
 #pragma mark - 图片名称
 
-#define kImageBackground    @"Rounded-Rectangle-4.png"/*@"background.png"*/
+#define kImageBackground    @"background.png"
 #define kImageCDInner       @"CD-inner.png"
 #define kImageCD            @"CD.png"
 #define kImageEdit          @"edit.png"
@@ -24,6 +24,10 @@
 #define kImageCopyButton        @"copy-button.png"
 #define kImageSaveButton        @"save-button.png"
 #define kImageReturnButton      @"return-button.png"
+
+#define kImageRedCopyButton @"redcopy-button.png"
+#define kImageEditButton    @"edit-button.png"
+#define kImageBigSaveButton @"big-save-button.png"
 
 #pragma mark - 常用
 

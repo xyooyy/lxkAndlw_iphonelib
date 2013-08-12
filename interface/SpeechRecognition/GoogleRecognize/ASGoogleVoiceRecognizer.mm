@@ -145,7 +145,7 @@
     
     [soundStrengthArray addObject:[NSNumber numberWithInt:soundStrongh]];
     
-    if (soundStrongh > soundStrengthThreshold)
+    if (soundStrongh > /*soundStrengthThreshold*/40)
     {
         //soundStrengthThreshold -= 1;
         canRecgnise = YES;
@@ -227,7 +227,6 @@
     }
     else
     {
-        ;
         NSLog(@"没有识别");
         [uploadDataArray removeLastObject];
     }

@@ -32,6 +32,6 @@
 
 - (NSDictionary*)getDic;
 - (NSString*)getKeyFirstApperWithValue :(NSString*)value;
-
+- (NSString *)getStringFromArray;
 
 @end

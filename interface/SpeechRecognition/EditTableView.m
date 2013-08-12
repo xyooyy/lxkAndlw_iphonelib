@@ -17,8 +17,12 @@
 @interface EditTableView ()
 {
     DataProcessing *_data;
+    // 临时存储每一行要显示的内容
     NSMutableArray *_dataArray;
+    // 存一系列的textField
     NSMutableArray *_textFieldArray;
+    // 存每一行对应的音长
+    NSMutableArray *_soundDataArray;
 }
 
 @end
@@ -38,11 +42,14 @@
         self.separatorColor = [UIColor colorWithWhite:0.167 alpha:1.000];
         self.layer.cornerRadius = kTableViewBorderRadius;
         
-        _textFieldArray = [[NSMutableArray alloc] initWithCapacity:[_data getDicCount]];
-        _dataArray = [[NSMutableArray alloc] initWithCapacity:[_data getDicCount]];
-        for (NSString *item in [_data getAllValues])
+        _textFieldArray = [[NSMutableArray alloc] init];
+        _soundDataArray = [[NSMutableArray alloc] init];
+        _dataArray = [[NSMutableArray alloc] init];
+        
+        for (NSNumber *key in [_data getDic])
         {
-            [_dataArray addObject:item];
+            [_dataArray addObject:[[_data getDic] objectForKey:key]];
+            [_soundDataArray addObject:key];
         }
     }
     return self;
@@ -72,9 +79,9 @@
     return result;
 }
 
-- (NSArray *)getTExtArrayArrayInData
+- (NSArray *)getSoundDataArray
 {
-    return _dataArray;
+    return _soundDataArray;
 }
 
 #pragma mark - delegate

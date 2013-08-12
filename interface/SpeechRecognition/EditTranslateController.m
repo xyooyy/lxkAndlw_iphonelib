@@ -1,36 +1,32 @@
 //
-//  EditViewController.m
+//  EditTranslateController.m
 //  SpeechRecognition
 //
-//  Created by Lovells on 13-8-9.
+//  Created by Lovells on 13-8-12.
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 
-#import "EditViewController.h"
-#import "EditTableView.h"
-#import "PopupView.h"
-#import "DataProcessing.h"
-#import "TextViewScroll.h"
+#import "EditTranslateController.h"
 #import "Data.h"
 
-@interface EditViewController ()
+@interface EditTranslateController ()
 {
-    EditTableView *_tableView;
+    UITextView *_textView;
     NSString *_savePath;
-    DataProcessing *_data;
-    TextViewScroll *_textView;
-    
 }
 @end
 
-@implementation EditViewController
+@implementation EditTranslateController
 
-- (id)initWithData:(DataProcessing *)data
+- (id)init
 {
     self = [super init];
     if (self)
     {
-        _data = data;
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
+        _textView.backgroundColor = RGBA(27.f, 26.f, 24.f, 1.f);
+        _textView.textColor = [UIColor whiteColor];
+
     }
     return self;
 }
@@ -38,9 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, 350) andData:_data];
-    
-    [self.view addSubview:_tableView];
+
+    [self.view addSubview:_textView];
     
     UIButton *backButton = [self addButtonWithImageNamed:kImageReturnButton
                                                     rect:CGRectMake(0, 0, 70, 29)
@@ -57,22 +52,15 @@
                                                         toView:nil];
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:completionButton];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-    
-     
-    [self addButtonWithImageNamed:kImageCopyButton
-                             rect:CGRectMake(15, 375, 135, 30)
-                         delegate:self
-                           action:@selector(copyButtonTouch:)
-                           toView:self.view];
-    
-    [self addButtonWithImageNamed:kImageSaveButton
-                             rect:CGRectMake(170, 375, 135, 30)
+
+    [self addButtonWithImageNamed:kImageBigSaveButton
+                             rect:CGRectMake(15, 373, 290, 34)
                          delegate:self
                            action:@selector(saveButtonTouch:)
                            toView:self.view];
+
 }
 
-// 创建一个按钮，并添加到self中
 - (UIButton *)addButtonWithImageNamed:(NSString *)name
                                  rect:(CGRect)rect
                              delegate:(id)delegate
@@ -84,19 +72,20 @@
     [button setBackgroundImage:image forState:UIControlStateNormal];
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button];
-   
+    
     return button;
+}
+
+- (BOOL)setTextString:(NSString *)string
+{
+    _textView.text = string;
+
+    return YES;
 }
 
 - (BOOL)setSavePath:(NSString *)path
 {
     _savePath = path;
-    return YES;
-}
-
-- (BOOL)setTextViewScroll:(TextViewScroll *)textView
-{
-    _textView = textView;
     return YES;
 }
 
@@ -110,43 +99,18 @@
     return YES;
 }
 
-- (BOOL)copyButtonTouch:(UIButton *)sender
+- (BOOL)backButtonTouch:(id)sender
 {
-    PopupView *popupView = [[PopupView alloc] init];
-    [popupView showWithText:@"复制成功"
-               AndSuperView:self.view
-                  andHeight:self.view.frame.size.height * 0.7];
-    
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    [pasteboard setString:[_tableView getTextStringInEditView]];
-
+    [self.navigationController popViewControllerAnimated:YES];
     return YES;
 }
 
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-    NSMutableDictionary *newDictionary = [[NSMutableDictionary alloc] init];
-    NSArray *newTextArray = [_tableView getTextArrayStringInEditView];
-    NSArray *soundDataArray = [_tableView getSoundDataArray];
+    NSError *error;
+    if (![_textView.text writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
+        NSLog(@"%@", error);
     
-    for (int i = 0; i < newTextArray.count; i++)
-    {
-        [newDictionary setObject:[newTextArray objectAtIndex:i] forKey:[soundDataArray objectAtIndex:i]];
-    }
-    
-    if (![newDictionary writeToFile:_savePath atomically:YES])
-        NSLog(@"%s error", __func__);
-    
-    [_data setDictionary:newDictionary];
-        
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    return YES;
-}
-
-- (BOOL)backButtonTouch:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
     return YES;
 }
 

@@ -92,4 +92,16 @@
     }
     return nil;
 }
+- (NSString *)getStringFromArray
+{
+    NSString *result = @"";
+    
+    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    {
+        result = [result stringByAppendingFormat:@"%@\n", [recognizedStrAndDurationDic objectForKey:key]];
+    }
+    
+    return result;
+}
+
 @end

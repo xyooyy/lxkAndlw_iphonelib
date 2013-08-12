@@ -20,6 +20,7 @@
 #import "CalculateSoundStrength.h"
 #import "AudioPlayer.h"
 #import "EditViewController.h"
+#import "TranslateViewController.h"
 
 @interface viewController ()
 {
@@ -52,10 +53,29 @@
 #pragma mark-初始化用到的函数
 - (BOOL)displayHistoryButton
 {
-    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithTitle:@"历史纪录" style:UIBarButtonItemStyleBordered target:self action:@selector(checkHistoryRecord)];
+    UIButton *button = [self createButtonWithImageNamed:kImageHistoryButton
+                                                   rect:CGRectMake(0, 0, 70, 29)
+                                               delegate:self
+                                                 action:@selector(checkHistoryRecord)];
+    UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = barButtontem;
     return YES;
 }
+
+// 创建一个按钮，并添加到self中
+- (UIButton *)createButtonWithImageNamed:(NSString *)name
+                                    rect:(CGRect)rect
+                                delegate:(id)delegate
+                                  action:(SEL)action
+{
+    UIButton *button = [[UIButton alloc] initWithFrame:rect];
+    UIImage *image = [UIImage imageNamed:name];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
+}
+
 - (UIImageView *)addImageWithName:(NSString *)name frame:(CGRect)frame
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
@@ -177,11 +197,14 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
-
-    // ----- TEST:-----
+    
+    // ------ TEST: ------
     buttonEdit.enabled = YES;
-    // ----------------
+    buttonTranslate.enabled = YES;
+    // -------------------
 }
+
+
 #pragma mark - 新建按钮的Action
 
 - (BOOL)createNewRecognization
@@ -209,7 +232,12 @@
 
 - (BOOL)translateButtonTouch :(UIButton*)sender
 {
-    NSLog(@"translateButtonTouch");
+    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:
+                                                    [dataProcessing getStringFromArray]];
+    NSLog(@"|-->%@", [dataProcessing getStringFromArray]);
+    NSString *path = [filePath stringByAppendingString:@".translate"];
+    [translateController setSavePath:path];
+    [self.navigationController pushViewController:translateController animated:YES];
     return YES;
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
@@ -271,9 +299,7 @@
     EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
     NSString *path = [filePath stringByAppendingString:@".data"];
     [editViewController setSavePath:path];
-    [self.navigationController pushViewController:editViewController animated:YES];
-
-    
+    [self.navigationController pushViewController:editViewController animated:YES];    
     
     return YES;
 }
@@ -283,7 +309,7 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
-    //[[dataProcessing getRecognizedData] removeAllObjects];
+
     [dataProcessing clearDicData];
     [switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)

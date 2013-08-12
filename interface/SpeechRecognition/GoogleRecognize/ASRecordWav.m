@@ -240,8 +240,6 @@
         isSave = TRUE;
     }
     [[recordDatadict objectForKey:@"soundData"] appendData:[parmRecordDataDict objectForKey:@"soundData"]];
-    //NSLog(@"add");
-    
 }
 void customAudioQueueInputCallback( void  *inUserData,
                                       AudioQueueRef inAQ,

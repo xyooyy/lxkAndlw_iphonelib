@@ -145,15 +145,13 @@
     NSEnumerator *enumerator = [recordDict keyEnumerator];
     NSMutableArray *record = [[NSMutableArray alloc]init];
     
-    for (NSString *str in enumerator)
+    for (NSNumber *key in enumerator)
     {
-        [record addObject:[recordDict objectForKey:str]];
+        [record addObject:[recordDict objectForKey:key]];
     }
-    
     
     CurrentDataViewController *currentDataController = [[CurrentDataViewController alloc]initWithData:record];
     [self.navigationController pushViewController:currentDataController animated:YES];
-    
 }
 
 @end

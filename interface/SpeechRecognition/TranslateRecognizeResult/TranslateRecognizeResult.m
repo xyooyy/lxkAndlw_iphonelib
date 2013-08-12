@@ -46,12 +46,17 @@
     [connection cancel];
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mTranslateResult]];
-    NSString *mStrResult = [[[dic objectForKey:@"trans_result"] objectAtIndex:0] objectForKey:@"dst"];
-    NSLog(@"%@->%@",translateStr,mStrResult);
+    NSArray *resultDictionaryArray = [dic objectForKey:@"trans_result"];
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < resultDictionaryArray.count; i++)
+    {
+        [resultArray addObject:[[resultDictionaryArray objectAtIndex:i] objectForKey:@"dst"]];
+    }
+    
     if(obj && translateFinish)
-        [obj performSelector:translateFinish withObject:translateStr withObject:mStrResult];
+        [obj performSelector:translateFinish withObject:translateStr withObject:resultArray];
     [mTranslateResult setLength:0];
-    //[mBodyContentView setTextRewirteAll:mStrResult];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
