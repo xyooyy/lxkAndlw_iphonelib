@@ -118,6 +118,7 @@
                   andHeight:self.view.frame.size.height * 0.7];
     
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSLog(@"copy string is :%@", [_tableView getTextStringInEditView]);
     [pasteboard setString:[_tableView getTextStringInEditView]];
 
     return YES;

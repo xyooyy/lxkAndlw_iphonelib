@@ -61,7 +61,7 @@
     
     for (UITextField *textField in _textFieldArray)
     {
-        [result stringByAppendingFormat:@"\n%@", textField.text];
+        result = [result stringByAppendingFormat:@"\n%@", textField.text];
     }
     
     return result;
