@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface SoundWaveView : UIView
-
+{
+    NSMutableArray *array;
+    BOOL isDrawing;
+    NSUInteger _strong;
+}
 - (BOOL)addSoundStrong:(NSUInteger)strong;
+@property(atomic)BOOL isDawing;
+@property(atomic)BOOL isThreedOneFinish;
+@property(atomic)BOOL ISThreedTwoFinish;
+@property(atomic)BOOL isContextInUse;
 
 @end

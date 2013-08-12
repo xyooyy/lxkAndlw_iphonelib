@@ -11,20 +11,27 @@
 
 @interface DataProcessing : NSObject
 {
-    NSMutableArray *recognizedStrArray;
     NSMutableDictionary *recognizedStrAndDurationDic;
 }
 
 - (BOOL)setDictionary:(NSMutableDictionary *)dictionary;
-- (NSMutableArray*)getRecognizedData;
-- (void)recordRecognizedStr :(NSString*)str;
-
-- (void)recognizedStrAndDuration :(NSString*)str :(double)duration;
-- (int)getDicCount;
 - (BOOL)clearDicData;
-- (NSEnumerator*)getKeyEnumerator;
-- (NSNumber*)getValue :(NSString*)key;
-- (NSArray*)getValueSet;
 - (BOOL)saveDicToFile :(NSString*)fileName;
+- (BOOL)isKeyHasExist:(NSString*)key;
+
+- (void)recognizedStrAndDuration :(NSString*)str :(NSUInteger)duration;
+
+- (int)getDicCount;
+
+//- (NSEnumerator*)getKeyEnumerator;
+- (NSMutableArray*)getAllValues;
+
+- (NSNumber*)getValue :(NSString*)key;
+
+- (NSArray*)getValueSet;
+
 - (NSDictionary*)getDic;
+- (NSString*)getKeyFirstApperWithValue :(NSString*)value;
+
+
 @end

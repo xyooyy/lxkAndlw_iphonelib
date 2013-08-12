@@ -147,7 +147,7 @@
     
     for (NSString *str in enumerator)
     {
-        [record addObject:str];
+        [record addObject:[recordDict objectForKey:str]];
     }
     
     

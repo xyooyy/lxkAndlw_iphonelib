@@ -27,11 +27,13 @@
     CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
     
     //CGContextSaveGState(context);
+   // UIGraphicsPushContext(context);
     //CGContextAddRect(context, rect);
     
-   // CGContextClip(context);
+    //CGContextClip(context);
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint,1);
    //CGContextRestoreGState(context);
+    //UIGraphicsPopContext();
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     CGGradientRelease(gradient);

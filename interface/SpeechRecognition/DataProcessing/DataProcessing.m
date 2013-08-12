@@ -17,7 +17,6 @@
     self = [super init];
     if(self)
     {
-        recognizedStrArray = [[NSMutableArray alloc]init];
         recognizedStrAndDurationDic = [[NSMutableDictionary alloc]init];
         return self;
     }
@@ -42,6 +41,15 @@
 {
     return [recognizedStrAndDurationDic objectForKey:key];
 }
+- (NSMutableArray*)getAllValues
+{
+    NSMutableArray *valueArray = [[NSMutableArray alloc]init];
+    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    {
+        [valueArray addObject:[recognizedStrAndDurationDic objectForKey:key]];
+    }
+    return valueArray;
+}
 - (NSEnumerator*)getKeyEnumerator
 {
     return [recognizedStrAndDurationDic keyEnumerator];
@@ -56,26 +64,32 @@
 {
     return [recognizedStrAndDurationDic count];
 }
-- (void)recognizedStrAndDuration:(NSString *)str :(double)duration
+- (void)recognizedStrAndDuration:(NSString *)str :(NSUInteger)duration
 {
-    [recognizedStrAndDurationDic setValue:[NSNumber numberWithDouble:duration] forKey:str];
-}
-- (void)recordRecognizedStr:(NSString *)str
-{
-    [recognizedStrArray addObject:str];
+    [recognizedStrAndDurationDic setValue:str forKey:[NSString stringWithFormat:@"%u",duration]];
 }
 - (BOOL)setDictionary:(NSMutableDictionary *)dictionary
 {
     recognizedStrAndDurationDic = dictionary;
     return YES;
 }
-- (NSMutableArray*)getRecognizedData
-{
-    return recognizedStrArray;
-}
 - (NSDictionary*)getDic
 {
     return recognizedStrAndDurationDic;
 }
-
+- (BOOL)isKeyHasExist:(NSString *)key
+{
+    if([recognizedStrAndDurationDic objectForKey:key])
+        return YES;
+    return NO;
+}
+- (NSString*)getKeyFirstApperWithValue:(NSString *)value
+{
+    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    {
+        if([[recognizedStrAndDurationDic objectForKey:key] isEqual:value])
+            return key;
+    }
+    return nil;
+}
 @end

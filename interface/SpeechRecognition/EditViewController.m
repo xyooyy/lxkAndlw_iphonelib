@@ -79,9 +79,12 @@
                                toView:(UIView *)view
 {
     UIButton *button = [[UIButton alloc] initWithFrame:rect];
-    [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
-    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
+    UIImage *image = [UIImage imageNamed:name];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
+   // button.backgroundColor = [UIColor greenColor];
     [view addSubview:button];
+   
     return button;
 }
 
@@ -131,7 +134,8 @@
     {
         NSString *oldKey = [oldTextArray objectAtIndex:i];
         NSString *newKey = [newTextArray objectAtIndex:i];
-        [newDictionary setObject:[oldDictionary objectForKey:oldKey] forKey:newKey];
+        if(![oldKey isEqual:newKey])
+            [newDictionary setObject:[oldDictionary objectForKey:oldKey] forKey:newKey];
     }
 
     if (![newDictionary writeToFile:_savePath atomically:YES])

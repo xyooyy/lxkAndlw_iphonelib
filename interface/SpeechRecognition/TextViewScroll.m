@@ -18,7 +18,7 @@
     if (self)
     {
         _viewArray = [[NSMutableArray alloc] init];
-        _viewArrayKey = [[NSMutableArray alloc]init];
+        _viewArrayValue = [[NSMutableArray alloc]init];
         _maxRow = number;
         _viewAnimation = [[UIViewAnimation alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
@@ -26,7 +26,7 @@
         self.alwaysBounceVertical = YES;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        self.contentSize = CGSizeMake(0, 1);
+        self.contentSize = CGSizeMake(0, 0);
         ViewToImageDic = [[NSMutableDictionary alloc]init];
         viewCount = 0;
     }
@@ -41,10 +41,10 @@
 {
     NSArray *textArray = [self lineBreakWithString:text maxWidth:maxWidth font:font];
     
-    if (textArray.count + viewCount > _maxRow)
+    if (viewCount >= _maxRow)
     {
         [self removeViewArray:_viewArray
-                        range:NSMakeRange(kIntZero, (textArray.count + viewCount) - _maxRow)];
+                        range:NSMakeRange(kIntZero, textArray.count)];
     }
     NSMutableArray *drawViewArray = [[NSMutableArray alloc]initWithCapacity:2];
     CGRect rect = [self addViewArray:_viewArray withTextArray:textArray andFont:font color:color spacing:spacing needDrawViewArray:drawViewArray];
@@ -62,8 +62,9 @@
     {
         UIView *view = [viewArray objectAtIndex:i];
         CGSize size = self.contentSize;
-        size.height += rect.size.height;
+        size.height += view.frame.size.height;
         self.contentSize = size;
+        NSLog(@"scrollView的currentSize = %f",size.height/22.0);
         [_viewAnimation changeViewFrame:view
                                 toFrame:CGRectMake(view.frame.origin.x,
                                                    rect.size.height * viewCount,
@@ -71,13 +72,15 @@
                                                    rect.size.height)
                            withDuration:kTextAnimationMoveTime
                              completion:^{
-                                 viewCount++;
+                                
                              }];
         
         [_viewAnimation changeViewLightness:view
                                       alpha:1.f
                                    duration:kTextAnimationFadeInTime
                                  completion:^{}];
+        
+         viewCount += [[view subviews] count];
     }
    // [viewArray removeAllObjects];
     return YES;
@@ -87,9 +90,9 @@
 - (BOOL)removeViewArray:(NSMutableArray *)viewArray range:(NSRange)range
 {
     
-    for (int i = 0; i < range.length; i++)
-    {
-        UIView *view = [viewArray objectAtIndex:i];
+    //for (int i = 0; i < range.length; i++)
+    //{
+       // UIView *view = [viewArray objectAtIndex:i];
         
 //        [_viewAnimation changeViewFrame:view
 //                                toFrame:CGRectMake((int)self.frame.size.width,
@@ -106,11 +109,11 @@
 //                                     [view removeFromSuperview];
 //                                 }];
         CGPoint offset = self.contentOffset;
-        offset.y += view.frame.size.height;
+        offset.y += 22*range.length /*view.frame.size.height*/;
         [self setContentOffset:offset animated:YES];
         
         //[viewArray removeObjectAtIndex:i];
-    }
+  //  }
     return YES;
 }
 
@@ -125,28 +128,34 @@
 {
     TextToImage *textToImage = [[TextToImage alloc] init];
     CGRect rect;
+    UIView *merageView = [[UIView alloc]initWithFrame:CGRectMake(40, 100, 247, 22*[textArray count])];
+    NSString *str = [[NSString alloc]init];
     for (int i = 0; i < textArray.count; i++)
     {
         UIImage *image = [textToImage imageFromText:[textArray objectAtIndex:i]
                                            withFont:font
                                               color:color
                                          rowSpacing:spacing];
+        NSLog(@"image.size.width = %f,merageView.width = %f",image.size.width,merageView.frame.size.width);
         
         UIImageView *view = [[UIImageView alloc] initWithImage:image];
         rect = view.frame;
-        view.frame = CGRectMake((int)((self.frame.size.width - view.frame.size.width) / 2.f),
+        view.frame = CGRectMake((int)((self.frame.size.width - view.frame.size.width) / 2.f)-2,
                                 (int)(self.frame.size.height),
                                 view.frame.size.width,
-                                kFloatZero);
-        view.alpha = kFloatZero;
-        [viewArray addObject:view];
-        [_viewArrayKey addObject:[textArray objectAtIndex:i]];
-        //[ViewToImageDic setValue:view forKey:[textArray objectAtIndex:i]];
-        [drawViewArray addObject:view];
-        [self addSubview:view];
-       
+                                view.frame.size.height);
+        view.frame = CGRectMake((240 - view.frame.size.width)/2, i*view.frame.size.height, view.frame.size.width, view.frame.size.height);
+        //view.alpha = kFloatZero;
+        [merageView addSubview:view];
+        str = [str stringByAppendingString:[textArray objectAtIndex:i]];
         
     }
+    [viewArray addObject:merageView];
+    [_viewArrayValue addObject:str];
+    [drawViewArray addObject:merageView];
+    merageView.alpha = kFloatZero;
+    [self addSubview:merageView];
+   
     
     return rect;
 }
@@ -214,6 +223,15 @@
 {
     view.alpha = 2*view.alpha;
 }
+-(NSString*)getKeyFirstApperWithValue :(NSDictionary*)recognizedStrAndDurationDic :(NSString*)value
+{
+    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    {
+        if([[recognizedStrAndDurationDic objectForKey:key] isEqual:value])
+            return key;
+    }
+    return nil;
+}
 - (BOOL)beginScrolls :(NSDictionary *)parmDic
 {
     NSDictionary *strToTimeDic = [parmDic objectForKey:@"strToTimeDic"];
@@ -231,10 +249,10 @@
         }
         [self performSelectorOnMainThread:@selector(changeViewalphaToHalf:) withObject:view waitUntilDone:NO];
         
-        NSString *key = [_viewArrayKey objectAtIndex:i];
-        NSNumber *num = [strToTimeDic objectForKey:key];
+        NSString *value = [_viewArrayValue objectAtIndex:i];
+        NSString *key = [self getKeyFirstApperWithValue:strToTimeDic :value];
         
-        [NSThread sleepForTimeInterval:[num doubleValue]/[totalLength unsignedIntValue]*_duration];
+        [NSThread sleepForTimeInterval:[key doubleValue]/[totalLength unsignedIntValue]*_duration];
         [self performSelectorOnMainThread:@selector(changeViewalphaToTwoTimes:) withObject:view waitUntilDone:NO];
         
     }
@@ -247,7 +265,7 @@
     NSUInteger total = 0;
     for (NSString *key in [strToTimeDic keyEnumerator])
     {
-        double dur = [[strToTimeDic objectForKey:key] doubleValue];
+        double dur = [key doubleValue];
         total += dur;
     }
     NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:strToTimeDic,@"strToTimeDic",[NSNumber numberWithUnsignedInt:total],@"duration", nil];
