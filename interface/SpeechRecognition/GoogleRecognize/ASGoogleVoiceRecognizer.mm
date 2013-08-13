@@ -53,7 +53,7 @@
         
         uploadQueue = [[NSMutableArray alloc]init];
         
-        soundStrengthThreshold = 250;
+        soundStrengthThreshold = 150;
         soundStrengthArray = [[NSMutableArray alloc]init];
         
         uploadDataArray = [[NSMutableArray alloc]init];
@@ -145,7 +145,7 @@
     
     [soundStrengthArray addObject:[NSNumber numberWithInt:soundStrongh]];
     
-    if (soundStrongh > /*soundStrengthThreshold*/40)
+    if (soundStrongh > soundStrengthThreshold)
     {
         //soundStrengthThreshold -= 1;
         canRecgnise = YES;
