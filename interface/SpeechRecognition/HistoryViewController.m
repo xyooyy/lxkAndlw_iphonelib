@@ -133,6 +133,35 @@
     return YES;
 }
 */
+- (NSArray*)sequence:(NSArray*)timestampEnumerator
+{
+    NSMutableArray *keyArray = [[NSMutableArray alloc]init];
+    int keyCount = [timestampEnumerator count];
+    
+    int *keySet = malloc(keyCount*sizeof(int));
+    for (int i = 0; i != keyCount; i++)
+    {
+        keySet[i] = [[timestampEnumerator objectAtIndex:i] integerValue];
+    }
+    for (int i = 0; i != keyCount; i++)
+    {
+        for (int j = i+1; j != keyCount;j++)
+        {
+            if(keySet[i] > keySet[j])
+            {
+                int temp = keySet[i];
+                keySet[i] = keySet[j];
+                keySet[j] = temp;
+            }
+        }
+    }
+    for (int i = 0; i !=keyCount; i++)
+    {
+        [keyArray addObject:[NSString stringWithFormat:@"%d",keySet[i]]];
+    }
+    free(keySet);
+    return keyArray;
+}
 
 #pragma mark - Table view delegate
 
@@ -144,9 +173,15 @@
     doc = [doc stringByAppendingPathComponent:fileName];
     NSDictionary *recordDict = [NSDictionary dictionaryWithContentsOfFile:doc];
     NSEnumerator *enumerator = [recordDict keyEnumerator];
+    NSMutableArray *keySet = [[NSMutableArray alloc]init];
+    for (NSString *key in enumerator)
+    {
+        [keySet addObject:key];
+    }
+    NSArray *sequenceKey = [self sequence:keySet];
     NSMutableArray *record = [[NSMutableArray alloc]init];
     
-    for (NSNumber *key in enumerator)
+    for (NSNumber *key in sequenceKey)
     {
         [record addObject:[recordDict objectForKey:key]];
     }
