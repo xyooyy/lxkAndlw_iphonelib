@@ -18,7 +18,6 @@
     if (self)
     {
         _viewArray = [[NSMutableArray alloc] init];
-        _viewArrayValue = [[NSMutableArray alloc]init];
         _maxRow = number;
         _viewAnimation = [[UIViewAnimation alloc] init];
         [self setBackgroundColor:[UIColor clearColor]];
@@ -27,8 +26,9 @@
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.contentSize = CGSizeMake(0, 0);
-        ViewToImageDic = [[NSMutableDictionary alloc]init];
         viewCount = 0;
+        scrollCount = 0;
+        scrollIndex = 0;
     }
     return self;
 }
@@ -151,7 +151,6 @@
         
     }
     [viewArray addObject:merageView];
-    [_viewArrayValue addObject:str];
     [drawViewArray addObject:merageView];
     merageView.alpha = kFloatZero;
     [self addSubview:merageView];
@@ -195,18 +194,11 @@
 {
     [self scrollsToTop];
     viewCount = 0;
-    [_viewArray removeAllObjects];
-    [ViewToImageDic removeAllObjects];
-    [self setContentSize:CGSizeMake(0, 1)];
+    if([_viewArray count]>0)
+        [_viewArray removeAllObjects];
+    [self setContentSize:CGSizeMake(0, 0)];
     return YES;
 }
-- (BOOL)clearData
-{
-    [_viewArray removeAllObjects];
-    [ViewToImageDic removeAllObjects];
-    return YES;
-}
-
 - (BOOL)scrollsToTopWithAnimation
 {
     CGPoint offset = self.contentOffset;
@@ -232,65 +224,64 @@
     }
     return nil;
 }
-- (BOOL)beginScrolls :(NSDictionary *)parmDic
-{
-    NSDictionary *strToTimeDic = [parmDic objectForKey:@"strToTimeDic"];
-    NSNumber *totalLength = [parmDic objectForKey:@"duration"];
-    
-    for (int i = 0; i != [_viewArray count]; i++)
-    {
-        
-        UIView *view = [_viewArray objectAtIndex:i];
-        if(i >= _maxRow)
-        {
-            CGPoint offset = self.contentOffset;
-            offset.y += view.frame.size.height;
-            [self setContentOffset:offset animated:YES];
-        }
-        [self performSelectorOnMainThread:@selector(changeViewalphaToHalf:) withObject:view waitUntilDone:NO];
-        
-        NSString *value = [_viewArrayValue objectAtIndex:i];
-        NSString *key = [self getKeyFirstApperWithValue:strToTimeDic :value];
-        
-        [NSThread sleepForTimeInterval:[key doubleValue]/[totalLength unsignedIntValue]*_duration];
-        [self performSelectorOnMainThread:@selector(changeViewalphaToTwoTimes:) withObject:view waitUntilDone:NO];
-        
-    }
-        
-   return YES;
-}
-- (BOOL)scrollsSubTitle:(NSDictionary *)strToTimeDic :(NSInteger)totalLength :(double)duration
-{
-    _duration = duration;
-    NSUInteger total = 0;
-    for (NSString *key in [strToTimeDic keyEnumerator])
-    {
-        double dur = [key doubleValue];
-        total += dur;
-    }
-    NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:strToTimeDic,@"strToTimeDic",[NSNumber numberWithUnsignedInt:total],@"duration", nil];
-    [self performSelectorInBackground:@selector(beginScrolls:) withObject:parmDic];
-    return YES;
-}
 
-- (BOOL)clearView
-{
-    [_viewArray removeAllObjects];
-    [ViewToImageDic removeAllObjects];
-    return YES;
-}
+
+
 - (BOOL)setPlayCompleteCallBack:(id)parmObj :(SEL)parmAction
 {
     obj = parmObj;
     action = parmAction;
     return YES;
 }
+- (BOOL)isKeyInKeyArray :(int)count :(NSArray*)parmkeyArray
+{
+    for (NSString *key in parmkeyArray)
+    {
+        if([key isEqualToString:[NSString stringWithFormat:@"%d",count]])
+            return YES;
+    }
+    return NO;
+}
 -(void)receivePlayData:(NSDictionary *)voiceData
 {
-    NSLog(@"rec");
+    scrollCount++;
+    if(scrollIndex<=[keyArray count] -1 && !flag)
+    {
+        
+        lastView = [_viewArray objectAtIndex:scrollIndex];
+        lastView.alpha = 0.5;
+        flag = YES;
+        if(scrollIndex >= _maxRow-1)
+        {
+            CGPoint offset = self.contentOffset;
+            offset.y += lastView.frame.size.height;
+            [self setContentOffset:offset animated:YES];
+        }
+    }
+    
+    if([self isKeyInKeyArray:scrollCount :keyArray])
+    {
+        if(lastView) lastView.alpha = 1.f;
+        flag = NO;
+        scrollIndex++;
+    }
 }
 -(void)playComplete
 {
+    CGPoint offset = self.contentOffset;
+    offset.y = 0;
+    [self setContentOffset:offset animated:YES];
     [obj performSelector:action];
+}
+- (BOOL)setSubtitleKey:(NSArray *)parmKeyArray
+{
+    keyArray = [[NSArray alloc]initWithArray:parmKeyArray];
+    return YES;
+}
+- (BOOL)playInit
+{
+    scrollIndex = 0;
+    scrollCount = 0;
+    return YES;
 }
 @end

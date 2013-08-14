@@ -12,9 +12,14 @@
 @class TextViewScroll;
 
 @interface EditViewController : UIViewController
+{
+    id obj;
+    SEL action;
+}
 
 - (id)initWithData:(DataProcessing *)data;
 - (BOOL)setSavePath:(NSString *)path;
 - (BOOL)setTextViewScroll:(TextViewScroll *)textView;
+- (BOOL)setEditCompleteCallBack :(id)parmObj :(SEL)parmAction;
 
 @end

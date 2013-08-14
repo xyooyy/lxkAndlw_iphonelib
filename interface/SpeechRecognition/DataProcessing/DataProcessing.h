@@ -11,7 +11,6 @@
 
 @interface DataProcessing : NSObject
 {
-    NSMutableDictionary *recognizedStrAndDurationDic;
     NSMutableDictionary *recognizedRecord;
     NSUInteger count;
 }

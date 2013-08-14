@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SpeechRecognition/DataProcessing/DataProcessing.m"
-         timestampString = "398140068.72945"
+         timestampString = "398159447.893153"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "40"
-         endingLineNumber = "40"
+         startingLineNumber = "39"
+         endingLineNumber = "39"
          landmarkName = "-saveDicToFile:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -228,25 +228,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SpeechRecognition/EditViewController.m"
-         timestampString = "398145081.618774"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "143"
-         endingLineNumber = "143"
-         landmarkName = "-saveButtonTouch:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398150108.756969"
+         timestampString = "398161648.530051"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "271"
-         endingLineNumber = "271"
+         startingLineNumber = "267"
+         endingLineNumber = "267"
          landmarkName = "-playButtonTouch:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -261,6 +248,32 @@
          startingLineNumber = "132"
          endingLineNumber = "132"
          landmarkName = "-CreateAudioInfoFromFile::::"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SpeechRecognition/TextViewScroll.m"
+         timestampString = "398165111.880315"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "278"
+         endingLineNumber = "278"
+         landmarkName = "-setSubtitleKey:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SpeechRecognition/TextViewScroll.m"
+         timestampString = "398158855.339431"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "-receivePlayData:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

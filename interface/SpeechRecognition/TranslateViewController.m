@@ -136,7 +136,7 @@
 {
     NSString *string = @"";
     
-    for (int i = array.count - 1; i >= 0; i--)
+    for (int i = 0; i != array.count; i++)
     {
         string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
     }

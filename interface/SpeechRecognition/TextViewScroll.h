@@ -13,8 +13,6 @@
 @interface TextViewScroll : UIScrollView<ASPlayDelegate>
 {
     NSMutableArray *_viewArray;
-    NSMutableArray *_viewArrayValue;
-    NSMutableDictionary *ViewToImageDic;
     NSUInteger _maxRow;
     CGFloat _height;
     UIViewAnimation *_viewAnimation;
@@ -23,6 +21,13 @@
     double _duration;
     id obj;
     SEL action;
+    NSArray *keyArray;
+    
+    UIView *lastView;
+    
+    BOOL flag;
+    int scrollCount;
+    int scrollIndex;
     
 }
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
@@ -34,11 +39,10 @@
         spacing:(CGFloat)spacing;
 - (BOOL)clearLastRecognition;
 - (BOOL)resetPosition;
-- (BOOL)clearData;
 - (BOOL)scrollsToTopWithAnimation;
-- (BOOL)scrollsSubTitle:(NSDictionary*)StrToTimeDic :(NSInteger)totalLength :(double)duration;
 
-- (BOOL)clearView;
 - (BOOL)setPlayCompleteCallBack :(id)parmObj :(SEL)parmAction;
+- (BOOL)setSubtitleKey :(NSArray*)keyArray;
+- (BOOL)playInit;
 
 @end

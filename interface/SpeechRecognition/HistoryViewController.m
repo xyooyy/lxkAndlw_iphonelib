@@ -86,7 +86,7 @@
     if(!cell)
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    cell.textLabel.text = [historyRecord objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[[historyRecord objectAtIndex:[historyRecord count]-1-indexPath.row] componentsSeparatedByString:@"."] objectAtIndex:0];
     cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
@@ -140,6 +140,7 @@
 {
     NSString *fileName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    fileName = [fileName stringByAppendingString:@".data"];
     doc = [doc stringByAppendingPathComponent:fileName];
     NSDictionary *recordDict = [NSDictionary dictionaryWithContentsOfFile:doc];
     NSEnumerator *enumerator = [recordDict keyEnumerator];

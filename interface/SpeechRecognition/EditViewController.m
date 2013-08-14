@@ -75,14 +75,14 @@
 // 创建一个按钮，并添加到self中
 - (UIButton *)addButtonWithImageNamed:(NSString *)name
                                  rect:(CGRect)rect
-                             delegate:(id)delegate
-                               action:(SEL)action
+                             delegate:(id)parmDelegate
+                               action:(SEL)parmAction
                                toView:(UIView *)view
 {
     UIButton *button = [[UIButton alloc] initWithFrame:rect];
     UIImage *image = [UIImage imageNamed:name];
     [button setBackgroundImage:image forState:UIControlStateNormal];
-    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:parmDelegate action:parmAction forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button];
    
     return button;
@@ -139,10 +139,8 @@
     if (![newDictionary writeToFile:_savePath atomically:YES])
         NSLog(@"%s error", __func__);
     
-    [_data setDictionary:newDictionary];
-    [_textView clearLastRecognition];
-    [_textView resetPosition];
-        
+    [obj performSelector:action withObject:newDictionary];
+    
     [self.navigationController popViewControllerAnimated:YES];
     
     return YES;
@@ -153,5 +151,11 @@
     [self.navigationController popViewControllerAnimated:YES];
     return YES;
 }
-
+#pragma mark - 设置保存完成
+- (BOOL)setEditCompleteCallBack:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    action = parmAction;
+    return YES;
+}
 @end

@@ -17,7 +17,6 @@
     self = [super init];
     if(self)
     {
-        recognizedStrAndDurationDic = [[NSMutableDictionary alloc]init];
         recognizedRecord = [[NSMutableDictionary alloc]init];
         count = 0;
         return self;
@@ -29,9 +28,9 @@
 - (NSArray*)getValueSet
 {
     NSMutableArray *valueSet = [[NSMutableArray alloc]init];
-    for (NSString *key in recognizedStrAndDurationDic)
+    for (NSString *key in recognizedRecord)
     {
-        [valueSet addObject:[recognizedStrAndDurationDic objectForKey:key]];
+        [valueSet addObject:[recognizedRecord objectForKey:key]];
     }
     return valueSet;
 }
@@ -42,24 +41,24 @@
 }
 - (NSNumber*)getValue:(NSString *)key
 {
-    return [recognizedStrAndDurationDic objectForKey:key];
+    return [recognizedRecord objectForKey:key];
 }
 - (NSMutableArray*)getAllValues
 {
     NSMutableArray *valueArray = [[NSMutableArray alloc]init];
-    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    for (NSString *key in [recognizedRecord keyEnumerator])
     {
-        [valueArray addObject:[recognizedStrAndDurationDic objectForKey:key]];
+        [valueArray addObject:[recognizedRecord objectForKey:key]];
     }
     return valueArray;
 }
 - (NSEnumerator*)getKeyEnumerator
 {
-    return [recognizedStrAndDurationDic keyEnumerator];
+    return [recognizedRecord keyEnumerator];
 }
 - (BOOL)clearDicData
 {
-    [recognizedStrAndDurationDic removeAllObjects];
+    [recognizedRecord removeAllObjects];
     return YES;
 }
 
@@ -69,12 +68,12 @@
 }
 - (void)recognizedStrAndDuration:(NSString *)str :(NSUInteger)duration
 {
-    [recognizedStrAndDurationDic setValue:str forKey:[NSString stringWithFormat:@"%u",duration]];
+    [recognizedRecord setValue:str forKey:[NSString stringWithFormat:@"%u",duration]];
 }
 
 - (BOOL)setDictionary:(NSMutableDictionary *)dictionary
 {
-    recognizedStrAndDurationDic = dictionary;
+    recognizedRecord = dictionary;
     return YES;
 }
 - (NSDictionary*)getDic
@@ -83,15 +82,15 @@
 }
 - (BOOL)isKeyHasExist:(NSString *)key
 {
-    if([recognizedStrAndDurationDic objectForKey:key])
+    if([recognizedRecord objectForKey:key])
         return YES;
     return NO;
 }
 - (NSString*)getKeyFirstApperWithValue:(NSString *)value
 {
-    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    for (NSString *key in [recognizedRecord keyEnumerator])
     {
-        if([[recognizedStrAndDurationDic objectForKey:key] isEqual:value])
+        if([[recognizedRecord objectForKey:key] isEqual:value])
             return key;
     }
     return nil;
@@ -99,10 +98,9 @@
 - (NSString *)getStringFromArray
 {
     NSString *result = @"";
-    
-    for (NSString *key in [recognizedStrAndDurationDic keyEnumerator])
+    for (NSString *key in [self getKeySet])
     {
-        result = [result stringByAppendingFormat:@"%@\n", [recognizedStrAndDurationDic objectForKey:key]];
+        result = [result stringByAppendingFormat:@"%@\n", [recognizedRecord objectForKey:key]];
     }
     
     return result;

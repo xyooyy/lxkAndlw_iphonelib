@@ -201,11 +201,6 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
-    
-    // ------ TEST: ------
-    buttonEdit.enabled = YES;
-    buttonTranslate.enabled = YES;
-    // -------------------
 }
 
 
@@ -236,13 +231,12 @@
 
 - (BOOL)translateButtonTouch :(UIButton*)sender
 {
-//    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:
-//                                                    [dataProcessing getStringFromArray]];
+    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:[dataProcessing getStringFromArray]];
 //    NSLog(@"|-->%@", [dataProcessing getStringFromArray]);
-//    NSString *path = [filePath stringByAppendingString:@".translate"];
-//    [translateController setSavePath:path];
-//    [self.navigationController pushViewController:translateController animated:YES];
-//    return YES;
+    NSString *path = [filePath stringByAppendingString:@".translate"];
+    [translateController setSavePath:path];
+    [self.navigationController pushViewController:translateController animated:YES];
+    return YES;
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
@@ -253,7 +247,7 @@
                                           withTarget:self];
 
    // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
-    _audioPlayer = [[PlayAudioWav alloc]init:1/32.0];
+    _audioPlayer = [[PlayAudioWav alloc]init:1/10.0];
     _audioPlayer.delegate = _textView;
     //    [_audioPlayer playCompletion:^{
 //        buttonPlay.enabled = YES;
@@ -268,6 +262,8 @@
       //double dur =  [_audioPlayer play];
         //[_textView scrollsSubTitle:dic :fileDateLength :dur];
        // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
+        [_textView setSubtitleKey:[dataProcessing getKeySet]];
+        [_textView playInit];
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
         
@@ -306,6 +302,7 @@
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
+    [editViewController setEditCompleteCallBack:self :@selector(editSave:)];
     NSString *path = [filePath stringByAppendingString:@".data"];
     [editViewController setSavePath:path];
     [editViewController setTextViewScroll:_textView];
@@ -329,7 +326,7 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{}];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     
     fileName = dateTime;
@@ -339,10 +336,9 @@
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult::)];
-    [_textView clearLastRecognition];
     _soundWaveView.alpha = 1.0;
+    [_textView clearLastRecognition];
     [_textView resetPosition];
-    [_textView clearData];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
@@ -358,10 +354,8 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
-       // NSArray *copyData = [NSArray arrayWithArray:[dataProcessing getRecognizedData]];
         NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
         [dataProcessing saveDicToFile:dataFilePath];
-       // [copyData writeToFile:dataFilePath atomically:YES];
 
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
@@ -470,5 +464,18 @@
 -(void)playComplete
 {
     [self stopPlayButtonTouch:buttonPlay];
+}
+#pragma mark - 编辑保存按钮的回调
+- (void)editSave :(NSMutableDictionary*)newDictionary
+{
+    [dataProcessing setDictionary:newDictionary];
+    [_textView clearLastRecognition];
+    [_textView resetPosition];
+    NSArray *keySet = [dataProcessing getKeySet];
+    for (NSString *key in keySet)
+    {
+        [self addText:[newDictionary objectForKey:key]];
+    }
+    
 }
 @end
