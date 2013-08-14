@@ -12,8 +12,9 @@
 #import "DataProcessing.h"
 #import "SandBoxOperation.h"
 #import "GoogleRecognize/ASGoogleVoiceRecognizer.h"
+#import "ASPlayDelegate.h"
 
-@interface viewController : UIViewController <GoogleVoiveDelegate>
+@interface viewController : UIViewController <GoogleVoiveDelegate,ASPlayDelegate>
 {
     SwitchButtonTouchAction *switchButtonTouchAction;
     TranslateRecognizeResult *translate;

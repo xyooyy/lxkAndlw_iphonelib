@@ -19,8 +19,6 @@
     double moveStep;
     int viewCount;
     double _duration;
-    id obj;
-    SEL action;
     NSArray *keyArray;
     
     UIView *lastView;
@@ -41,8 +39,10 @@
 - (BOOL)resetPosition;
 - (BOOL)scrollsToTopWithAnimation;
 
-- (BOOL)setPlayCompleteCallBack :(id)parmObj :(SEL)parmAction;
 - (BOOL)setSubtitleKey :(NSArray*)keyArray;
 - (BOOL)playInit;
+-(void)receivePlayData;
+-(void)playComplete;
+
 
 @end

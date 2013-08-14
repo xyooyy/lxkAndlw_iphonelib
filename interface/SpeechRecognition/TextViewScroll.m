@@ -226,13 +226,6 @@
 }
 
 
-
-- (BOOL)setPlayCompleteCallBack:(id)parmObj :(SEL)parmAction
-{
-    obj = parmObj;
-    action = parmAction;
-    return YES;
-}
 - (BOOL)isKeyInKeyArray :(int)count :(NSArray*)parmkeyArray
 {
     for (NSString *key in parmkeyArray)
@@ -242,7 +235,7 @@
     }
     return NO;
 }
--(void)receivePlayData:(NSDictionary *)voiceData
+-(void)receivePlayData
 {
     scrollCount++;
     if(scrollIndex<=[keyArray count] -1 && !flag)
@@ -265,19 +258,20 @@
         flag = NO;
         scrollIndex++;
     }
+    //[obj performSelector:receivePlayDataAction withObject:voiceData];
 }
 -(void)playComplete
 {
     CGPoint offset = self.contentOffset;
     offset.y = 0;
     [self setContentOffset:offset animated:YES];
-    [obj performSelector:action];
 }
 - (BOOL)setSubtitleKey:(NSArray *)parmKeyArray
 {
     keyArray = [[NSArray alloc]initWithArray:parmKeyArray];
     return YES;
 }
+
 - (BOOL)playInit
 {
     scrollIndex = 0;

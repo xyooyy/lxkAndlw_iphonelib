@@ -177,7 +177,6 @@
         
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
     _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, 320, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
-    [_textView setPlayCompleteCallBack:self :@selector(playComplete)];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
@@ -248,7 +247,7 @@
 
    // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
     _audioPlayer = [[PlayAudioWav alloc]init:1/10.0];
-    _audioPlayer.delegate = _textView;
+    _audioPlayer.delegate = self;
     //    [_audioPlayer playCompletion:^{
 //        buttonPlay.enabled = YES;
 //        [self stopPlayButtonTouch:sender];
@@ -266,6 +265,7 @@
         [_textView playInit];
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
+        _soundWaveView.alpha = 1.f;
         
     }];
     
@@ -388,6 +388,12 @@
                spacing:kTextRowSpacing];
     return YES;
 }
+#pragma mark - 播放录音时回调
+
+- (void)receicePlayDataCallBack :(NSDictionary*)soundDataDic
+{
+    
+}
 
 #pragma mark - 封装动画函数
 
@@ -460,11 +466,6 @@
                           }];
     return YES;
 }
-#pragma mark - 播放回调
--(void)playComplete
-{
-    [self stopPlayButtonTouch:buttonPlay];
-}
 #pragma mark - 编辑保存按钮的回调
 - (void)editSave :(NSMutableDictionary*)newDictionary
 {
@@ -476,6 +477,25 @@
     {
         [self addText:[newDictionary objectForKey:key]];
     }
+    
+}
+#pragma mark - 播放录音的委托
+- (void)playComplete
+{
+    _soundWaveView.alpha = 0.f;
+    [self stopPlayButtonTouch:buttonPlay];
+    [_textView playComplete];
+}
+- (void)receivePlayData:(NSDictionary *)voiceData
+{
+    [_textView receivePlayData];
+    NSData *soundData = [voiceData objectForKey:@"soundData"];
+    Byte *soundDataByte = (Byte*)[soundData bytes];
+    short *soundDataShort = (short*)soundDataByte;
+    int size = [soundData length]*sizeof(Byte)/sizeof(short);
+    int soundStrongh = [calculateSoundStrength calculateVoiceStrength:soundDataShort :size :1];
+    int compress = [calculateSoundStrength voiceStrengthConvertHeight:soundStrongh :120];
+    [_soundWaveView addSoundStrong:compress];
     
 }
 @end
