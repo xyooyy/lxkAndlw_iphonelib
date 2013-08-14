@@ -35,13 +35,14 @@
 		9AA79F5817AF8BBB00298409 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F4D17AF8BBB00298409 /* SBJsonWriter.m */; };
 		9AA79F5C17AF8C1D00298409 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA79F5B17AF8C1D00298409 /* AudioToolbox.framework */; };
 		9AA79F5F17AF8C9500298409 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F5E17AF8C9500298409 /* NSObject+SBJson.m */; };
+		9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9E13017BB374300A4DF2D /* AudioInfo.m */; };
+		9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */; };
 		9AC9E9C317B473C300E46871 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9E9C217B473C300E46871 /* SoundWaveView.m */; };
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
 		BE300D4417B4E49600E642FD /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE300D4217B4E49600E642FD /* PopupView.m */; };
 		BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE457F1C17A4A5BC00123896 /* QuartzCore.framework */; };
 		BE49507A17B48D6D007F82B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA79F5917AF8C1400298409 /* AVFoundation.framework */; };
-		BE49507D17B4907D007F82B7 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49507C17B4907D007F82B7 /* AudioPlayer.m */; };
 		BE49508317B4C3FF007F82B7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49508217B4C3FF007F82B7 /* EditViewController.m */; };
 		BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */; };
 		BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */; };
@@ -135,6 +136,11 @@
 		9AA79F5B17AF8C1D00298409 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AA79F5D17AF8C9500298409 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		9AA79F5E17AF8C9500298409 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		9AA9E12F17BB374300A4DF2D /* AudioInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioInfo.h; sourceTree = "<group>"; };
+		9AA9E13017BB374300A4DF2D /* AudioInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioInfo.m; sourceTree = "<group>"; };
+		9AA9E13117BB374300A4DF2D /* PlayAudioWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayAudioWav.h; sourceTree = "<group>"; };
+		9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioWav.m; sourceTree = "<group>"; };
+		9AA9E13517BB378800A4DF2D /* ASPlayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPlayDelegate.h; sourceTree = "<group>"; };
 		9AC9E9C217B473C300E46871 /* SoundWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundWaveView.m; sourceTree = "<group>"; };
 		BE19607017A8E4E600073ADF /* TextToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToImage.h; sourceTree = "<group>"; };
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
@@ -143,8 +149,6 @@
 		BE300D4217B4E49600E642FD /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		BE300D4317B4E49600E642FD /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
 		BE457F1C17A4A5BC00123896 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BE49507B17B4907D007F82B7 /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioPlayer.h; path = SpeechRecognition/AudioPlayer.h; sourceTree = "<group>"; };
-		BE49507C17B4907D007F82B7 /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioPlayer.m; path = SpeechRecognition/AudioPlayer.m; sourceTree = "<group>"; };
 		BE49508117B4C3FF007F82B7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		BE49508217B4C3FF007F82B7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		BE589A4017AA412400E88166 /* SoundWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundWaveView.h; sourceTree = "<group>"; };
@@ -312,8 +316,11 @@
 		BE3727FC17B389D200FCD7C0 /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				BE49507B17B4907D007F82B7 /* AudioPlayer.h */,
-				BE49507C17B4907D007F82B7 /* AudioPlayer.m */,
+				9AA9E13517BB378800A4DF2D /* ASPlayDelegate.h */,
+				9AA9E12F17BB374300A4DF2D /* AudioInfo.h */,
+				9AA9E13017BB374300A4DF2D /* AudioInfo.m */,
+				9AA9E13117BB374300A4DF2D /* PlayAudioWav.h */,
+				9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */,
 			);
 			name = AudioPlayer;
 			sourceTree = "<group>";
@@ -594,12 +601,13 @@
 				9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */,
 				BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */,
 				9AC9E9C317B473C300E46871 /* SoundWaveView.m in Sources */,
-				BE49507D17B4907D007F82B7 /* AudioPlayer.m in Sources */,
 				BE49508317B4C3FF007F82B7 /* EditViewController.m in Sources */,
 				BE300D4417B4E49600E642FD /* PopupView.m in Sources */,
 				BE88B1FF17B5D47F00F7465F /* EditTableView.m in Sources */,
 				BEF862A217B89D870042EB75 /* TranslateViewController.m in Sources */,
 				BEF862AB17B8C71C0042EB75 /* EditTranslateController.m in Sources */,
+				9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */,
+				9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

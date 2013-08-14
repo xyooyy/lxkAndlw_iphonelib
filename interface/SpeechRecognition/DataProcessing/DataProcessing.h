@@ -12,6 +12,8 @@
 @interface DataProcessing : NSObject
 {
     NSMutableDictionary *recognizedStrAndDurationDic;
+    NSMutableDictionary *recognizedRecord;
+    NSUInteger count;
 }
 
 - (BOOL)setDictionary:(NSMutableDictionary *)dictionary;
@@ -33,5 +35,10 @@
 - (NSDictionary*)getDic;
 - (NSString*)getKeyFirstApperWithValue :(NSString*)value;
 - (NSString *)getStringFromArray;
+
+//有时间戳
+- (NSArray*)getKeySet;
+- (void)recognizedStrTimestamp:(NSString *)str :(int)duration;
+- (NSArray*)timestampSequence:(NSArray*)timestampArray;
 
 @end

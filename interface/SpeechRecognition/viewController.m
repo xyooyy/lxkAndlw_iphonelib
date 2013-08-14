@@ -18,7 +18,7 @@
 #import "TextViewScroll.h"
 #import <AVFoundation/AVFoundation.h>
 #import "CalculateSoundStrength.h"
-#import "AudioPlayer.h"
+#import "PlayAudioWav.h"
 #import "EditViewController.h"
 #import "TranslateViewController.h"
 
@@ -43,7 +43,10 @@
     UIButton *buttonTranslate;
     
     CalculateSoundStrength *calculateSoundStrength;
-    AudioPlayer *_audioPlayer;
+    
+    NSString *fileName;
+    PlayAudioWav *_audioPlayer;
+    AudioInfo *audioInfo;
 }
 
 @end
@@ -174,6 +177,7 @@
         
     _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
     _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, 320, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
+    [_textView setPlayCompleteCallBack:self :@selector(playComplete)];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
@@ -232,13 +236,13 @@
 
 - (BOOL)translateButtonTouch :(UIButton*)sender
 {
-    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:
-                                                    [dataProcessing getStringFromArray]];
-    NSLog(@"|-->%@", [dataProcessing getStringFromArray]);
-    NSString *path = [filePath stringByAppendingString:@".translate"];
-    [translateController setSavePath:path];
-    [self.navigationController pushViewController:translateController animated:YES];
-    return YES;
+//    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:
+//                                                    [dataProcessing getStringFromArray]];
+//    NSLog(@"|-->%@", [dataProcessing getStringFromArray]);
+//    NSString *path = [filePath stringByAppendingString:@".translate"];
+//    [translateController setSavePath:path];
+//    [self.navigationController pushViewController:translateController animated:YES];
+//    return YES;
 }
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
@@ -248,20 +252,24 @@
                                            newAction:@selector(stopPlayButtonTouch:)
                                           withTarget:self];
 
-    NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
-    _audioPlayer = [[AudioPlayer alloc] initWithFile:soundPath];
-    [_audioPlayer playCompletion:^{
-        buttonPlay.enabled = YES;
-        [self stopPlayButtonTouch:sender];
-    }];
+   // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
+    _audioPlayer = [[PlayAudioWav alloc]init:1/32.0];
+    _audioPlayer.delegate = _textView;
+    //    [_audioPlayer playCompletion:^{
+//        buttonPlay.enabled = YES;
+//        [self stopPlayButtonTouch:sender];
+//    }];
     
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        NSUInteger fileDateLength = [_audioPlayer getFileLength];
-        NSDictionary *dic = [dataProcessing getDic];
-      double dur =  [_audioPlayer play];
-        [_textView scrollsSubTitle:dic :fileDateLength :dur];
+        //NSUInteger fileDateLength = [_audioPlayer getFileLength];
+        //NSDictionary *dic = [dataProcessing getDic];
+      //double dur =  [_audioPlayer play];
+        //[_textView scrollsSubTitle:dic :fileDateLength :dur];
+       // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
+        audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
+        [_audioPlayer startAudio:audioInfo];
         
     }];
     
@@ -274,7 +282,8 @@
 
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
-    [_audioPlayer stop];
+    [_audioPlayer stopAudio:audioInfo];
+    [_audioPlayer closeAudio:audioInfo];
     buttonPlay.enabled = NO;
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopPlayButtonTouch:)
@@ -299,6 +308,7 @@
     EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
     NSString *path = [filePath stringByAppendingString:@".data"];
     [editViewController setSavePath:path];
+    [editViewController setTextViewScroll:_textView];
     [self.navigationController pushViewController:editViewController animated:YES];    
     
     return YES;
@@ -319,8 +329,10 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{}];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
+    
+    fileName = dateTime;
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
 
@@ -366,10 +378,8 @@
 {
     [self addText:str];
      
-    NSUInteger length = [number unsignedIntValue];
-    if([dataProcessing isKeyHasExist:[NSString stringWithFormat:@"%u",length]])
-        length += 1;
-    [dataProcessing recognizedStrAndDuration:str :length];
+    double length = [number doubleValue];
+    [dataProcessing recognizedStrTimestamp:str :length];
     return YES;
 }
 
@@ -455,5 +465,10 @@
                               completion();
                           }];
     return YES;
+}
+#pragma mark - 播放回调
+-(void)playComplete
+{
+    [self stopPlayButtonTouch:buttonPlay];
 }
 @end

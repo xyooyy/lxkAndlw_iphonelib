@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewAnimation.h"
+#import "ASPlayDelegate.h"
 
-@interface TextViewScroll : UIScrollView
+@interface TextViewScroll : UIScrollView<ASPlayDelegate>
 {
     NSMutableArray *_viewArray;
     NSMutableArray *_viewArrayValue;
@@ -20,6 +21,8 @@
     double moveStep;
     int viewCount;
     double _duration;
+    id obj;
+    SEL action;
     
 }
 - (id)initWithFrame:(CGRect)frame maxRows:(NSUInteger)number;
@@ -36,5 +39,6 @@
 - (BOOL)scrollsSubTitle:(NSDictionary*)StrToTimeDic :(NSInteger)totalLength :(double)duration;
 
 - (BOOL)clearView;
+- (BOOL)setPlayCompleteCallBack :(id)parmObj :(SEL)parmAction;
 
 @end

@@ -57,6 +57,7 @@
         soundStrengthArray = [[NSMutableArray alloc]init];
         
         uploadDataArray = [[NSMutableArray alloc]init];
+        sizeCount = 0;
         
         
     }
@@ -83,6 +84,7 @@
     upLoadStart = 0;
     upLoadEnd = 0;
     mDataEnd = 0;
+    sizeCount = 0;
     //[uploadData setLength:0];
     [uploadDataArray removeAllObjects];
     mRecorderInfo = [mRecorder createRecord];
@@ -210,7 +212,7 @@
     mSetText = aSEL;
 }
 
-//识别结果处理
+#pragma mark - 识别返回
 -(void)transResult :(void(^)(void))finish
 {
     if(!isRecording)return;
@@ -222,8 +224,9 @@
     if ([[dic objectForKey:@"hypotheses"] count]!=0)
     {
         NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
+        sizeCount += size / 3200;
         //[mCotroller performSelector:mSetText withObject: :withObject:size];
-        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithUnsignedInt:size]];
+        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithDouble:sizeCount]];
     }
     else
     {

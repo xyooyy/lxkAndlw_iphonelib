@@ -60,6 +60,8 @@
     int soundStrengthThreshold;
     NSMutableArray *soundStrengthArray;
     
+    int sizeCount;
+    
 
 }
 

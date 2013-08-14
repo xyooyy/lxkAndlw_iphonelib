@@ -46,7 +46,10 @@
         _soundDataArray = [[NSMutableArray alloc] init];
         _dataArray = [[NSMutableArray alloc] init];
         
-        for (NSNumber *key in [_data getDic])
+        
+        NSArray *keySet = [_data getKeySet];
+        
+        for (NSString *key in keySet)
         {
             [_dataArray addObject:[[_data getDic] objectForKey:key]];
             [_soundDataArray addObject:key];

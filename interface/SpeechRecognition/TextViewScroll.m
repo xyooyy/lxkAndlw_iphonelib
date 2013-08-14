@@ -279,5 +279,18 @@
     [ViewToImageDic removeAllObjects];
     return YES;
 }
-
+- (BOOL)setPlayCompleteCallBack:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    action = parmAction;
+    return YES;
+}
+-(void)receivePlayData:(NSDictionary *)voiceData
+{
+    NSLog(@"rec");
+}
+-(void)playComplete
+{
+    [obj performSelector:action];
+}
 @end

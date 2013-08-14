@@ -107,6 +107,7 @@
     // 获得当前firstResponder
     UIView *firstResponder = [[[UIApplication sharedApplication] keyWindow] performSelector:@selector(firstResponder)];
     [firstResponder resignFirstResponder];
+    
     return YES;
 }
 
@@ -139,6 +140,8 @@
         NSLog(@"%s error", __func__);
     
     [_data setDictionary:newDictionary];
+    [_textView clearLastRecognition];
+    [_textView resetPosition];
         
     [self.navigationController popViewControllerAnimated:YES];
     
