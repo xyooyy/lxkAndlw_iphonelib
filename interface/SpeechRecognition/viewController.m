@@ -162,9 +162,6 @@
 
 - (void)viewDidLoad
 {
-//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"新建" style :UIBarButtonItemStyleDone target:self action:@selector(createNewRecognization)];
-//    backBtn.tintColor = [UIColor redColor];
-//    self.navigationItem.backBarButtonItem = backBtn;
     [super viewDidLoad];
     CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
     
@@ -231,7 +228,6 @@
 - (BOOL)translateButtonTouch :(UIButton*)sender
 {
     TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:[dataProcessing getStringFromArray]];
-//    NSLog(@"|-->%@", [dataProcessing getStringFromArray]);
     NSString *path = [filePath stringByAppendingString:@".translate"];
     [translateController setSavePath:path];
     [self.navigationController pushViewController:translateController animated:YES];
@@ -244,23 +240,12 @@
                                           withTarget:self
                                            newAction:@selector(stopPlayButtonTouch:)
                                           withTarget:self];
-
-   // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
     _audioPlayer = [[PlayAudioWav alloc]init:1/10.0];
     _audioPlayer.delegate = self;
-    //    [_audioPlayer playCompletion:^{
-//        buttonPlay.enabled = YES;
-//        [self stopPlayButtonTouch:sender];
-//    }];
     
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        //NSUInteger fileDateLength = [_audioPlayer getFileLength];
-        //NSDictionary *dic = [dataProcessing getDic];
-      //double dur =  [_audioPlayer play];
-        //[_textView scrollsSubTitle:dic :fileDateLength :dur];
-       // NSString *soundPath = [[NSString stringWithString:filePath] stringByAppendingString:@".wav"];
         [_textView setSubtitleKey:[dataProcessing getKeySet]];
         [_textView playInit];
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
