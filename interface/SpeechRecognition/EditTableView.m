@@ -10,6 +10,7 @@
 #import "EditTableView.h"
 #import "DataProcessing.h"
 #import "Data.h"
+#import "EditView.h"
 
 #define kTableViewCellHeight 30.f
 #define kTableViewBorderRadius 10.f
@@ -31,13 +32,14 @@
 
 - (id)initWithFrame:(CGRect)frame andData:(DataProcessing *)data
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self)
     {
         _data = data;
         
         self.delegate = self;
         self.dataSource = self;
+        self.frame = frame;
         self.backgroundColor = RGBA(27.f, 26.f, 24.f, 1.f);
         self.separatorColor = [UIColor colorWithWhite:0.167 alpha:1.000];
         self.layer.cornerRadius = kTableViewBorderRadius;
@@ -107,14 +109,26 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5, 0, cell.frame.size.width, kTableViewCellHeight)];
-    textField.text = [_dataArray objectAtIndex:indexPath.row];
-    textField.textColor = [UIColor whiteColor];
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
-    [cell.contentView addSubview:textField];
-    [_textFieldArray addObject:textField];
+//    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5, 0, cell.frame.size.width, kTableViewCellHeight)];
+//    textField.text = [_dataArray objectAtIndex:indexPath.row];
+//    textField.textColor = [UIColor whiteColor];
+//    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+//    [cell.contentView addSubview:textField];
+//    [_textFieldArray addObject:textField];
+    cell.textLabel.text = [_dataArray objectAtIndex:indexPath.row];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:14.0];
     
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [obj performSelector:selectAction];
+}
+- (BOOL)setSelectCallBack:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    selectAction = parmAction;
+    return YES;
+}
 @end

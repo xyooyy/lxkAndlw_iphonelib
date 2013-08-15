@@ -292,7 +292,16 @@
 {
     EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
     [editViewController setEditCompleteCallBack:self :@selector(editSave:)];
-    NSString *path = [filePath stringByAppendingString:@".data"];
+    NSString *path;
+    if(!isHistoryChecked)
+       path = [filePath stringByAppendingString:@".data"];
+    if(isHistoryChecked)
+    {
+        path = [sandBoxOperation getDocumentPath];
+        path = [path stringByAppendingPathComponent:fileName];
+        path = [path stringByAppendingString:@".data"];
+    }
+        
     [editViewController setSavePath:path];
     [editViewController setTextViewScroll:_textView];
     [self.navigationController pushViewController:editViewController animated:YES];    
@@ -330,6 +339,7 @@
     _soundWaveView.alpha = 1.0;
     [_textView clearLastRecognition];
     [_textView resetPosition];
+    [dataProcessing clearDicData];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
@@ -496,10 +506,16 @@
     
 }
 #pragma mark - 历史纪录弹出
-- (void)popHistoryView :(NSDictionary*)dic
+- (void)popHistoryView :(NSMutableDictionary*)dic
 {
+    
     isHistoryChecked = YES;
     buttonPlay.enabled = YES;
+    buttonEdit.enabled = YES;
+    buttonTranslate.enabled = YES;
+    
+    
+    
     NSArray *recognizedStrArray = [dic objectForKey:@"str"];
     [_textView clearLastRecognition];
     [_textView resetPosition];
@@ -513,8 +529,8 @@
     doc = [doc stringByAppendingString:@".data"];
     
     NSLog(@"%@",doc);
-    NSDictionary *historyRecordDic = [[NSDictionary alloc]initWithContentsOfFile:doc];
-    
+    NSMutableDictionary *historyRecordDic = [[NSMutableDictionary alloc]initWithContentsOfFile:doc];
+    [dataProcessing setDictionary:historyRecordDic];
     NSMutableArray *noSqueneceKeyset = [[NSMutableArray alloc]init];
     for (NSString *key in [historyRecordDic keyEnumerator])
     {

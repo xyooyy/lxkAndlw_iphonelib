@@ -193,7 +193,7 @@
         [record addObject:[recordDict objectForKey:key]];
     }
     
-    NSDictionary *dic = [[NSDictionary alloc]initWithObjectsAndKeys:record,@"str",filNameWithNoExt,@"fileName", nil];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithObjectsAndKeys:record,@"str",filNameWithNoExt,@"fileName", nil];
     
     [obj performSelector:popViewAction withObject:dic];
     [self.navigationController popViewControllerAnimated:YES];

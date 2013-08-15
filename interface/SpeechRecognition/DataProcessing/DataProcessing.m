@@ -73,7 +73,7 @@
 
 - (BOOL)setDictionary:(NSMutableDictionary *)dictionary
 {
-    recognizedRecord = dictionary;
+    recognizedRecord = [[NSMutableDictionary alloc]initWithDictionary:dictionary];
     return YES;
 }
 - (NSDictionary*)getDic

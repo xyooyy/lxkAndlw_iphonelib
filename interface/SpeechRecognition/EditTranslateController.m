@@ -107,10 +107,19 @@
 
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-    NSError *error;
-    if (![_textView.text writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
-        NSLog(@"%@", error);
+//    NSError *error;
+//    if (![_textView.text writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
+//        NSLog(@"%@", error);
+    [obj performSelector:saveAction withObject:nil withObject:nil];
+    [self.navigationController popViewControllerAnimated:YES];
     
+    return YES;
+}
+
+- (BOOL)saveButtonCallBack:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    saveAction = parmAction;
     return YES;
 }
 

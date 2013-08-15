@@ -39,6 +39,7 @@
 		9AC9E9C317B473C300E46871 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9E9C217B473C300E46871 /* SoundWaveView.m */; };
 		9ADD0A2017BCB76600B19DB8 /* hello.spx in Resources */ = {isa = PBXBuildFile; fileRef = 9ADD0A1F17BCB76600B19DB8 /* hello.spx */; };
 		9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */; };
+		9ADD0A2517BD123A00B19DB8 /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD0A2417BD123A00B19DB8 /* EditView.m */; };
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
 		BE300D4417B4E49600E642FD /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE300D4217B4E49600E642FD /* PopupView.m */; };
@@ -144,6 +145,8 @@
 		9AC9E9C217B473C300E46871 /* SoundWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundWaveView.m; sourceTree = "<group>"; };
 		9ADD0A1F17BCB76600B19DB8 /* hello.spx */ = {isa = PBXFileReference; lastKnownFileType = file; path = hello.spx; sourceTree = "<group>"; };
 		9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASGoogleVoiceRecognizer.mm; sourceTree = "<group>"; };
+		9ADD0A2317BD123A00B19DB8 /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
+		9ADD0A2417BD123A00B19DB8 /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
 		BE19607017A8E4E600073ADF /* TextToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToImage.h; sourceTree = "<group>"; };
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
 		BE2FD5BA17B337400086AF47 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
@@ -450,6 +453,8 @@
 				9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */,
 				BE88B1FD17B5D47F00F7465F /* EditTableView.h */,
 				BE88B1FE17B5D47F00F7465F /* EditTableView.m */,
+				9ADD0A2317BD123A00B19DB8 /* EditView.h */,
+				9ADD0A2417BD123A00B19DB8 /* EditView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 				9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */,
 				9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */,
 				9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */,
+				9ADD0A2517BD123A00B19DB8 /* EditView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface EditTranslateController : UIViewController
+{
+    id obj;
+    SEL saveAction;
+}
 
 - (BOOL)setTextString:(NSString *)string;
 - (BOOL)setSavePath:(NSString *)path;
+- (BOOL)saveButtonCallBack :(id)parmObj :(SEL)parmAction;
 
 @end
