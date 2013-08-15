@@ -14,6 +14,7 @@
 
 #define RequestURL @"http://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=zh-CN&maxresults=1"
 
+
 @protocol GoogleVoiveDelegate <NSObject>
 
 - (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong;
@@ -61,6 +62,9 @@
     NSMutableArray *soundStrengthArray;
     
     int sizeCount;
+
+    BOOL isRecognizedSuccess;
+    
     
 
 }
@@ -76,5 +80,6 @@
 -(BOOL)setDelegate:(id)delegate;
 -(RecordInfo *)recordInfo;
 -(NSData *)currentAudioData;
+
 
 @end

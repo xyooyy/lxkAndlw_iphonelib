@@ -18,7 +18,6 @@
 		9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */; };
 		9AA79F2117AF3A0400298409 /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2017AF3A0400298409 /* viewController.m */; };
 		9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2317AF403600298409 /* UIViewAnimation.m */; };
-		9AA79F2817AF896200298409 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2717AF896200298409 /* ASGoogleVoiceRecognizer.mm */; };
 		9AA79F2E17AF89DB00298409 /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2C17AF89DB00298409 /* RecordInfo.m */; };
 		9AA79F3217AF8AC200298409 /* WavHeaderFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F3017AF8AC200298409 /* WavHeaderFactory.cpp */; };
 		9AA79F3517AF8B3600298409 /* CalculateSoundStrength.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F3417AF8B3600298409 /* CalculateSoundStrength.m */; };
@@ -38,6 +37,8 @@
 		9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9E13017BB374300A4DF2D /* AudioInfo.m */; };
 		9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */; };
 		9AC9E9C317B473C300E46871 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9E9C217B473C300E46871 /* SoundWaveView.m */; };
+		9ADD0A2017BCB76600B19DB8 /* hello.spx in Resources */ = {isa = PBXBuildFile; fileRef = 9ADD0A1F17BCB76600B19DB8 /* hello.spx */; };
+		9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */; };
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
 		BE300D4417B4E49600E642FD /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE300D4217B4E49600E642FD /* PopupView.m */; };
@@ -101,7 +102,6 @@
 		9AA79F2217AF403600298409 /* UIViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimation.h; sourceTree = "<group>"; };
 		9AA79F2317AF403600298409 /* UIViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimation.m; sourceTree = "<group>"; };
 		9AA79F2617AF896200298409 /* ASGoogleVoiceRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGoogleVoiceRecognizer.h; sourceTree = "<group>"; };
-		9AA79F2717AF896200298409 /* ASGoogleVoiceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASGoogleVoiceRecognizer.mm; sourceTree = "<group>"; };
 		9AA79F2B17AF89DB00298409 /* RecordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordInfo.h; sourceTree = "<group>"; };
 		9AA79F2C17AF89DB00298409 /* RecordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordInfo.m; sourceTree = "<group>"; };
 		9AA79F2F17AF89F100298409 /* ASRecordDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordDelegate.h; sourceTree = "<group>"; };
@@ -142,6 +142,8 @@
 		9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioWav.m; sourceTree = "<group>"; };
 		9AA9E13517BB378800A4DF2D /* ASPlayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPlayDelegate.h; sourceTree = "<group>"; };
 		9AC9E9C217B473C300E46871 /* SoundWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundWaveView.m; sourceTree = "<group>"; };
+		9ADD0A1F17BCB76600B19DB8 /* hello.spx */ = {isa = PBXFileReference; lastKnownFileType = file; path = hello.spx; sourceTree = "<group>"; };
+		9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASGoogleVoiceRecognizer.mm; sourceTree = "<group>"; };
 		BE19607017A8E4E600073ADF /* TextToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToImage.h; sourceTree = "<group>"; };
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
 		BE2FD5BA17B337400086AF47 /* ASRecordWav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRecordWav.h; sourceTree = "<group>"; };
@@ -275,7 +277,7 @@
 				9AA79F2B17AF89DB00298409 /* RecordInfo.h */,
 				9AA79F2C17AF89DB00298409 /* RecordInfo.m */,
 				9AA79F2617AF896200298409 /* ASGoogleVoiceRecognizer.h */,
-				9AA79F2717AF896200298409 /* ASGoogleVoiceRecognizer.mm */,
+				9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */,
 			);
 			path = GoogleRecognize;
 			sourceTree = "<group>";
@@ -402,6 +404,7 @@
 		BE7B5B6D17A278BD00BF9C1E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9ADD0A1F17BCB76600B19DB8 /* hello.spx */,
 				BE7B5B6E17A278BD00BF9C1E /* SpeechRecognition-Info.plist */,
 				BE7B5B6F17A278BD00BF9C1E /* InfoPlist.strings */,
 				BE7B5B7217A278BD00BF9C1E /* main.m */,
@@ -557,6 +560,7 @@
 				BEF862A717B8C0D00042EB75 /* logo_middle.png in Resources */,
 				BEF862A817B8C0D00042EB75 /* redcopy-button.png in Resources */,
 				BEF862AD17B8C8BE0042EB75 /* big-save-button.png in Resources */,
+				9ADD0A2017BCB76600B19DB8 /* hello.spx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,7 +578,6 @@
 				BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */,
 				9AA79F2117AF3A0400298409 /* viewController.m in Sources */,
 				9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */,
-				9AA79F2817AF896200298409 /* ASGoogleVoiceRecognizer.mm in Sources */,
 				9AA79F2E17AF89DB00298409 /* RecordInfo.m in Sources */,
 				9AA79F3217AF8AC200298409 /* WavHeaderFactory.cpp in Sources */,
 				9AA79F3517AF8B3600298409 /* CalculateSoundStrength.m in Sources */,
@@ -608,6 +611,7 @@
 				BEF862AB17B8C71C0042EB75 /* EditTranslateController.m in Sources */,
 				9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */,
 				9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */,
+				9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +696,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechRecognition/SpeechRecognition-Prefix.pch";
 				INFOPLIST_FILE = "SpeechRecognition/SpeechRecognition-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Speex\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -706,6 +714,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechRecognition/SpeechRecognition-Prefix.pch";
 				INFOPLIST_FILE = "SpeechRecognition/SpeechRecognition-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Speex\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

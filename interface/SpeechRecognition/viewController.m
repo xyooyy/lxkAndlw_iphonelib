@@ -329,7 +329,7 @@
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
-    [gooleVoiceRecognizer stopRecording];
+    BOOL isSuccess = [gooleVoiceRecognizer stopRecording];
     [_textView scrollsToTopWithAnimation];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
@@ -345,9 +345,13 @@
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
         _soundWaveView.alpha = 0.0;
-        buttonEdit.enabled = YES;
-        buttonPlay.enabled = YES;
-        buttonTranslate.enabled = YES;
+        if(isSuccess)
+        {
+            buttonEdit.enabled = YES;
+            buttonPlay.enabled = YES;
+            buttonTranslate.enabled = YES;
+        }
+        
     } withButton:sender];
    
     return YES;
@@ -465,6 +469,8 @@
     
 }
 #pragma mark - 播放录音的委托
+
+
 - (void)playComplete
 {
     _soundWaveView.alpha = 0.f;
@@ -481,6 +487,11 @@
     int soundStrongh = [calculateSoundStrength calculateVoiceStrength:soundDataShort :size :1];
     int compress = [calculateSoundStrength voiceStrengthConvertHeight:soundStrongh :120];
     [_soundWaveView addSoundStrong:compress];
+    
+}
+#pragma mark - 停止识别
+- (void)stopRecognize :(NSNumber*)flag
+{
     
 }
 @end

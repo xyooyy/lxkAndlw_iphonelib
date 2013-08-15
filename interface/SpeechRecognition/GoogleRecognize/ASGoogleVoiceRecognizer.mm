@@ -43,6 +43,8 @@
         
         
         mRequest = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:RequestURL]];
+        
+        //[mRequest setValue:@"audio/speex;rate=16000" forHTTPHeaderField:@"Content-Type"];
         [mRequest setValue:@"audio/L16;rate=16000" forHTTPHeaderField:@"Content-Type"];
         [mRequest setValue:@"Mozilla/5.0" forHTTPHeaderField:@"User-Agent"];
         [mRequest setHTTPMethod:@"POST"];
@@ -58,6 +60,7 @@
         
         uploadDataArray = [[NSMutableArray alloc]init];
         sizeCount = 0;
+        
         
         
     }
@@ -88,24 +91,22 @@
     //[uploadData setLength:0];
     [uploadDataArray removeAllObjects];
     mRecorderInfo = [mRecorder createRecord];
+    isRecognizedSuccess = NO;
     return [mRecorder startRecord:mRecorderInfo];
+    
+   
+    
 }
 
 -(BOOL)stopRecording
 {
     [mRecorder pauseRecord:mRecorderInfo];
     NSData *uploadData = [self getUplodaData];
-    [self saveWav:uploadData :fileName];
-//    if (upLoadEnd != upLoadStart  && canRecgnise) {
-//        canRecgnise = NO;
-//        NSRange range = NSMakeRange(upLoadStart, (upLoadEnd - upLoadStart));
-//        [currentUpLoad appendData:[mRecord subdataWithRange:range]];
-//        [self upLoadWAV:currentUpLoad];
-//    }
-   // [uploadData setLength:0];
+    if(isRecognizedSuccess)
+       [self saveWav:uploadData :fileName];
     [uploadDataArray removeAllObjects];
     isRecording = NO;
-    return YES;
+    return isRecognizedSuccess;
 }
 
 -(void)saveWav :(NSData*)data :(NSString*)parmFileName
@@ -119,21 +120,7 @@
     [saveData appendData:data];
     [saveData writeToFile:path atomically:YES];
 }
--(BOOL)upLoadWAV:(NSData *)aDataWav
-{
-    [uploadQueue addObject:aDataWav];
-    if([uploadQueue count] == 1 && !isBeginRecgnise)
-    {
-        isBeginRecgnise = YES;
-        [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
-        [uploadDataArray addObject:[uploadQueue objectAtIndex:0]];
-        [uploadQueue removeObjectAtIndex:0];
-        [NSURLConnection connectionWithRequest:mRequest delegate:self];
-        NSLog(@"开始请求..");
-    }
-    
-    return YES;
-}
+
 
 - (void)receiveRecordData:(NSDictionary *)voiceData
 {
@@ -147,7 +134,7 @@
     
     [soundStrengthArray addObject:[NSNumber numberWithInt:soundStrongh]];
     
-    if (soundStrongh > soundStrengthThreshold)
+   if (soundStrongh > soundStrengthThreshold)
     {
         //soundStrengthThreshold -= 1;
         canRecgnise = YES;
@@ -173,6 +160,7 @@
     if(count >= WAIT_TIME)
         count = 0;
     
+    
     [_delegate googleVoiceSoundStrong:soundStrongh];
 }
 
@@ -187,6 +175,22 @@
     [mRecivedData appendData:data];
 }
 
+-(BOOL)upLoadWAV:(NSData *)aDataWav
+{
+    [uploadQueue addObject:aDataWav];
+    if([uploadQueue count] == 1 && !isBeginRecgnise)
+    {
+        isBeginRecgnise = YES;
+       // NSData *speexData = [convertSpeex convertToSpeex:[uploadQueue objectAtIndex:0]];
+        [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
+        [uploadDataArray addObject:[uploadQueue objectAtIndex:0]];
+        [uploadQueue removeObjectAtIndex:0];
+        [NSURLConnection connectionWithRequest:mRequest delegate:self];
+        NSLog(@"开始请求..");
+    }
+    
+    return YES;
+}
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"已经得到完整的数据");
@@ -196,6 +200,7 @@
     
         if([uploadQueue count] >= 1)
         {
+            //NSData *speexData = [convertSpeex convertToSpeex:[uploadQueue objectAtIndex:0]];
             [mRequest setHTTPBody:[[NSData alloc]initWithData:[uploadQueue objectAtIndex:0]]];
             [uploadDataArray addObject:[uploadQueue objectAtIndex:0]];
             [uploadQueue removeObjectAtIndex:0];
@@ -227,6 +232,7 @@
         sizeCount += size / 3200;
         //[mCotroller performSelector:mSetText withObject: :withObject:size];
         [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithDouble:sizeCount]];
+        isRecognizedSuccess = YES;
     }
     else
     {
