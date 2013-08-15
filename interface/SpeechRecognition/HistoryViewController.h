@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface HistoryViewController : UITableViewController
+{
+    id obj;
+    SEL popViewAction;
+}
 
+- (BOOL)setPopViewAction :(id)parmObj :(SEL)parmAction;
 @end

@@ -33,7 +33,12 @@
     }
     return YES;
 }
-
+- (BOOL)setPopViewAction:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    popViewAction = parmAction;
+    return YES;
+}
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -167,7 +172,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
     NSString *fileName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    NSString *filNameWithNoExt = [NSString stringWithString:fileName];
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     fileName = [fileName stringByAppendingString:@".data"];
     doc = [doc stringByAppendingPathComponent:fileName];
@@ -186,8 +193,11 @@
         [record addObject:[recordDict objectForKey:key]];
     }
     
-    CurrentDataViewController *currentDataController = [[CurrentDataViewController alloc]initWithData:record];
-    [self.navigationController pushViewController:currentDataController animated:YES];
+    NSDictionary *dic = [[NSDictionary alloc]initWithObjectsAndKeys:record,@"str",filNameWithNoExt,@"fileName", nil];
+    
+    [obj performSelector:popViewAction withObject:dic];
+    [self.navigationController popViewControllerAnimated:YES];
+     
 }
 
 @end

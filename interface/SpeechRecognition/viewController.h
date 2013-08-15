@@ -23,6 +23,7 @@
     BOOL isHistoryBtnDisplay;
     
     NSString *filePath;
+    BOOL isHistoryChecked;
     
 }
 @end

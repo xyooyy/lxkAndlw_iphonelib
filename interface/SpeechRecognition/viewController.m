@@ -214,6 +214,7 @@
 -(void)checkHistoryRecord
 {
     HistoryViewController *historyController = [[HistoryViewController alloc]initWithStyle:UITableViewStylePlain];
+    [historyController setPopViewAction:self :@selector(popHistoryView:)];
     [self.navigationController pushViewController:historyController animated:YES];
 }
 
@@ -246,8 +247,11 @@
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        [_textView setSubtitleKey:[dataProcessing getKeySet]];
-        [_textView playInit];
+        if(!isHistoryChecked)
+        {
+            [_textView setSubtitleKey:[dataProcessing getKeySet]];
+            [_textView playInit];
+        }
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
         _soundWaveView.alpha = 1.f;
@@ -301,6 +305,8 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
+    
+    isHistoryChecked = NO;
 
     [dataProcessing clearDicData];
     [switchButtonTouchAction switchButtonTouchAction:sender
@@ -489,9 +495,34 @@
     [_soundWaveView addSoundStrong:compress];
     
 }
-#pragma mark - 停止识别
-- (void)stopRecognize :(NSNumber*)flag
+#pragma mark - 历史纪录弹出
+- (void)popHistoryView :(NSDictionary*)dic
 {
+    isHistoryChecked = YES;
+    buttonPlay.enabled = YES;
+    NSArray *recognizedStrArray = [dic objectForKey:@"str"];
+    [_textView clearLastRecognition];
+    [_textView resetPosition];
+    [_textView playInit];
+    for (NSString *str in recognizedStrArray)
+    {
+        [self addText:str];
+    }
+    NSString *doc = [sandBoxOperation getDocumentPath];
+    doc = [doc stringByAppendingPathComponent:[dic objectForKey:@"fileName"]];
+    doc = [doc stringByAppendingString:@".data"];
     
+    NSLog(@"%@",doc);
+    NSDictionary *historyRecordDic = [[NSDictionary alloc]initWithContentsOfFile:doc];
+    
+    NSMutableArray *noSqueneceKeyset = [[NSMutableArray alloc]init];
+    for (NSString *key in [historyRecordDic keyEnumerator])
+    {
+        [noSqueneceKeyset addObject:key];
+    }
+    
+    NSArray *keySet = [dataProcessing timestampSequence:noSqueneceKeyset];
+    [_textView setSubtitleKey:keySet];
+    fileName = [dic objectForKey:@"fileName"];
 }
 @end
