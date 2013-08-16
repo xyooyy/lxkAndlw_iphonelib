@@ -65,6 +65,8 @@
 
     BOOL isRecognizedSuccess;
     
+    BOOL isRecognize;
+    
     
 
 }

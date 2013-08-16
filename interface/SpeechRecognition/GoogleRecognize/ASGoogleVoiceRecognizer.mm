@@ -12,7 +12,7 @@
 #import "Data.h"
 
 #define SOUNDSTRONGTH_THRESHOLD 150
-#define WAIT_TIME 8
+#define WAIT_TIME 5
 
 @interface ASGoogleVoiceRecognizer ()
 {
@@ -24,7 +24,7 @@
 
 @implementation ASGoogleVoiceRecognizer
 
--(id)init
+-(id)init;
 {
     self = [super init];
     if (self) {
@@ -100,11 +100,10 @@
 {
     [mRecorder pauseRecord:mRecorderInfo];
     NSData *uploadData = [self getUplodaData];
-    if(isRecognizedSuccess)
-       [self saveWav:uploadData :fileName];
+    [self saveWav:uploadData :fileName];
     [uploadDataArray removeAllObjects];
     isRecording = NO;
-    return isRecognizedSuccess;
+    return YES;
 }
 
 -(void)saveWav :(NSData*)data :(NSString*)parmFileName
@@ -222,20 +221,21 @@
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mRecivedData]];
-    
+    NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
+    sizeCount += size / 3200;
     //判断是否能识别出结果
     if ([[dic objectForKey:@"hypotheses"] count]!=0)
     {
-        NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
-        sizeCount += size / 3200;
+       
         //[mCotroller performSelector:mSetText withObject: :withObject:size];
         [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithDouble:sizeCount]];
         isRecognizedSuccess = YES;
     }
     else
     {
+        [mCotroller performSelector:mSetText withObject:@"未识别" withObject:[NSNumber numberWithDouble:sizeCount]];
         NSLog(@"没有识别");
-        [uploadDataArray removeLastObject];
+       // [uploadDataArray removeLastObject];
     }
     finish();
     [mRecivedData setLength:0];

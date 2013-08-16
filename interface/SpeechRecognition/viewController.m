@@ -272,11 +272,13 @@
     buttonTranslate.enabled = NO;
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     return YES;
 }
 
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     [_audioPlayer stopAudio:audioInfo];
     [_audioPlayer closeAudio:audioInfo];
     
@@ -525,6 +527,7 @@
 
 - (void)playComplete
 {
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     _soundWaveView.alpha = 0.f;
     [self stopPlayButtonTouch:buttonPlay];
     [_textView playComplete];
