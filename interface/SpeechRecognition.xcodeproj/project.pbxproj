@@ -17,6 +17,8 @@
 		9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */; };
 		9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */; };
 		9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */; };
+		9A65963E17BE2BBD000BF265 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */; };
+		9A65964217BE2E0D000BF265 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65964117BE2E0D000BF265 /* Reachability.m */; };
 		9AA79F2117AF3A0400298409 /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2017AF3A0400298409 /* viewController.m */; };
 		9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2317AF403600298409 /* UIViewAnimation.m */; };
 		9AA79F2E17AF89DB00298409 /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2C17AF89DB00298409 /* RecordInfo.m */; };
@@ -38,7 +40,6 @@
 		9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9E13017BB374300A4DF2D /* AudioInfo.m */; };
 		9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */; };
 		9AC9E9C317B473C300E46871 /* SoundWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9E9C217B473C300E46871 /* SoundWaveView.m */; };
-		9ADD0A2017BCB76600B19DB8 /* hello.spx in Resources */ = {isa = PBXBuildFile; fileRef = 9ADD0A1F17BCB76600B19DB8 /* hello.spx */; };
 		9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */; };
 		BE19607217A8E4E600073ADF /* TextToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE19607117A8E4E600073ADF /* TextToImage.m */; };
 		BE2FD5BC17B337400086AF47 /* ASRecordWav.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2FD5BB17B337400086AF47 /* ASRecordWav.m */; };
@@ -100,6 +101,9 @@
 		9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewScroll.m; sourceTree = "<group>"; };
 		9A65963617BDC17E000BF265 /* EditHistoryRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditHistoryRecordViewController.h; sourceTree = "<group>"; };
 		9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditHistoryRecordViewController.m; sourceTree = "<group>"; };
+		9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9A65964017BE2E0D000BF265 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9A65964117BE2E0D000BF265 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9AA79F1F17AF3A0400298409 /* viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewController.h; sourceTree = "<group>"; };
 		9AA79F2017AF3A0400298409 /* viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewController.m; sourceTree = "<group>"; };
 		9AA79F2217AF403600298409 /* UIViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimation.h; sourceTree = "<group>"; };
@@ -145,7 +149,6 @@
 		9AA9E13217BB374300A4DF2D /* PlayAudioWav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioWav.m; sourceTree = "<group>"; };
 		9AA9E13517BB378800A4DF2D /* ASPlayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPlayDelegate.h; sourceTree = "<group>"; };
 		9AC9E9C217B473C300E46871 /* SoundWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundWaveView.m; sourceTree = "<group>"; };
-		9ADD0A1F17BCB76600B19DB8 /* hello.spx */ = {isa = PBXFileReference; lastKnownFileType = file; path = hello.spx; sourceTree = "<group>"; };
 		9ADD0A2117BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASGoogleVoiceRecognizer.mm; sourceTree = "<group>"; };
 		BE19607017A8E4E600073ADF /* TextToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToImage.h; sourceTree = "<group>"; };
 		BE19607117A8E4E600073ADF /* TextToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToImage.m; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A65963E17BE2BBD000BF265 /* SystemConfiguration.framework in Frameworks */,
 				BE49507A17B48D6D007F82B7 /* AVFoundation.framework in Frameworks */,
 				9AA79F5C17AF8C1D00298409 /* AudioToolbox.framework in Frameworks */,
 				BE457F1D17A4A5BC00123896 /* QuartzCore.framework in Frameworks */,
@@ -265,6 +269,16 @@
 			);
 			name = DataProcessing;
 			path = SpeechRecognition/DataProcessing;
+			sourceTree = "<group>";
+		};
+		9A65963F17BE2DFC000BF265 /* checkNetStatus */ = {
+			isa = PBXGroup;
+			children = (
+				9A65964017BE2E0D000BF265 /* Reachability.h */,
+				9A65964117BE2E0D000BF265 /* Reachability.m */,
+			);
+			name = checkNetStatus;
+			path = SpeechRecognition/checkNetStatus;
 			sourceTree = "<group>";
 		};
 		9AA79F2517AF892400298409 /* GoogleRecognize */ = {
@@ -352,6 +366,7 @@
 		BE7B5B5A17A278BD00BF9C1E = {
 			isa = PBXGroup;
 			children = (
+				9A65963F17BE2DFC000BF265 /* checkNetStatus */,
 				BE88B21C17B6010F00F7465F /* images */,
 				BE3727FC17B389D200FCD7C0 /* AudioPlayer */,
 				9A17B97017B33A0800E49CC1 /* SandBox */,
@@ -377,6 +392,7 @@
 		BE7B5B6517A278BD00BF9C1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */,
 				9AA79F5B17AF8C1D00298409 /* AudioToolbox.framework */,
 				9AA79F5917AF8C1400298409 /* AVFoundation.framework */,
 				BE457F1C17A4A5BC00123896 /* QuartzCore.framework */,
@@ -407,7 +423,6 @@
 		BE7B5B6D17A278BD00BF9C1E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9ADD0A1F17BCB76600B19DB8 /* hello.spx */,
 				BE7B5B6E17A278BD00BF9C1E /* SpeechRecognition-Info.plist */,
 				BE7B5B6F17A278BD00BF9C1E /* InfoPlist.strings */,
 				BE7B5B7217A278BD00BF9C1E /* main.m */,
@@ -565,7 +580,6 @@
 				BEF862A717B8C0D00042EB75 /* logo_middle.png in Resources */,
 				BEF862A817B8C0D00042EB75 /* redcopy-button.png in Resources */,
 				BEF862AD17B8C8BE0042EB75 /* big-save-button.png in Resources */,
-				9ADD0A2017BCB76600B19DB8 /* hello.spx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +632,7 @@
 				9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */,
 				9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */,
 				9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */,
+				9A65964217BE2E0D000BF265 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

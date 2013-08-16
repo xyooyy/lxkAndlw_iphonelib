@@ -21,6 +21,7 @@
 #import "PlayAudioWav.h"
 #import "EditViewController.h"
 #import "TranslateViewController.h"
+#import "Reachability.h"
 
 @interface viewController ()
 {
@@ -321,6 +322,20 @@
 }
 - (BOOL)startRecogniseButtonTouch:(UIButton *)sender
 {
+    
+//    Reachability *r = [Reachability reachabilityWithHostName:@"www.apple.com"];
+//    switch ([r currentReachabilityStatus]) {
+//        case NotReachable:
+//            // 没有网络连接
+//            break;
+//        case ReachableViaWWAN:
+//            // 使用3G网络
+//            break;
+//        case ReachableViaWiFi:
+//            NSLog(@"wifi");
+//            break;
+//    }
+    
     buttonStart.enabled = NO;
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
@@ -357,6 +372,7 @@
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
     buttonStart.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     BOOL isSuccess = [gooleVoiceRecognizer stopRecording];
     [_textView scrollsToTopWithAnimation];
     [switchButtonTouchAction switchButtonTouchAction:sender
@@ -378,7 +394,7 @@
             buttonEdit.enabled = YES;
             buttonPlay.enabled = YES;
             buttonTranslate.enabled = YES;
-            self.navigationItem.rightBarButtonItem.enabled = YES;
+            
         }
         
     } withButton:sender];
@@ -555,4 +571,5 @@
     [_textView setSubtitleKey:keySet];
     fileName = [dic objectForKey:@"fileName"];
 }
+#pragma mark - 检测
 @end
