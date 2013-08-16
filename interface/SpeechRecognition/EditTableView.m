@@ -10,7 +10,6 @@
 #import "EditTableView.h"
 #import "DataProcessing.h"
 #import "Data.h"
-#import "EditView.h"
 
 #define kTableViewCellHeight 30.f
 #define kTableViewBorderRadius 10.f
@@ -20,10 +19,9 @@
     DataProcessing *_data;
     // 临时存储每一行要显示的内容
     NSMutableArray *_dataArray;
-    // 存一系列的textField
-    NSMutableArray *_textFieldArray;
     // 存每一行对应的音长
     NSMutableArray *_soundDataArray;
+    NSMutableArray *_cellArray;
 }
 
 @end
@@ -44,9 +42,9 @@
         self.separatorColor = [UIColor colorWithWhite:0.167 alpha:1.000];
         self.layer.cornerRadius = kTableViewBorderRadius;
         
-        _textFieldArray = [[NSMutableArray alloc] init];
         _soundDataArray = [[NSMutableArray alloc] init];
         _dataArray = [[NSMutableArray alloc] init];
+        _cellArray =  [[NSMutableArray alloc]init];
         
         
         NSArray *keySet = [_data getKeySet];
@@ -64,24 +62,16 @@
 {
     NSString *result = @"";
     
-    for (UITextField *textField in _textFieldArray)
+    for (UITableViewCell *cell in _cellArray)
     {
-        result = [result stringByAppendingFormat:@"\n%@", textField.text];
+       result = [result stringByAppendingString:cell.textLabel.text];
     }
-    
     return result;
 }
 
 - (NSArray *)getTextArrayStringInEditView
 {
-    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:_textFieldArray.count];
-    
-    for (UITextField *textField in _textFieldArray)
-    {
-        [result addObject:textField.text];
-    }
-    
-    return result;
+    return _dataArray;
 }
 
 - (NSArray *)getSoundDataArray
@@ -118,17 +108,26 @@
     cell.textLabel.text = [_dataArray objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    [_cellArray addObject:cell];
     
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [obj performSelector:selectAction];
+    //NSNumber *row = [NSNumber numberWithInteger:indexPath.row];
+    NSString *str = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    [obj performSelector:selectAction withObject:indexPath withObject:str];
 }
 - (BOOL)setSelectCallBack:(id)parmObj :(SEL)parmAction
 {
     obj = parmObj;
     selectAction = parmAction;
+    return YES;
+}
+- (BOOL)upDateSourceData:(NSString *)source :(NSIndexPath *)indexPath
+{
+    [_dataArray removeObjectAtIndex:indexPath.row];
+    [_dataArray insertObject:source atIndex:indexPath.row];
     return YES;
 }
 @end

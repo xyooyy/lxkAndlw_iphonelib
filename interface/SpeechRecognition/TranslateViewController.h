@@ -10,7 +10,7 @@
 
 @interface TranslateViewController : UIViewController
 
-- (id)initWithString:(NSString *)string;
+- (id)initWithString:(NSString *)string :(NSString*)savePath;
 - (BOOL)setSavePath:(NSString *)path;
 
 @end

@@ -11,11 +11,10 @@
 @interface EditTranslateController : UIViewController
 {
     id obj;
-    SEL saveAction;
+    SEL editSaveAction;
 }
-
 - (BOOL)setTextString:(NSString *)string;
 - (BOOL)setSavePath:(NSString *)path;
-- (BOOL)saveButtonCallBack :(id)parmObj :(SEL)parmAction;
+- (BOOL)setEditSaveCallBack :(id)parmObj :(SEL)parmAction;
 
 @end

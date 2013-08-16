@@ -15,6 +15,7 @@
 {
     id obj;
     SEL action;
+    NSIndexPath *currentIndex;
 }
 
 - (id)initWithData:(DataProcessing *)data;

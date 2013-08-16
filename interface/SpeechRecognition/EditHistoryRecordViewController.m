@@ -1,22 +1,19 @@
 //
-//  EditTranslateController.m
+//  EditHistoryRecordViewController.m
 //  SpeechRecognition
 //
-//  Created by Lovells on 13-8-12.
+//  Created by xyooyy on 13-8-16.
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 
-#import "EditTranslateController.h"
+#import "EditHistoryRecordViewController.h"
 #import "Data.h"
 
-@interface EditTranslateController ()
-{
-    UITextView *_textView;
-    NSString *_savePath;
-}
+@interface EditHistoryRecordViewController ()
+
 @end
 
-@implementation EditTranslateController
+@implementation EditHistoryRecordViewController
 
 - (id)init
 {
@@ -26,7 +23,7 @@
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
         _textView.backgroundColor = RGBA(27.f, 26.f, 24.f, 1.f);
         _textView.textColor = [UIColor whiteColor];
-
+        
     }
     return self;
 }
@@ -34,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self.view addSubview:_textView];
     
     UIButton *backButton = [self addButtonWithImageNamed:kImageReturnButton
@@ -52,15 +49,13 @@
                                                         toView:nil];
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:completionButton];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-
+    
     [self addButtonWithImageNamed:kImageBigSaveButton
                              rect:CGRectMake(15, 373, 290, 34)
                          delegate:self
                            action:@selector(saveButtonTouch:)
                            toView:self.view];
-
 }
-
 - (UIButton *)addButtonWithImageNamed:(NSString *)name
                                  rect:(CGRect)rect
                              delegate:(id)delegate
@@ -75,22 +70,12 @@
     
     return button;
 }
-
 - (BOOL)setTextString:(NSString *)string
 {
     _textView.text = string;
-
+    
     return YES;
 }
-
-- (BOOL)setSavePath:(NSString *)path
-{
-    _savePath = path;
-    return YES;
-}
-
-#pragma mark - 按钮事件
-
 - (BOOL)completionButtonTouch:(id)sender
 {
     // 获得当前firstResponder
@@ -105,24 +90,29 @@
     return YES;
 }
 
-- (BOOL)setEditSaveCallBack:(id)parmObj :(SEL)parmAction
-{
-    obj = parmObj;
-    editSaveAction = parmAction;
-    return YES;
-}
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-//    NSLog(@"%@",_savePath);
 //    NSError *error;
 //    if (![_textView.text writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
 //        NSLog(@"%@", error);
-   // NSString *str = _textView.text;
-    [obj performSelector:editSaveAction withObject:_textView.text];
+    NSString *str = _textView.text;
+    [obj performSelector:saveAction withObject:str];
     [self.navigationController popViewControllerAnimated:YES];
     
     return YES;
 }
 
+- (BOOL)saveButtonCallBack:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    saveAction = parmAction;
+    return YES;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 @end

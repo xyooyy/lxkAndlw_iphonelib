@@ -22,12 +22,20 @@
 
 @implementation TranslateViewController
 
-- (id)initWithString:(NSString *)string
+- (id)initWithString:(NSString *)string :(NSString*)savePath
 {
     if (self = [super init])
     {
+        _savePath = savePath;
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
+        _textView.editable = NO;
+        _textView.backgroundColor = [UIColor clearColor];
+        _textView.textColor = [UIColor whiteColor];
+        
         _translate = [[TranslateRecognizeResult alloc] initWithData:self :@selector(translate:result:)];
         [_translate translate:string];
+       
+        
     }
     return self;
 }
@@ -38,9 +46,7 @@
     [self addImageWithName:kImageCD
                      frame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
                                       kImageCDAfterWidth, kImageCDAfterHeight)];
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
-    _textView.backgroundColor = [UIColor clearColor];
-    _textView.textColor = [UIColor whiteColor];
+   
     [self.view addSubview:_textView];
 
     UIButton *backButton = [self addButtonWithImageNamed:kImageReturnButton
@@ -112,8 +118,9 @@
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
     EditTranslateController *editTranslateController = [[EditTranslateController alloc] init];
-    [editTranslateController setSavePath:_savePath];
+    //[editTranslateController setSavePath:_savePath];
     [editTranslateController setTextString:_textView.text];
+    [editTranslateController setEditSaveCallBack:self :@selector(editSaveCallBack:)];
     [self.navigationController pushViewController:editTranslateController animated:YES];
     return YES;
 }
@@ -138,10 +145,16 @@
     
     for (int i = 0; i != array.count; i++)
     {
+        string = [string stringByAppendingFormat:@"%d、",i+1];
         string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
     }
     
     return string;
 }
-
+#pragma mark - 编辑翻译回调
+- (BOOL)editSaveCallBack :(NSString*)str
+{
+    _textView.text = str;
+    return YES;
+}
 @end

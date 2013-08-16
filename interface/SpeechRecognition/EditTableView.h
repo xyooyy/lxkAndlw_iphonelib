@@ -21,5 +21,6 @@
 - (NSArray *)getTextArrayStringInEditView;
 - (NSArray *)getSoundDataArray;
 - (BOOL)setSelectCallBack :(id)parmObj :(SEL)parmAction;
+- (BOOL)upDateSourceData :(NSString*)source :(NSIndexPath*)indexPath;
 
 @end

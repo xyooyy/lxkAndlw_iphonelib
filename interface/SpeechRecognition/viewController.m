@@ -228,9 +228,16 @@
 
 - (BOOL)translateButtonTouch :(UIButton*)sender
 {
-    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:[dataProcessing getStringFromArray]];
-    NSString *path = [filePath stringByAppendingString:@".translate"];
-    [translateController setSavePath:path];
+   
+//    if(!filePath)
+//    {
+//        filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//        filePath = [filePath stringByAppendingPathComponent:fileName];
+//    }
+//     NSString *path = [filePath stringByAppendingString:@".translate"];
+    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:[dataProcessing getStringFromArray] :nil];
+   
+    //[translateController setSavePath:path];
     [self.navigationController pushViewController:translateController animated:YES];
     return YES;
 }
@@ -247,11 +254,11 @@
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        if(!isHistoryChecked)
-        {
+        //if(!isHistoryChecked)
+       // {
             [_textView setSubtitleKey:[dataProcessing getKeySet]];
             [_textView playInit];
-        }
+       // }
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
         _soundWaveView.alpha = 1.f;
@@ -269,6 +276,9 @@
 {
     [_audioPlayer stopAudio:audioInfo];
     [_audioPlayer closeAudio:audioInfo];
+    
+    [m_viewAnimation changeViewLightness:_soundWaveView alpha:0.f duration:0.f completion:^{}];
+    
     buttonPlay.enabled = NO;
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopPlayButtonTouch:)
@@ -284,6 +294,7 @@
         buttonEdit.enabled = YES;
         buttonStart.enabled = YES;
         buttonTranslate.enabled = YES;
+        
     } withButton:sender];
     return YES;
 }
@@ -355,14 +366,14 @@
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
-        NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
-        [dataProcessing saveDicToFile:dataFilePath];
-
+        
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
         _soundWaveView.alpha = 0.0;
         if(isSuccess)
         {
+            NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
+            [dataProcessing saveDicToFile:dataFilePath];
             buttonEdit.enabled = YES;
             buttonPlay.enabled = YES;
             buttonTranslate.enabled = YES;
@@ -525,7 +536,8 @@
         [self addText:str];
     }
     NSString *doc = [sandBoxOperation getDocumentPath];
-    doc = [doc stringByAppendingPathComponent:[dic objectForKey:@"fileName"]];
+    NSString *currentFileName = [dic objectForKey:@"fileName"];
+    doc = [doc stringByAppendingPathComponent:currentFileName];
     doc = [doc stringByAppendingString:@".data"];
     
     NSLog(@"%@",doc);

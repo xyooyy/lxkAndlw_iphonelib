@@ -12,8 +12,7 @@
 #import "DataProcessing.h"
 #import "TextViewScroll.h"
 #import "Data.h"
-#import "EditView.h"
-#import "EditTranslateController.h"
+#import "EditHistoryRecordViewController.h"
 #define kTableViewCellHeight 30.f
 #define kTableViewBorderRadius 10.f
 
@@ -53,7 +52,7 @@
 {
     [super viewDidLoad];
     _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, 350) andData:_data];
-    [_tableView setSelectCallBack:self :@selector(selectAction)];
+    [_tableView setSelectCallBack:self :@selector(selectAction::)];
     
     
     [self.view addSubview:_tableView];
@@ -174,48 +173,23 @@
     action = parmAction;
     return YES;
 }
-#pragma mark - delegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [_data getDicCount];
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return kTableViewCellHeight;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"editCell";
-    UITableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:cellIdentifier];
-    if (!cell)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    }
-    //    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5, 0, cell.frame.size.width, kTableViewCellHeight)];
-    //    textField.text = [_dataArray objectAtIndex:indexPath.row];
-    //    textField.textColor = [UIColor whiteColor];
-    //    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
-    //    [cell.contentView addSubview:textField];
-    //    [_textFieldArray addObject:textField];
-    cell.textLabel.text = [_dataArray objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:14.0];
-    
-    return cell;
-}
 #pragma mark - 单元格点击回调
-- (void)selectAction
+- (void)selectAction :(NSIndexPath*)indexPath :(NSString*)str
 {
-    EditTranslateController *view = [[EditTranslateController alloc]init];
-    [view setTextString:@"非你魔术"];
-    [view saveButtonCallBack:self :@selector(editSaveCallBack)];
+    currentIndex = indexPath;
+    EditHistoryRecordViewController *view = [[EditHistoryRecordViewController alloc]init];
+    [view setTextString:str];
+    [view saveButtonCallBack:self :@selector(editSaveCallBack:)];
     [self.navigationController pushViewController:view animated:YES];
 }
 #pragma mark - 编辑保存回调
-- (void)editSaveCallBack
+- (void)editSaveCallBack :(NSString*)editStr
 {
-    
+    UITableViewCell *cell = [_tableView cellForRowAtIndexPath:currentIndex];
+    if([editStr isEqual:@""]||[[editStr stringByReplacingOccurrencesOfString:@" " withString:@""] isEqual:@""])
+        editStr = @"--";
+    cell.textLabel.text = editStr;
+    [_tableView upDateSourceData:editStr :currentIndex];
 }
 @end
