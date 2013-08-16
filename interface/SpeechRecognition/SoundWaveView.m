@@ -16,6 +16,7 @@
 @interface SoundWaveView ()
 {
     //NSUInteger _strong;
+    int kSoundWaveHeight;
 }
 
 @end
@@ -29,19 +30,19 @@
     {
         self.backgroundColor = [UIColor clearColor];
         array = [[NSMutableArray alloc]init];
+        int height = [[UIScreen mainScreen] bounds].size.height;
+        if(height == 480)
+            kSoundWaveHeight = 370;
+        else
+            kSoundWaveHeight = 450;
     }
     return self;
 }
 
 // 每一根波形柱的宽度
 #define kSoundWaveWidth 2
-#define kSoundWaveHeight 370
+//#define kSoundWaveHeight 370
 
-
-- (void)drawInBack
-{
-    
-}
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();

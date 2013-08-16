@@ -237,6 +237,7 @@
 }
 -(void)receivePlayData
 {
+    if([_viewArray count] == 0) return;
     scrollCount++;
     if(scrollIndex<=[keyArray count] -1 && !flag)
     {

@@ -174,14 +174,14 @@
     [self createInnerImageView];
     [self createSwitchButtonTouchActionMember];
         
-    _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)];
+    _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, [[UIScreen mainScreen] bounds].size.height - kButtonRecogniseHeight)];
+    NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height - kButtonRecogniseHeight);
     _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, 320, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
     
-    gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init];
-    [gooleVoiceRecognizer setDelegate:self];
+    
     layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
@@ -257,11 +257,11 @@
     // 动画
     [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
-        //if(!isHistoryChecked)
-       // {
+        if(!isOffLine)
+        {
             [_textView setSubtitleKey:[dataProcessing getKeySet]];
             [_textView playInit];
-       // }
+        }
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
         _soundWaveView.alpha = 1.f;
@@ -339,10 +339,19 @@
         alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络处在3G模式，需要用您的流量" delegate:self cancelButtonTitle:@"不允许" otherButtonTitles:@"允许", nil];
         [alertView show];
     }
+    if(back == ReachableViaWiFi)
+    {
+        alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络处在WIFI模式，需要用您的流量" delegate:self cancelButtonTitle:@"不允许" otherButtonTitles:@"允许", nil];
+        [alertView show];
+    }
     if(!alertView)
-         [self startRecognise:sender];
+    {
+        [self startRecognise:sender :YES];
+        isOffLine = NO;
+    }
+        
 }
-- (BOOL)startRecognise:(UIButton *)sender
+- (BOOL)startRecognise:(UIButton *)sender :(BOOL)isRecognize
 {
     
     buttonStart.enabled = NO;
@@ -368,7 +377,9 @@
     fileName = dateTime;
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
-
+    
+    gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init:isRecognize];
+    [gooleVoiceRecognizer setDelegate:self];
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult::)];
@@ -534,7 +545,9 @@
 }
 - (void)receivePlayData:(NSDictionary *)voiceData
 {
-    [_textView receivePlayData];
+    if(!isOffLine)
+        [_textView receivePlayData];
+    
     NSData *soundData = [voiceData objectForKey:@"soundData"];
     Byte *soundDataByte = (Byte*)[soundData bytes];
     short *soundDataShort = (short*)soundDataByte;
@@ -586,8 +599,16 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex == 0)
-        NSLog(@"cancle");
+    {
+        [self startRecognise:buttonStart :NO];
+        isOffLine = YES;
+    }
+        
     if (buttonIndex == 1)
-        [self startRecognise:buttonStart];
+    {
+        [self startRecognise:buttonStart :YES];
+        isOffLine = NO;
+    }
+        
 }
 @end

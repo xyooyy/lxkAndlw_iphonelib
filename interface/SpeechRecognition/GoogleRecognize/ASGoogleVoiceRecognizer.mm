@@ -18,18 +18,21 @@
 {
     //header
     WavHeaderFactory *mHeaderFact;
+    BOOL shouldRecignize;
 }
 
 @end
 
 @implementation ASGoogleVoiceRecognizer
 
--(id)init;
+-(id)init :(BOOL)isRecognized;
 {
     self = [super init];
     if (self) {
         mRecorder = [[ASRecordWav alloc]initWithData:1/10.f :16000];
         [mRecorder setReceiveDataDelegate:self];
+        
+        shouldRecignize = isRecognized;
         
         //初始化数据接收容器
         mRecord = [[NSMutableData alloc]init];
@@ -56,7 +59,6 @@
         uploadQueue = [[NSMutableArray alloc]init];
         
         soundStrengthThreshold = 150;
-        soundStrengthArray = [[NSMutableArray alloc]init];
         
         uploadDataArray = [[NSMutableArray alloc]init];
         sizeCount = 0;
@@ -121,15 +123,19 @@
 
 - (void)receiveRecordData:(NSDictionary *)voiceData
 {
-    static int count = 0;
     NSData *soundData = [voiceData objectForKey:@"soundData"];
     Byte *soundDataByte = (Byte*)[soundData bytes];
     short *soundDataShort = (short*)soundDataByte;
     int size = [soundData length]*sizeof(Byte)/sizeof(short);
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
-    
-    [soundStrengthArray addObject:[NSNumber numberWithInt:soundStrongh]];
+      [_delegate googleVoiceSoundStrong:soundStrongh];
+    if(!shouldRecignize)
+    {
+        [uploadDataArray addObject:[voiceData objectForKey:@"soundData"]];
+        return;
+    }
+    static int count = 0;
     
    if (soundStrongh > soundStrengthThreshold)
     {
@@ -158,7 +164,7 @@
         count = 0;
     
     
-    [_delegate googleVoiceSoundStrong:soundStrongh];
+  
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response

@@ -59,7 +59,6 @@
     NSMutableArray *uploadQueue;
     
     int soundStrengthThreshold;
-    NSMutableArray *soundStrengthArray;
     
     int sizeCount;
 
@@ -71,7 +70,7 @@
 
 }
 
--(id)init;
+-(id)init :(BOOL)isRecognized;
 -(void)setFilePath:(NSString *)aPath;
 -(BOOL)startRecording;
 -(BOOL)stopRecording;
