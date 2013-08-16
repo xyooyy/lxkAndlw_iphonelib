@@ -148,7 +148,6 @@
         string = [string stringByAppendingFormat:@"%d、",i+1];
         string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
     }
-    
     return string;
 }
 #pragma mark - 编辑翻译回调
