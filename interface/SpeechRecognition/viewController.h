@@ -14,7 +14,7 @@
 #import "GoogleRecognize/ASGoogleVoiceRecognizer.h"
 #import "ASPlayDelegate.h"
 
-@interface viewController : UIViewController <GoogleVoiveDelegate,ASPlayDelegate>
+@interface viewController : UIViewController <GoogleVoiveDelegate,ASPlayDelegate,UIAlertViewDelegate>
 {
     SwitchButtonTouchAction *switchButtonTouchAction;
     TranslateRecognizeResult *translate;

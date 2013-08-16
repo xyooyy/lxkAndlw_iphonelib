@@ -19,6 +19,7 @@
 		9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */; };
 		9A65963E17BE2BBD000BF265 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */; };
 		9A65964217BE2E0D000BF265 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65964117BE2E0D000BF265 /* Reachability.m */; };
+		9A65964517BE3181000BF265 /* CheckNetStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65964417BE3181000BF265 /* CheckNetStatus.m */; };
 		9AA79F2117AF3A0400298409 /* viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2017AF3A0400298409 /* viewController.m */; };
 		9AA79F2417AF403600298409 /* UIViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2317AF403600298409 /* UIViewAnimation.m */; };
 		9AA79F2E17AF89DB00298409 /* RecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA79F2C17AF89DB00298409 /* RecordInfo.m */; };
@@ -104,6 +105,8 @@
 		9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9A65964017BE2E0D000BF265 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9A65964117BE2E0D000BF265 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		9A65964317BE3181000BF265 /* CheckNetStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckNetStatus.h; sourceTree = "<group>"; };
+		9A65964417BE3181000BF265 /* CheckNetStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckNetStatus.m; sourceTree = "<group>"; };
 		9AA79F1F17AF3A0400298409 /* viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewController.h; sourceTree = "<group>"; };
 		9AA79F2017AF3A0400298409 /* viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewController.m; sourceTree = "<group>"; };
 		9AA79F2217AF403600298409 /* UIViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimation.h; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 			children = (
 				9A65964017BE2E0D000BF265 /* Reachability.h */,
 				9A65964117BE2E0D000BF265 /* Reachability.m */,
+				9A65964317BE3181000BF265 /* CheckNetStatus.h */,
+				9A65964417BE3181000BF265 /* CheckNetStatus.m */,
 			);
 			name = checkNetStatus;
 			path = SpeechRecognition/checkNetStatus;
@@ -633,6 +638,7 @@
 				9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */,
 				9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */,
 				9A65964217BE2E0D000BF265 /* Reachability.m in Sources */,
+				9A65964517BE3181000BF265 /* CheckNetStatus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

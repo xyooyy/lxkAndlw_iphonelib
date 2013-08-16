@@ -21,7 +21,8 @@
 #import "PlayAudioWav.h"
 #import "EditViewController.h"
 #import "TranslateViewController.h"
-#import "Reachability.h"
+#import "CheckNetStatus.h"
+
 
 @interface viewController ()
 {
@@ -242,6 +243,7 @@
     [self.navigationController pushViewController:translateController animated:YES];
     return YES;
 }
+
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
     [switchButtonTouchAction switchButtonTouchAction:sender
@@ -320,21 +322,26 @@
     
     return YES;
 }
-- (BOOL)startRecogniseButtonTouch:(UIButton *)sender
+- (void)startRecogniseButtonTouch:(UIButton *)sender
 {
-    
-//    Reachability *r = [Reachability reachabilityWithHostName:@"www.apple.com"];
-//    switch ([r currentReachabilityStatus]) {
-//        case NotReachable:
-//            // 没有网络连接
-//            break;
-//        case ReachableViaWWAN:
-//            // 使用3G网络
-//            break;
-//        case ReachableViaWiFi:
-//            NSLog(@"wifi");
-//            break;
-//    }
+    CheckNetStatus *checkNetStatus = [[CheckNetStatus alloc]init];
+    int back = [checkNetStatus isInWIFI];
+    UIAlertView *alertView;
+    if(back == NotReachable)
+    {
+       alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络离线，不能进行语音识别" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView show];
+    }
+    if(back == ReachableViaWWAN)
+    {
+        alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络处在3G模式，需要用您的流量" delegate:self cancelButtonTitle:@"不允许" otherButtonTitles:@"允许", nil];
+        [alertView show];
+    }
+    if(!alertView)
+         [self startRecognise:sender];
+}
+- (BOOL)startRecognise:(UIButton *)sender
+{
     
     buttonStart.enabled = NO;
     buttonEdit.enabled = NO;
@@ -571,5 +578,13 @@
     [_textView setSubtitleKey:keySet];
     fileName = [dic objectForKey:@"fileName"];
 }
-#pragma mark - 检测
+
+#pragma mark - alertView的delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+        NSLog(@"cancle");
+    if (buttonIndex == 1)
+        [self startRecognise:buttonStart];
+}
 @end
