@@ -94,8 +94,6 @@
     isRecognizedSuccess = NO;
     return [mRecorder startRecord:mRecorderInfo];
     
-   
-    
 }
 
 -(BOOL)stopRecording

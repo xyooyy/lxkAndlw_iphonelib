@@ -325,6 +325,7 @@
     buttonEdit.enabled = NO;
     buttonPlay.enabled = NO;
     buttonTranslate.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     isHistoryChecked = NO;
 
@@ -377,6 +378,7 @@
             buttonEdit.enabled = YES;
             buttonPlay.enabled = YES;
             buttonTranslate.enabled = YES;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
         }
         
     } withButton:sender];
