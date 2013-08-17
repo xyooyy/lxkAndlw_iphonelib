@@ -13,7 +13,6 @@
 #import "UIViewAnimation.h"
 #import "ASGoogleVoiceRecognizer.h"
 #import "LayoutMainController.h"
-#import "CurrentDataViewController.h"
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
 #import <AVFoundation/AVFoundation.h>
@@ -26,9 +25,8 @@
 
 @interface viewController ()
 {
-    //TextView *_textView;
-    TextViewScroll *_textView;
-    SoundWaveView *_soundWaveView;
+    TextViewScroll *m_textView;
+    SoundWaveView *m_soundWaveView;
     UIViewAnimation *m_viewAnimation;
     
     ASGoogleVoiceRecognizer *gooleVoiceRecognizer;
@@ -46,7 +44,7 @@
     
     CalculateSoundStrength *calculateSoundStrength;
     
-    NSString *fileName;
+    NSString *m_currentFileName;
     PlayAudioWav *_audioPlayer;
     AudioInfo *audioInfo;
 }
@@ -174,9 +172,8 @@
     [self createInnerImageView];
     [self createSwitchButtonTouchActionMember];
         
-    _soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(0, 0, 320, [[UIScreen mainScreen] bounds].size.height - kButtonRecogniseHeight)];
-    NSLog(@"%f",[[UIScreen mainScreen] bounds].size.height - kButtonRecogniseHeight);
-    _textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(/*kTextViewX*/0, /*kTextViewY*/120, 320, /*kTextViewHeight*/160) maxRows:kTextRowNumber];
+    m_soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(kFloatZero, kFloatZero, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - kButtonRecogniseHeight)];
+    m_textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kFloatZero,kTextViewY, kTextViewWidth, kTextViewHeight) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
@@ -186,8 +183,8 @@
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
-    [self.view addSubview:_soundWaveView];
-    [self.view addSubview:_textView];
+    [self.view addSubview:m_soundWaveView];
+    [self.view addSubview:m_textView];
     [self createStartButton];
     [self createEditButton];
     [self createPlayButton];
@@ -201,16 +198,6 @@
     }
 }
 
-
-#pragma mark - 新建按钮的Action
-
-- (BOOL)createNewRecognization
-{
-    [_textView resetPosition];
-    [_textView clearLastRecognition];
-    return YES;
-}
-
 #pragma mark- 查看历史纪录
 
 -(void)checkHistoryRecord
@@ -222,7 +209,7 @@
 
 - (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong
 {
-    [_soundWaveView addSoundStrong:[calculateSoundStrength voiceStrengthConvertHeight:soundStrong :120]];
+    [m_soundWaveView addSoundStrong:[calculateSoundStrength voiceStrengthConvertHeight:soundStrong :120]];
     return YES;
 }
 
@@ -259,12 +246,12 @@
     [self beginStartAnimationWithButton:sender completion:^{
         if(!isOffLine)
         {
-            [_textView setSubtitleKey:[dataProcessing getKeySet]];
-            [_textView playInit];
+            [m_textView setSubtitleKey:[dataProcessing getKeySet]];
+            [m_textView playInit];
         }
-        audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
+        audioInfo = [_audioPlayer CreateAudioFile:m_currentFileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
-        _soundWaveView.alpha = 0.f;
+        m_soundWaveView.alpha = 0.f;
         
     }];
     
@@ -281,9 +268,9 @@
     self.navigationItem.rightBarButtonItem.enabled = YES;
     [_audioPlayer stopAudio:audioInfo];
     [_audioPlayer closeAudio:audioInfo];
-    [_textView resetTextViewAlpha];
+    [m_textView resetTextViewAlpha];
     
-    [m_viewAnimation changeViewLightness:_soundWaveView alpha:0.f duration:0.f completion:^{}];
+    [m_viewAnimation changeViewLightness:m_soundWaveView alpha:0.f duration:0.f completion:^{}];
     
     buttonPlay.enabled = NO;
     [switchButtonTouchAction switchButtonTouchAction:sender
@@ -328,12 +315,12 @@
     if(isHistoryChecked)
     {
         path = [sandBoxOperation getDocumentPath];
-        path = [path stringByAppendingPathComponent:fileName];
+        path = [path stringByAppendingPathComponent:m_currentFileName];
         path = [path stringByAppendingString:@".data"];
     }
         
     [editViewController setSavePath:path];
-    [editViewController setTextViewScroll:_textView];
+    [editViewController setTextViewScroll:m_textView];
     [self.navigationController pushViewController:editViewController animated:YES];    
     
     return YES;
@@ -383,19 +370,25 @@
     [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     
-    fileName = dateTime;
+    m_currentFileName = dateTime;
     filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     filePath = [filePath stringByAppendingPathComponent:dateTime];
     
+    [self createRecognization:isRecognize :dateTime];
+    m_soundWaveView.alpha = 1.0;
+    [m_textView clearLastRecognition];
+    [m_textView resetPosition];
+    [dataProcessing clearDicData];
+    return YES;
+}
+#pragma mark - 新建一个识别
+- (BOOL)createRecognization :(BOOL)isRecognize :(NSString*)dateTime
+{
     gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init:isRecognize];
     [gooleVoiceRecognizer setDelegate:self];
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
     [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
-    _soundWaveView.alpha = 1.0;
-    [_textView clearLastRecognition];
-    [_textView resetPosition];
-    [dataProcessing clearDicData];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
@@ -403,7 +396,7 @@
     buttonStart.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
     BOOL isSuccess = [gooleVoiceRecognizer stopRecording];
-    [_textView scrollsToTopWithAnimation];
+    [m_textView scrollsToTopWithAnimation];
     [switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
@@ -415,7 +408,7 @@
         
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
-        _soundWaveView.alpha = 0.0;
+        m_soundWaveView.alpha = 0.0;
         if(isSuccess)
         {
             NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
@@ -460,7 +453,7 @@
 
 - (BOOL)addText:(NSString *)text
 {
-    [_textView addText:text
+    [m_textView addText:text
           maxLineWidth:kTextMaxLineWidth
               withFont:[UIFont boldSystemFontOfSize:kTextFontSize]
                  color:kTextFontColor
@@ -549,8 +542,8 @@
 - (void)editSave :(NSMutableDictionary*)newDictionary
 {
     [dataProcessing setDictionary:newDictionary];
-    [_textView clearLastRecognition];
-    [_textView resetPosition];
+    [m_textView clearLastRecognition];
+    [m_textView resetPosition];
     NSArray *keySet = [dataProcessing getKeySet];
     for (NSString *key in keySet)
     {
@@ -564,14 +557,14 @@
 - (void)playComplete
 {
     self.navigationItem.rightBarButtonItem.enabled = YES;
-    _soundWaveView.alpha = 0.f;
+    m_soundWaveView.alpha = 0.f;
     [self stopPlayButtonTouch:buttonPlay];
-    [_textView playComplete];
+    [m_textView playComplete];
 }
 - (void)receivePlayData:(NSDictionary *)voiceData
 {
     if(!isOffLine)
-        [_textView receivePlayData];
+        [m_textView receivePlayData];
     
 //    NSData *soundData = [voiceData objectForKey:@"soundData"];
 //    Byte *soundDataByte = (Byte*)[soundData bytes];
@@ -603,9 +596,9 @@
         buttonTranslate.enabled = YES;
         isHistoryCheckedWithoutStr = NO;
     }
-    [_textView clearLastRecognition];
-    [_textView resetPosition];
-    [_textView playInit];
+    [m_textView clearLastRecognition];
+    [m_textView resetPosition];
+    [m_textView playInit];
     for (NSString *str in recognizedStrArray)
     {
         [self addText:str];
@@ -625,8 +618,8 @@
     }
     
     NSArray *keySet = [dataProcessing timestampSequence:noSqueneceKeyset];
-    [_textView setSubtitleKey:keySet];
-    fileName = [dic objectForKey:@"fileName"];
+    [m_textView setSubtitleKey:keySet];
+    m_currentFileName = [dic objectForKey:@"fileName"];
 }
 
 #pragma mark - alertView的delegate

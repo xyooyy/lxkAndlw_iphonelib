@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "viewController.h"
-#import "NavigationBarLayout.h"
 #import "Data.h"
 
 @implementation AppDelegate
@@ -22,9 +21,8 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     navController.navigationBar.tintColor = [UIColor blackColor];
     self.window.rootViewController = navController;
-    
-    NavigationBarLayout *navbarLayout = [[NavigationBarLayout alloc] initNavigationBar:navController.navigationBar delegate:self];
-    [navbarLayout setBackgroundImage];
+    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:kImageNavBackground] forBarMetrics:UIBarMetricsDefault];
+
     
     // 设置状态栏颜色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
