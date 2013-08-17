@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */; };
 		9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */; };
-		9A501AD617B095E70063FF9D /* LayoutMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AD517B095E70063FF9D /* LayoutMainController.m */; };
 		9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */; };
 		9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501ADD17B0F0380063FF9D /* DataProcessing.m */; };
 		9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AE317B120C60063FF9D /* EnglishViewController.m */; };
@@ -84,8 +83,6 @@
 		9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandBoxOperation.m; sourceTree = "<group>"; };
 		9A501AC417B0867C0063FF9D /* SwitchButtonTouchAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchButtonTouchAction.h; sourceTree = "<group>"; };
 		9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchButtonTouchAction.m; sourceTree = "<group>"; };
-		9A501AD417B095E70063FF9D /* LayoutMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutMainController.h; sourceTree = "<group>"; };
-		9A501AD517B095E70063FF9D /* LayoutMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutMainController.m; sourceTree = "<group>"; };
 		9A501AD817B0E2370063FF9D /* TranslateRecognizeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateRecognizeResult.h; sourceTree = "<group>"; };
 		9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateRecognizeResult.m; sourceTree = "<group>"; };
 		9A501ADC17B0F0380063FF9D /* DataProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProcessing.h; sourceTree = "<group>"; };
@@ -238,16 +235,6 @@
 			path = SpeechRecognition/SwitchButtonAction;
 			sourceTree = "<group>";
 		};
-		9A501AD317B095C30063FF9D /* LayOut */ = {
-			isa = PBXGroup;
-			children = (
-				9A501AD417B095E70063FF9D /* LayoutMainController.h */,
-				9A501AD517B095E70063FF9D /* LayoutMainController.m */,
-			);
-			name = LayOut;
-			path = SpeechRecognition/LayOut;
-			sourceTree = "<group>";
-		};
 		9A501AD717B0E1F90063FF9D /* TranslateRecognizeResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,7 +358,6 @@
 				9A17B97017B33A0800E49CC1 /* SandBox */,
 				9A501ADB17B0F01D0063FF9D /* DataProcessing */,
 				9A501AD717B0E1F90063FF9D /* TranslateRecognizeResult */,
-				9A501AD317B095C30063FF9D /* LayOut */,
 				9A501AC317B086570063FF9D /* SwitchButtonAction */,
 				9AA79F3617AF8B9900298409 /* SBJson */,
 				BE7B5B6C17A278BD00BF9C1E /* SpeechRecognition */,
@@ -607,7 +593,6 @@
 				9AA79F5817AF8BBB00298409 /* SBJsonWriter.m in Sources */,
 				9AA79F5F17AF8C9500298409 /* NSObject+SBJson.m in Sources */,
 				9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */,
-				9A501AD617B095E70063FF9D /* LayoutMainController.m in Sources */,
 				9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */,
 				9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */,
 				9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */,

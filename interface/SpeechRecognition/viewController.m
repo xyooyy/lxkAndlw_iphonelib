@@ -12,10 +12,8 @@
 #import "Data.h"
 #import "UIViewAnimation.h"
 #import "ASGoogleVoiceRecognizer.h"
-#import "LayoutMainController.h"
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
-#import <AVFoundation/AVFoundation.h>
 #import "CalculateSoundStrength.h"
 #import "PlayAudioWav.h"
 #import "EditViewController.h"
@@ -31,7 +29,6 @@
     
     ASGoogleVoiceRecognizer *gooleVoiceRecognizer;
     
-    LayoutMainController *layout;
 
     UIImageView *_CDImageView;
     UIView *_CDCoverView;
@@ -108,11 +105,6 @@
     _CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     return YES;
 }
-- (BOOL)createSwitchButtonTouchActionMember
-{
-    switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
-    return YES;
-}
 - (UIButton*)createButton :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
 {
     UIButton *button = [[UIButton alloc]initWithFrame:frame];
@@ -163,23 +155,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
-    
-    [self addImageWithName:kImageBackground frame:frame];
-    
-    [self createCDImageView];
-    [self createCDCoverView:frame];
-    [self createInnerImageView];
-    [self createSwitchButtonTouchActionMember];
+    [self layoutBackGround];
         
     m_soundWaveView = [[SoundWaveView alloc] initWithFrame:CGRectMake(kFloatZero, kFloatZero, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - kButtonRecogniseHeight)];
     m_textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kFloatZero,kTextViewY, kTextViewWidth, kTextViewHeight) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
     calculateSoundStrength = [[CalculateSoundStrength alloc]init];
+    switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
     
     
-    layout = [[LayoutMainController alloc]initWithLayoutView:self.view];
     translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
     dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
@@ -197,6 +182,18 @@
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
+}
+
+#pragma mark - 背景布局
+
+-(BOOL)layoutBackGround
+{
+    CGRect frame = CGRectMake(kFloatZero, kFloatZero, kScreenWidth, kScreenHeight);
+    [self addImageWithName:kImageBackground frame:frame];
+    [self createCDImageView];
+    [self createCDCoverView:frame];
+    [self createInnerImageView];
+    return YES;
 }
 
 #pragma mark- 查看历史纪录
