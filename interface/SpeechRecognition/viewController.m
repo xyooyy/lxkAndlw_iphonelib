@@ -191,6 +191,7 @@
     [self createTranslateButton];
     buttonStart.enabled = YES;
     
+    
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
     {
         [self displayHistoryButton];
