@@ -264,7 +264,7 @@
         }
         audioInfo = [_audioPlayer CreateAudioFile:fileName :@"wav"];
         [_audioPlayer startAudio:audioInfo];
-        _soundWaveView.alpha = 1.f;
+        _soundWaveView.alpha = 0.f;
         
     }];
     
@@ -345,17 +345,12 @@
     UIAlertView *alertView;
     if(back == NotReachable)
     {
-       alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络离线，不能进行语音识别" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+       alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络离线，不能进行语音识别" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alertView show];
     }
     if(back == ReachableViaWWAN)
     {
         alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络处在3G模式，需要用您的流量" delegate:self cancelButtonTitle:@"不允许" otherButtonTitles:@"允许", nil];
-        [alertView show];
-    }
-    if(back == ReachableViaWiFi)
-    {
-        alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络处在WIFI模式，需要用您的流量" delegate:self cancelButtonTitle:@"不允许" otherButtonTitles:@"允许", nil];
         [alertView show];
     }
     if(!alertView)
@@ -396,7 +391,7 @@
     [gooleVoiceRecognizer setDelegate:self];
     [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [gooleVoiceRecognizer startRecording];
-    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult::)];
+    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
     _soundWaveView.alpha = 1.0;
     [_textView clearLastRecognition];
     [_textView resetPosition];
@@ -429,16 +424,21 @@
             {
                 buttonEdit.enabled = NO;
                 buttonTranslate.enabled = NO;
+                 buttonPlay.enabled = YES;
             }else
             {
               buttonPlay.enabled = YES;
               buttonEdit.enabled = YES;
               buttonTranslate.enabled = YES;
-            }
-             
-            
-            
-            
+            } 
+        }else
+        {
+            if(![sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
+                self.navigationItem.rightBarButtonItem.enabled = NO;
+            buttonPlay.enabled = NO;
+            buttonEdit.enabled = NO;
+            buttonTranslate.enabled = NO;
+            buttonStart.enabled = YES;
         }
         
     } withButton:sender];
@@ -446,12 +446,13 @@
     return YES;
 }
 #pragma mark - 识别结果的返回
-- (BOOL)speechRecognitionResult :(NSString*)str :(NSNumber*)number
+- (BOOL)speechRecognitionResult :(NSDictionary*)postBackDic
 {
+    NSString *str = [postBackDic objectForKey:@"result"];
+    NSNumber *number = [postBackDic objectForKey:@"soundSize"];
+    
     [self addText:str];
-     
-    double length = [number doubleValue];
-    [dataProcessing recognizedStrTimestamp:str :length];
+    [dataProcessing recognizedStrTimestamp:str :[number doubleValue]];
     return YES;
 }
 
@@ -572,13 +573,13 @@
     if(!isOffLine)
         [_textView receivePlayData];
     
-    NSData *soundData = [voiceData objectForKey:@"soundData"];
-    Byte *soundDataByte = (Byte*)[soundData bytes];
-    short *soundDataShort = (short*)soundDataByte;
-    int size = [soundData length]*sizeof(Byte)/sizeof(short);
-    int soundStrongh = [calculateSoundStrength calculateVoiceStrength:soundDataShort :size :1];
-    int compress = [calculateSoundStrength voiceStrengthConvertHeight:soundStrongh :120];
-    [_soundWaveView addSoundStrong:compress];
+//    NSData *soundData = [voiceData objectForKey:@"soundData"];
+//    Byte *soundDataByte = (Byte*)[soundData bytes];
+//    short *soundDataShort = (short*)soundDataByte;
+//    int size = [soundData length]*sizeof(Byte)/sizeof(short);
+//    int soundStrongh = [calculateSoundStrength calculateVoiceStrength:soundDataShort :size :1];
+//    int compress = [calculateSoundStrength voiceStrengthConvertHeight:soundStrongh :120];
+//    [_soundWaveView addSoundStrong:compress];
     
 }
 #pragma mark - 历史纪录弹出

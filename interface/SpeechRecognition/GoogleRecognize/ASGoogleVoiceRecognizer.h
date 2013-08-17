@@ -66,6 +66,8 @@
     
     BOOL isRecognize;
     
+    int recognizeCount;
+    
     
 
 }

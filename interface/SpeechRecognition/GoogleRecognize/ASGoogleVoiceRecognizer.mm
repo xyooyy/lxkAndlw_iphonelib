@@ -12,7 +12,7 @@
 #import "Data.h"
 
 #define SOUNDSTRONGTH_THRESHOLD 150
-#define WAIT_TIME 5
+#define WAIT_TIME 4
 
 @interface ASGoogleVoiceRecognizer ()
 {
@@ -90,6 +90,7 @@
     upLoadEnd = 0;
     mDataEnd = 0;
     sizeCount = 0;
+    recognizeCount = 0;
     //[uploadData setLength:0];
     [uploadDataArray removeAllObjects];
     mRecorderInfo = [mRecorder createRecord];
@@ -98,13 +99,33 @@
     
 }
 
+- (BOOL)enforcePostBack
+{
+    for (int i = 0; i != uploadDataArray.count ; i++)
+    {
+        NSUInteger size = [(NSData*)[uploadDataArray objectAtIndex:i] length];
+        sizeCount += size / 3200;
+        NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:@"未识别",@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:0],@"isSuccess", nil];
+        [mCotroller performSelector:mSetText withObject:parmDic];
+    }
+    return YES;
+}
 -(BOOL)stopRecording
 {
     [mRecorder pauseRecord:mRecorderInfo];
-    NSData *uploadData = [self getUplodaData];
-    [self saveWav:uploadData :fileName];
-    [uploadDataArray removeAllObjects];
     isRecording = NO;
+    //if(shouldRecignize)
+     //   [self enforcePostBack];
+    NSData *uploadData = [self getUplodaData];
+    [uploadDataArray removeAllObjects];
+    if([uploadData length] > 0)
+    {
+        [self saveWav:uploadData :fileName];
+    }else
+    {
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -229,19 +250,22 @@
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mRecivedData]];
     NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
     sizeCount += size / 3200;
+    recognizeCount++;
+    
+    
+    
     //判断是否能识别出结果
     if ([[dic objectForKey:@"hypotheses"] count]!=0)
     {
-       
-        //[mCotroller performSelector:mSetText withObject: :withObject:size];
-        [mCotroller performSelector:mSetText withObject:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"] withObject:[NSNumber numberWithDouble:sizeCount]];
+        
+        NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"],@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:1],@"isSuccess", nil];
+        [mCotroller performSelector:mSetText withObject:parmDic];
         isRecognizedSuccess = YES;
     }
     else
     {
-        [mCotroller performSelector:mSetText withObject:@"未识别" withObject:[NSNumber numberWithDouble:sizeCount]];
-        NSLog(@"没有识别");
-       // [uploadDataArray removeLastObject];
+        NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:@"--",@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:0],@"isSuccess", nil];
+        [mCotroller performSelector:mSetText withObject:parmDic];
     }
     finish();
     [mRecivedData setLength:0];
