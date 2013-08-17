@@ -121,10 +121,10 @@
 // -------- 显示识别文字 --------
 #pragma mark - 显示识别文字
 
-#define kTextViewWidth          280.f
+#define kTextViewWidth          320.f
 #define kTextViewHeight         160.f
-#define kTextViewX              ((kScreenWidth - kTextViewWidth) / 2.f)
-#define kTextViewY              130.f
+#define kTextViewX              0.f
+#define kTextViewY              120.f
 
 #define kTextFontSize           13.f
 #define kTextFontColor          RGBA(255.f, 245.f, 205.f, 1.f)
