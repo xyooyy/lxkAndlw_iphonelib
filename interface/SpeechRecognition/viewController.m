@@ -13,7 +13,6 @@
 #import "UIViewAnimation.h"
 #import "ASGoogleVoiceRecognizer.h"
 #import "LayoutMainController.h"
-#import "CurrentDataViewController.h"
 #import "HistoryViewController.h"
 #import "TextViewScroll.h"
 #import <AVFoundation/AVFoundation.h>

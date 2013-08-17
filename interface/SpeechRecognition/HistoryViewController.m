@@ -7,7 +7,6 @@
 //
 
 #import "HistoryViewController.h"
-#import "CurrentDataViewController.h"
 
 @interface HistoryViewController ()
 {

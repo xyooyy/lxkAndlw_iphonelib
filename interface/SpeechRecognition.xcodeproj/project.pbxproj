@@ -12,7 +12,6 @@
 		9A501AD617B095E70063FF9D /* LayoutMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AD517B095E70063FF9D /* LayoutMainController.m */; };
 		9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */; };
 		9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501ADD17B0F0380063FF9D /* DataProcessing.m */; };
-		9A501AE117B0F3270063FF9D /* CurrentDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AE017B0F3270063FF9D /* CurrentDataViewController.m */; };
 		9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AE317B120C60063FF9D /* EnglishViewController.m */; };
 		9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */; };
 		9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */; };
@@ -49,7 +48,6 @@
 		BE49507A17B48D6D007F82B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA79F5917AF8C1400298409 /* AVFoundation.framework */; };
 		BE49508317B4C3FF007F82B7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE49508217B4C3FF007F82B7 /* EditViewController.m */; };
 		BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */; };
-		BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */; };
 		BE7B5B6717A278BD00BF9C1E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6617A278BD00BF9C1E /* UIKit.framework */; };
 		BE7B5B6917A278BD00BF9C1E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6817A278BD00BF9C1E /* Foundation.framework */; };
 		BE7B5B6B17A278BD00BF9C1E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7B5B6A17A278BD00BF9C1E /* CoreGraphics.framework */; };
@@ -92,8 +90,6 @@
 		9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateRecognizeResult.m; sourceTree = "<group>"; };
 		9A501ADC17B0F0380063FF9D /* DataProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProcessing.h; sourceTree = "<group>"; };
 		9A501ADD17B0F0380063FF9D /* DataProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProcessing.m; sourceTree = "<group>"; };
-		9A501ADF17B0F3270063FF9D /* CurrentDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentDataViewController.h; sourceTree = "<group>"; };
-		9A501AE017B0F3270063FF9D /* CurrentDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentDataViewController.m; sourceTree = "<group>"; };
 		9A501AE217B120C60063FF9D /* EnglishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnglishViewController.h; sourceTree = "<group>"; };
 		9A501AE317B120C60063FF9D /* EnglishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnglishViewController.m; sourceTree = "<group>"; };
 		9A5E232717B1C8CB00B04C73 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
@@ -165,8 +161,6 @@
 		BE589A4017AA412400E88166 /* SoundWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundWaveView.h; sourceTree = "<group>"; };
 		BE5A050317ACAD9D00B7CD4A /* GradientColorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientColorImage.h; sourceTree = "<group>"; };
 		BE5A050417ACAD9D00B7CD4A /* GradientColorImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientColorImage.m; sourceTree = "<group>"; };
-		BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarLayout.h; sourceTree = "<group>"; };
-		BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarLayout.m; sourceTree = "<group>"; };
 		BE7B5B6317A278BD00BF9C1E /* SpeechRecognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechRecognition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7B5B6617A278BD00BF9C1E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BE7B5B6817A278BD00BF9C1E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -444,8 +438,6 @@
 			children = (
 				9AA79F1F17AF3A0400298409 /* viewController.h */,
 				9AA79F2017AF3A0400298409 /* viewController.m */,
-				9A501ADF17B0F3270063FF9D /* CurrentDataViewController.h */,
-				9A501AE017B0F3270063FF9D /* CurrentDataViewController.m */,
 				9A501AE217B120C60063FF9D /* EnglishViewController.h */,
 				9A501AE317B120C60063FF9D /* EnglishViewController.m */,
 				9A5E232717B1C8CB00B04C73 /* HistoryViewController.h */,
@@ -467,8 +459,6 @@
 			children = (
 				BE300D4317B4E49600E642FD /* PopupView.h */,
 				BE300D4217B4E49600E642FD /* PopupView.m */,
-				BE76D2F617A5561E00DBA827 /* NavigationBarLayout.h */,
-				BE76D2F717A5561E00DBA827 /* NavigationBarLayout.m */,
 				BE589A4017AA412400E88166 /* SoundWaveView.h */,
 				9AC9E9C217B473C300E46871 /* SoundWaveView.m */,
 				9A5E232D17B24A0A00B04C73 /* TextViewScroll.h */,
@@ -597,7 +587,6 @@
 			files = (
 				BE7B5B7317A278BD00BF9C1E /* main.m in Sources */,
 				BE7B5B7717A278BD00BF9C1E /* AppDelegate.m in Sources */,
-				BE76D2F817A5561E00DBA827 /* NavigationBarLayout.m in Sources */,
 				BE19607217A8E4E600073ADF /* TextToImage.m in Sources */,
 				BE5A050517ACAD9D00B7CD4A /* GradientColorImage.m in Sources */,
 				9AA79F2117AF3A0400298409 /* viewController.m in Sources */,
@@ -621,7 +610,6 @@
 				9A501AD617B095E70063FF9D /* LayoutMainController.m in Sources */,
 				9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */,
 				9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */,
-				9A501AE117B0F3270063FF9D /* CurrentDataViewController.m in Sources */,
 				9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */,
 				9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */,
 				9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */,
