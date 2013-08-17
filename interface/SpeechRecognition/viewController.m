@@ -6,55 +6,24 @@
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 
-#import "viewController.h"
-#import "TextView.h"
-#import "SoundWaveView.h"
 #import "Data.h"
+#import "viewController.h"
 #import "UIViewAnimation.h"
 #import "ASGoogleVoiceRecognizer.h"
 #import "HistoryViewController.h"
-#import "TextViewScroll.h"
 #import "CalculateSoundStrength.h"
-#import "PlayAudioWav.h"
 #import "EditViewController.h"
 #import "TranslateViewController.h"
 #import "CheckNetStatus.h"
 
 
-@interface viewController ()
-{
-    TextViewScroll *m_textView;
-    SoundWaveView *m_soundWaveView;
-    UIViewAnimation *m_viewAnimation;
-    
-    ASGoogleVoiceRecognizer *gooleVoiceRecognizer;
-    
-
-    UIImageView *_CDImageView;
-    UIView *_CDCoverView;
-    UIImageView *_CDInnerImageView;
-    
-    UIButton *buttonStart;
-    UIButton *buttonEdit;
-    UIButton *buttonPlay;
-    UIButton *buttonTranslate;
-    
-    CalculateSoundStrength *calculateSoundStrength;
-    
-    NSString *m_currentFileName;
-    PlayAudioWav *_audioPlayer;
-    AudioInfo *audioInfo;
-}
-
-@end
-
 @implementation viewController
 
-#pragma mark-初始化用到的函数
+#pragma mark-布局函数
 - (BOOL)displayHistoryButton
 {
     UIButton *button = [self createButtonWithImageNamed:kImageHistoryButton
-                                                   rect:CGRectMake(0, 0, 70, 29)
+                                                   rect:CGRectMake(kFloatZero,kFloatZero, kButtonHistoryWidth,kButtonHistoryHeight)
                                                delegate:self
                                                  action:@selector(checkHistoryRecord)];
     UIBarButtonItem *barButtontem = [[UIBarButtonItem alloc]initWithCustomView:button];
@@ -72,7 +41,6 @@
     UIImage *image = [UIImage imageNamed:name];
     [button setBackgroundImage:image forState:UIControlStateNormal];
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
-    
     return button;
 }
 
@@ -86,23 +54,21 @@
 
 - (BOOL)createCDImageView
 {
-    _CDImageView = [self addImageWithName:kImageCD
-                                    frame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
-                                                     kImageCDBeforeWidth, kImageCDBeforeHeight)];
+    m_CDImageView = [self addImageWithName:kImageCD frame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,kImageCDBeforeWidth, kImageCDBeforeHeight)];
     return YES;
 }
 - (BOOL)createCDCoverView :(CGRect)frame
 {
-    _CDCoverView = [[UIView alloc] initWithFrame:frame];
-    _CDCoverView.backgroundColor = [UIColor colorWithWhite:kFloatZero alpha:kFloatZero];
-    [self.view addSubview:_CDCoverView];
+    m_CDCoverView = [[UIView alloc] initWithFrame:frame];
+    m_CDCoverView.backgroundColor = [UIColor colorWithWhite:kFloatZero alpha:kFloatZero];
+    [self.view addSubview:m_CDCoverView];
     return YES;
 }
 - (BOOL)createInnerImageView
 {
-    _CDInnerImageView = [self addImageWithName:kImageCDInner frame:CGRectMake(kFloatZero, kFloatZero,kImageCDInnerWidth, kImageCDInnerHeight)];
-    _CDInnerImageView.alpha = kFloatZero;
-    _CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
+    m_CDInnerImageView = [self addImageWithName:kImageCDInner frame:CGRectMake(kFloatZero, kFloatZero,kImageCDInnerWidth, kImageCDInnerHeight)];
+    m_CDInnerImageView.alpha = kFloatZero;
+    m_CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     return YES;
 }
 - (UIButton*)createButton :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
@@ -116,38 +82,22 @@
 }
 - (BOOL)createTranslateButton
 {
-   buttonTranslate = [self createButton
-                      :CGRectMake(kButtonTranslateX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
-                      :kImageTranslate
-                      :@selector(translateButtonTouch:)
-                      :self];
+   m_buttonTranslate = [self createButton:CGRectMake(kButtonTranslateX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight):kImageTranslate:@selector(translateButtonTouch:):self];
     return YES;
 }
 - (BOOL)createPlayButton
 {
-   buttonPlay = [self createButton
-                      :CGRectMake(kButtonPlayX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
-                      :kImagePlay
-                      :@selector(playButtonTouch:)
-                      :self];
+   m_buttonPlay = [self createButton:CGRectMake(kButtonPlayX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight):kImagePlay:@selector(playButtonTouch:):self];
     return YES;
 }
 - (BOOL)createEditButton
 {
-   buttonEdit = [self createButton
-                      :CGRectMake(kButtonEditX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight)
-                      :kImageEdit
-                      :@selector(editButtonTouch:)
-                      :self];
+   m_buttonEdit = [self createButton:CGRectMake(kButtonEditX, kButtonRecogniseY,kButtonRecogniseWidth,kButtonRecogniseHeight):kImageEdit:@selector(editButtonTouch:):self];
     return YES;
 }
 - (BOOL)createStartButton
 {
-   buttonStart = [self createButton
-                      :CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight)
-                      :kImageRecognise
-                      :@selector(startRecogniseButtonTouch:)
-                      :self];
+   m_buttonStart = [self createButton:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight):kImageRecognise:@selector(startRecogniseButtonTouch:):self];
     return YES;
 }
 #pragma mark-init函数
@@ -161,12 +111,10 @@
     m_textView = [[TextViewScroll alloc] initWithFrame:CGRectMake(kFloatZero,kTextViewY, kTextViewWidth, kTextViewHeight) maxRows:kTextRowNumber];
     
     m_viewAnimation = [[UIViewAnimation alloc]init];
-    calculateSoundStrength = [[CalculateSoundStrength alloc]init];
-    switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
+    m_calculateSoundStrength = [[CalculateSoundStrength alloc]init];
+    m_switchButtonTouchAction = [[SwitchButtonTouchAction alloc]init];
     
-    
-    translate = [[TranslateRecognizeResult alloc]initWithData:nil :nil];
-    dataProcessing = [[DataProcessing alloc]init];
+    m_dataProcessing = [[DataProcessing alloc]init];
     sandBoxOperation = [[SandBoxOperation alloc]init];
     [self.view addSubview:m_soundWaveView];
     [self.view addSubview:m_textView];
@@ -174,7 +122,7 @@
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
-    buttonStart.enabled = YES;
+    m_buttonStart.enabled = YES;
     
     
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
@@ -207,7 +155,7 @@
 
 - (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong
 {
-    [m_soundWaveView addSoundStrong:[calculateSoundStrength voiceStrengthConvertHeight:soundStrong :120]];
+    [m_soundWaveView addSoundStrong:[m_calculateSoundStrength voiceStrengthConvertHeight:soundStrong :120]];
     return YES;
 }
 
@@ -222,7 +170,7 @@
 //        filePath = [filePath stringByAppendingPathComponent:fileName];
 //    }
 //     NSString *path = [filePath stringByAppendingString:@".translate"];
-    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:[dataProcessing getStringFromArray] :nil];
+    TranslateViewController *translateController = [[TranslateViewController alloc] initWithString:[m_dataProcessing getStringFromArray] :nil];
    
     //[translateController setSavePath:path];
     [self.navigationController pushViewController:translateController animated:YES];
@@ -231,32 +179,32 @@
 
 - (BOOL)playButtonTouch :(UIButton*)sender
 {
-    [switchButtonTouchAction switchButtonTouchAction:sender
+    [m_switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(playButtonTouch:)
                                           withTarget:self
                                            newAction:@selector(stopPlayButtonTouch:)
                                           withTarget:self];
-    _audioPlayer = [[PlayAudioWav alloc]init:1/10.0];
-    _audioPlayer.delegate = self;
+    m_audioPlayer = [[PlayAudioWav alloc]init:1/10.0];
+    m_audioPlayer.delegate = self;
     
     // 动画
-    [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
+    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{
         if(!isOffLine)
         {
-            [m_textView setSubtitleKey:[dataProcessing getKeySet]];
+            [m_textView setSubtitleKey:[m_dataProcessing getKeySet]];
             [m_textView playInit];
         }
-        audioInfo = [_audioPlayer CreateAudioFile:m_currentFileName :@"wav"];
-        [_audioPlayer startAudio:audioInfo];
+        m_audioInfo = [m_audioPlayer CreateAudioFile:m_currentFileName :@"wav"];
+        [m_audioPlayer startAudio:m_audioInfo];
         m_soundWaveView.alpha = 0.f;
         
     }];
     
-    buttonStart.enabled = NO;
-    buttonTranslate.enabled = NO;
-    buttonEdit.enabled = NO;
-    buttonPlay.enabled = NO;
+    m_buttonStart.enabled = NO;
+    m_buttonTranslate.enabled = NO;
+    m_buttonEdit.enabled = NO;
+    m_buttonPlay.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     return YES;
 }
@@ -264,38 +212,38 @@
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
     self.navigationItem.rightBarButtonItem.enabled = YES;
-    [_audioPlayer stopAudio:audioInfo];
-    [_audioPlayer closeAudio:audioInfo];
+    [m_audioPlayer stopAudio:m_audioInfo];
+    [m_audioPlayer closeAudio:m_audioInfo];
     [m_textView resetTextViewAlpha];
     
     [m_viewAnimation changeViewLightness:m_soundWaveView alpha:0.f duration:0.f completion:^{}];
     
-    buttonPlay.enabled = NO;
-    [switchButtonTouchAction switchButtonTouchAction:sender
+    m_buttonPlay.enabled = NO;
+    [m_switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopPlayButtonTouch:)
                                           withTarget:self
                                            newAction:@selector(playButtonTouch:)
                                           withTarget:self];
 
-    [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
+    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
 
     [self beginStopAnimation:^{
-        buttonPlay.enabled = YES;
-        buttonStart.enabled = YES;
+        m_buttonPlay.enabled = YES;
+        m_buttonStart.enabled = YES;
         if(isOffLine)
         {
-           buttonEdit.enabled = NO;
-           buttonTranslate.enabled = NO;
+           m_buttonEdit.enabled = NO;
+           m_buttonTranslate.enabled = NO;
         }else
         {
-            buttonEdit.enabled = YES;
-            buttonTranslate.enabled = YES;
+            m_buttonEdit.enabled = YES;
+            m_buttonTranslate.enabled = YES;
         }
         if(isHistoryChecked&&isHistoryCheckedWithoutStr)
         {
-            buttonEdit.enabled = NO;
-            buttonTranslate.enabled = NO;
+            m_buttonEdit.enabled = NO;
+            m_buttonTranslate.enabled = NO;
         }
        
         
@@ -305,11 +253,11 @@
 
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
-    EditViewController *editViewController = [[EditViewController alloc] initWithData:dataProcessing];
+    EditViewController *editViewController = [[EditViewController alloc] initWithData:m_dataProcessing];
     [editViewController setEditCompleteCallBack:self :@selector(editSave:)];
     NSString *path;
     if(!isHistoryChecked)
-       path = [filePath stringByAppendingString:@".data"];
+       path = [m_filePath stringByAppendingString:@".data"];
     if(isHistoryChecked)
     {
         path = [sandBoxOperation getDocumentPath];
@@ -348,59 +296,59 @@
 - (BOOL)startRecognise:(UIButton *)sender :(BOOL)isRecognize
 {
     
-    buttonStart.enabled = NO;
-    buttonEdit.enabled = NO;
-    buttonPlay.enabled = NO;
-    buttonTranslate.enabled = NO;
+    m_buttonStart.enabled = NO;
+    m_buttonEdit.enabled = NO;
+    m_buttonPlay.enabled = NO;
+    m_buttonTranslate.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     isHistoryChecked = NO;
 
-    [dataProcessing clearDicData];
-    [switchButtonTouchAction switchButtonTouchAction:sender
+    [m_dataProcessing clearDicData];
+    [m_switchButtonTouchAction switchButtonTouchAction:sender
              oldAction:@selector(startRecogniseButtonTouch:)
             withTarget:self
              newAction:@selector(stopRecogniseButtonTouch:)
             withTarget:self];
-    [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
+    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self beginStartAnimationWithButton:sender completion:^{}];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     
     m_currentFileName = dateTime;
-    filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    filePath = [filePath stringByAppendingPathComponent:dateTime];
+    m_filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    m_filePath = [m_filePath stringByAppendingPathComponent:dateTime];
     
     [self createRecognization:isRecognize :dateTime];
     m_soundWaveView.alpha = 1.0;
     [m_textView clearLastRecognition];
     [m_textView resetPosition];
-    [dataProcessing clearDicData];
+    [m_dataProcessing clearDicData];
     return YES;
 }
 #pragma mark - 新建一个识别
 - (BOOL)createRecognization :(BOOL)isRecognize :(NSString*)dateTime
 {
-    gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init:isRecognize];
-    [gooleVoiceRecognizer setDelegate:self];
-    [gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
-    [gooleVoiceRecognizer startRecording];
-    [gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
+    m_gooleVoiceRecognizer = [[ASGoogleVoiceRecognizer alloc]init:isRecognize];
+    [m_gooleVoiceRecognizer setDelegate:self];
+    [m_gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
+    [m_gooleVoiceRecognizer startRecording];
+    [m_gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
     return YES;
 }
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
-    buttonStart.enabled = NO;
+    m_buttonStart.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
-    BOOL isSuccess = [gooleVoiceRecognizer stopRecording];
+    BOOL isSuccess = [m_gooleVoiceRecognizer stopRecording];
     [m_textView scrollsToTopWithAnimation];
-    [switchButtonTouchAction switchButtonTouchAction:sender
+    [m_switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(stopRecogniseButtonTouch:)
                                           withTarget:self
                                            newAction:@selector(startRecogniseButtonTouch:)
                                           withTarget:self];
-    [m_viewAnimation removeAnimationFromLayer:_CDCoverView.layer forKey:kAnimationDarknessName];
+    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
     [self beginStopAnimation:^{
         
@@ -409,27 +357,27 @@
         m_soundWaveView.alpha = 0.0;
         if(isSuccess)
         {
-            NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
-            [dataProcessing saveDicToFile:dataFilePath];
+            NSString *dataFilePath = [[NSString stringWithString:m_filePath] stringByAppendingString:@".data"];
+            [m_dataProcessing saveDicToFile:dataFilePath];
             if(isOffLine)
             {
-                buttonEdit.enabled = NO;
-                buttonTranslate.enabled = NO;
-                 buttonPlay.enabled = YES;
+                m_buttonEdit.enabled = NO;
+                m_buttonTranslate.enabled = NO;
+                 m_buttonPlay.enabled = YES;
             }else
             {
-              buttonPlay.enabled = YES;
-              buttonEdit.enabled = YES;
-              buttonTranslate.enabled = YES;
+              m_buttonPlay.enabled = YES;
+              m_buttonEdit.enabled = YES;
+              m_buttonTranslate.enabled = YES;
             } 
         }else
         {
             if(![sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
                 self.navigationItem.rightBarButtonItem.enabled = NO;
-            buttonPlay.enabled = NO;
-            buttonEdit.enabled = NO;
-            buttonTranslate.enabled = NO;
-            buttonStart.enabled = YES;
+            m_buttonPlay.enabled = NO;
+            m_buttonEdit.enabled = NO;
+            m_buttonTranslate.enabled = NO;
+            m_buttonStart.enabled = YES;
         }
         
     } withButton:sender];
@@ -443,7 +391,7 @@
     NSNumber *number = [postBackDic objectForKey:@"soundSize"];
     
     [self addText:str];
-    [dataProcessing recognizedStrTimestamp:str :[number doubleValue]];
+    [m_dataProcessing recognizedStrTimestamp:str :[number doubleValue]];
     return YES;
 }
 
@@ -469,7 +417,7 @@
 
 - (BOOL)rotateCDInnerImageView
 {
-    [m_viewAnimation animationWithLayer:_CDInnerImageView.layer
+    [m_viewAnimation animationWithLayer:m_CDInnerImageView.layer
                                 keypath:kAnimationRotationKeyPath
                               fromValue:[NSNumber numberWithFloat:kFloatZero]
                                 toValue:[NSNumber numberWithFloat:k2PI]
@@ -480,13 +428,13 @@
 }
 - (void)brightenCDInnerImageView
 {
-    [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:1.0f
+    [m_viewAnimation changeViewLightness:m_CDInnerImageView alpha:1.0f
                                 duration:kImageCDInnerTransformTime
                               completion:^{}];
 }
 - (void)brightenCDCoverView
 {
-    [m_viewAnimation animationWithLayer:_CDCoverView.layer
+    [m_viewAnimation animationWithLayer:m_CDCoverView.layer
                                 keypath:kAnimationDarknessKeyPath
                               fromValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
                                                                         alpha:kAnimationDarknessAlpha].CGColor)
@@ -498,9 +446,9 @@
 - (void)darkenCDCoverView
 {
     
-    [m_viewAnimation animationWithLayer:_CDCoverView.layer
+    [m_viewAnimation animationWithLayer:m_CDCoverView.layer
                                 keypath:kAnimationDarknessKeyPath
-                              fromValue:(__bridge id)(_CDCoverView.backgroundColor.CGColor)
+                              fromValue:(__bridge id)(m_CDCoverView.backgroundColor.CGColor)
                                 toValue:(__bridge id)([UIColor colorWithWhite:kFloatZero
                                                                         alpha:kAnimationDarknessAlpha].CGColor)
                                duration:kAnimationDarknessDuration
@@ -509,13 +457,13 @@
 }
 - (BOOL)beginStopAnimation:(void(^)(void)) finish withButton:(UIButton *)button
 {
-    [m_viewAnimation changeViewLightness:_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
-        [m_viewAnimation changeViewFrame:_CDImageView
+    [m_viewAnimation changeViewLightness:m_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
+        [m_viewAnimation changeViewFrame:m_CDImageView
                                  toFrame:CGRectMake(kImageCDBeforeX, kImageCDBeforeY,
                                                     kImageCDBeforeWidth, kImageCDBeforeHeight)
                             withDuration:kImageCDTransformDuration
                               completion:^{}];
-        [m_viewAnimation removeAnimationFromLayer:_CDInnerImageView.layer forKey:kAnimationRotationName];
+        [m_viewAnimation removeAnimationFromLayer:m_CDInnerImageView.layer forKey:kAnimationRotationName];
         finish();
         button.enabled = YES;
     }];
@@ -523,7 +471,7 @@
 }
 - (BOOL)beginStartAnimationWithButton:(UIButton *)button completion:(void(^)(void))completion
 {
-    [m_viewAnimation changeViewFrame:_CDImageView
+    [m_viewAnimation changeViewFrame:m_CDImageView
                              toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
                                                 kImageCDAfterWidth, kImageCDAfterHeight)
                         withDuration:kImageCDTransformDuration
@@ -539,10 +487,10 @@
 #pragma mark - 编辑保存按钮的回调
 - (void)editSave :(NSMutableDictionary*)newDictionary
 {
-    [dataProcessing setDictionary:newDictionary];
+    [m_dataProcessing setDictionary:newDictionary];
     [m_textView clearLastRecognition];
     [m_textView resetPosition];
-    NSArray *keySet = [dataProcessing getKeySet];
+    NSArray *keySet = [m_dataProcessing getKeySet];
     for (NSString *key in keySet)
     {
         [self addText:[newDictionary objectForKey:key]];
@@ -556,7 +504,7 @@
 {
     self.navigationItem.rightBarButtonItem.enabled = YES;
     m_soundWaveView.alpha = 0.f;
-    [self stopPlayButtonTouch:buttonPlay];
+    [self stopPlayButtonTouch:m_buttonPlay];
     [m_textView playComplete];
 }
 - (void)receivePlayData:(NSDictionary *)voiceData
@@ -581,17 +529,17 @@
     isHistoryChecked = YES;
     if(recognizedStrArray.count == 0)
     {
-        buttonPlay.enabled = YES;
-        buttonStart.enabled = YES;
-        buttonEdit.enabled = NO;
-        buttonTranslate.enabled = NO;
+        m_buttonPlay.enabled = YES;
+        m_buttonStart.enabled = YES;
+        m_buttonEdit.enabled = NO;
+        m_buttonTranslate.enabled = NO;
         isHistoryCheckedWithoutStr = YES;
     }else
     {
         
-        buttonPlay.enabled = YES;
-        buttonEdit.enabled = YES;
-        buttonTranslate.enabled = YES;
+        m_buttonPlay.enabled = YES;
+        m_buttonEdit.enabled = YES;
+        m_buttonTranslate.enabled = YES;
         isHistoryCheckedWithoutStr = NO;
     }
     [m_textView clearLastRecognition];
@@ -608,14 +556,14 @@
     
     NSLog(@"%@",doc);
     NSMutableDictionary *historyRecordDic = [[NSMutableDictionary alloc]initWithContentsOfFile:doc];
-    [dataProcessing setDictionary:historyRecordDic];
+    [m_dataProcessing setDictionary:historyRecordDic];
     NSMutableArray *noSqueneceKeyset = [[NSMutableArray alloc]init];
     for (NSString *key in [historyRecordDic keyEnumerator])
     {
         [noSqueneceKeyset addObject:key];
     }
     
-    NSArray *keySet = [dataProcessing timestampSequence:noSqueneceKeyset];
+    NSArray *keySet = [m_dataProcessing timestampSequence:noSqueneceKeyset];
     [m_textView setSubtitleKey:keySet];
     m_currentFileName = [dic objectForKey:@"fileName"];
 }
@@ -625,13 +573,13 @@
 {
     if(buttonIndex == 0)
     {
-        [self startRecognise:buttonStart :NO];
+        [self startRecognise:m_buttonStart :NO];
         isOffLine = YES;
     }
         
     if (buttonIndex == 1)
     {
-        [self startRecognise:buttonStart :YES];
+        [self startRecognise:m_buttonStart :YES];
         isOffLine = NO;
     }
         
