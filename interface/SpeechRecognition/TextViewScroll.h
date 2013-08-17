@@ -43,6 +43,7 @@
 - (BOOL)playInit;
 -(void)receivePlayData;
 -(void)playComplete;
+- (BOOL)resetTextViewAlpha;
 
 
 @end

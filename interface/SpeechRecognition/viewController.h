@@ -25,6 +25,7 @@
     NSString *filePath;
     BOOL isHistoryChecked;
     BOOL isOffLine;
+    BOOL isHistoryCheckedWithoutStr;
     
 }
 @end

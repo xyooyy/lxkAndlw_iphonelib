@@ -8,9 +8,13 @@
 
 #import "EditHistoryRecordViewController.h"
 #import "Data.h"
+#define IPONE_4_HEIGHT 480
 
 @interface EditHistoryRecordViewController ()
-
+{
+    int textViewHeight;
+    int saveBtnOrgY;
+}
 @end
 
 @implementation EditHistoryRecordViewController
@@ -20,7 +24,10 @@
     self = [super init];
     if (self)
     {
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
+        int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        textViewHeight = screenHeight == IPONE_4_HEIGHT?350:(screenHeight - IPONE_4_HEIGHT+350);
+        saveBtnOrgY =textViewHeight==350?373:(373+screenHeight - IPONE_4_HEIGHT);
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, textViewHeight)];
         _textView.backgroundColor = RGBA(27.f, 26.f, 24.f, 1.f);
         _textView.textColor = [UIColor whiteColor];
         
@@ -51,7 +58,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     [self addButtonWithImageNamed:kImageBigSaveButton
-                             rect:CGRectMake(15, 373, 290, 34)
+                             rect:CGRectMake(15, saveBtnOrgY, 290, 34)
                          delegate:self
                            action:@selector(saveButtonTouch:)
                            toView:self.view];
@@ -92,9 +99,6 @@
 
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-//    NSError *error;
-//    if (![_textView.text writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
-//        NSLog(@"%@", error);
     NSString *str = _textView.text;
     [obj performSelector:saveAction withObject:str];
     [self.navigationController popViewControllerAnimated:YES];

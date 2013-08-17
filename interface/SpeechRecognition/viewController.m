@@ -281,6 +281,7 @@
     self.navigationItem.rightBarButtonItem.enabled = YES;
     [_audioPlayer stopAudio:audioInfo];
     [_audioPlayer closeAudio:audioInfo];
+    [_textView resetTextViewAlpha];
     
     [m_viewAnimation changeViewLightness:_soundWaveView alpha:0.f duration:0.f completion:^{}];
     
@@ -296,9 +297,22 @@
 
     [self beginStopAnimation:^{
         buttonPlay.enabled = YES;
-        buttonEdit.enabled = YES;
         buttonStart.enabled = YES;
-        buttonTranslate.enabled = YES;
+        if(isOffLine)
+        {
+           buttonEdit.enabled = NO;
+           buttonTranslate.enabled = NO;
+        }else
+        {
+            buttonEdit.enabled = YES;
+            buttonTranslate.enabled = YES;
+        }
+        if(isHistoryChecked&&isHistoryCheckedWithoutStr)
+        {
+            buttonEdit.enabled = NO;
+            buttonTranslate.enabled = NO;
+        }
+       
         
     } withButton:sender];
     return YES;
@@ -411,9 +425,19 @@
         {
             NSString *dataFilePath = [[NSString stringWithString:filePath] stringByAppendingString:@".data"];
             [dataProcessing saveDicToFile:dataFilePath];
-            buttonEdit.enabled = YES;
-            buttonPlay.enabled = YES;
-            buttonTranslate.enabled = YES;
+            if(isOffLine)
+            {
+                buttonEdit.enabled = NO;
+                buttonTranslate.enabled = NO;
+            }else
+            {
+              buttonPlay.enabled = YES;
+              buttonEdit.enabled = YES;
+              buttonTranslate.enabled = YES;
+            }
+             
+            
+            
             
         }
         
@@ -561,14 +585,23 @@
 - (void)popHistoryView :(NSMutableDictionary*)dic
 {
     
-    isHistoryChecked = YES;
-    buttonPlay.enabled = YES;
-    buttonEdit.enabled = YES;
-    buttonTranslate.enabled = YES;
-    
-    
-    
     NSArray *recognizedStrArray = [dic objectForKey:@"str"];
+    isHistoryChecked = YES;
+    if(recognizedStrArray.count == 0)
+    {
+        buttonPlay.enabled = YES;
+        buttonStart.enabled = YES;
+        buttonEdit.enabled = NO;
+        buttonTranslate.enabled = NO;
+        isHistoryCheckedWithoutStr = YES;
+    }else
+    {
+        
+        buttonPlay.enabled = YES;
+        buttonEdit.enabled = YES;
+        buttonTranslate.enabled = YES;
+        isHistoryCheckedWithoutStr = NO;
+    }
     [_textView clearLastRecognition];
     [_textView resetPosition];
     [_textView playInit];

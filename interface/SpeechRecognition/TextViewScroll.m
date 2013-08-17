@@ -279,4 +279,12 @@
     scrollCount = 0;
     return YES;
 }
+- (BOOL)resetTextViewAlpha
+{
+    NSArray *subViews = [self subviews];
+    for (UIView *view in subViews)
+    {
+        view.alpha = 1.f;
+    }
+}
 @end

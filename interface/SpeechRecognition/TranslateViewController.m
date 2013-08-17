@@ -11,12 +11,15 @@
 #import "EditTranslateController.h"
 #import "PopupView.h"
 #import "Data.h"
+#define IPONE_4_HEIGHT 480
 
 @interface TranslateViewController ()
 {
     UITextView *_textView;
     NSString *_savePath;
     TranslateRecognizeResult *_translate;
+    int tableView_height;
+    int operation_Org_Y;
 }
 @end
 
@@ -26,8 +29,13 @@
 {
     if (self = [super init])
     {
+        
+        int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        tableView_height = screenHeight == 480?350:(350+screenHeight - 480);
+        operation_Org_Y = tableView_height == 350?375:(375+screenHeight - 480);
+        
         _savePath = savePath;
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, tableView_height)];
         _textView.editable = NO;
         _textView.backgroundColor = [UIColor clearColor];
         _textView.textColor = [UIColor whiteColor];
@@ -59,13 +67,13 @@
 
     
     [self addButtonWithImageNamed:kImageEditButton
-                             rect:CGRectMake(15, 375, 135, 30)
+                             rect:CGRectMake(15, operation_Org_Y, 135, 30)
                          delegate:self
                            action:@selector(editButtonTouch:)
                            toView:self.view];
     
     [self addButtonWithImageNamed:kImageRedCopyButton
-                             rect:CGRectMake(170, 375, 135, 30)
+                             rect:CGRectMake(170, operation_Org_Y, 135, 30)
                          delegate:self
                            action:@selector(copyButtonTouch:)
                            toView:self.view];

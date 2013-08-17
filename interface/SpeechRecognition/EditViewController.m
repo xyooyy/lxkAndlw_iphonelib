@@ -51,7 +51,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, 350) andData:_data];
+    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    int tableView_height = screenHeight == 480?350:(350+screenHeight - 480);
+    int operation_Org_Y = tableView_height == 350?375:(375+screenHeight - 480);
+    
+    
+    _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, tableView_height) andData:_data];
     [_tableView setSelectCallBack:self :@selector(selectAction::)];
     
     
@@ -73,15 +78,15 @@
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:completionButton];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
-     
+    
     [self addButtonWithImageNamed:kImageCopyButton
-                             rect:CGRectMake(15, 375, 135, 30)
+                             rect:CGRectMake(15, operation_Org_Y, 135, 30)
                          delegate:self
                            action:@selector(copyButtonTouch:)
                            toView:self.view];
     
     [self addButtonWithImageNamed:kImageSaveButton
-                             rect:CGRectMake(170, 375, 135, 30)
+                             rect:CGRectMake(170, operation_Org_Y, 135, 30)
                          delegate:self
                            action:@selector(saveButtonTouch:)
                            toView:self.view];
