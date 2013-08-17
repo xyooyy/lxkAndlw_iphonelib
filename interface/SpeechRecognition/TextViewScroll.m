@@ -286,5 +286,6 @@
     {
         view.alpha = 1.f;
     }
+    return YES;
 }
 @end

@@ -10,10 +10,6 @@
 #import "ASGoogleVoiceRecognizer.h"
 #import "SBJson.h"
 #import "Data.h"
-
-#define SOUNDSTRONGTH_THRESHOLD 150
-#define WAIT_TIME 4
-
 @interface ASGoogleVoiceRecognizer ()
 {
     //header
@@ -29,7 +25,7 @@
 {
     self = [super init];
     if (self) {
-        mRecorder = [[ASRecordWav alloc]initWithData:1/10.f :16000];
+        mRecorder = [[ASRecordWav alloc]initWithData:SAMPLATE_TIME :SAMPLATE_RATE];
         [mRecorder setReceiveDataDelegate:self];
         
         shouldRecignize = isRecognized;

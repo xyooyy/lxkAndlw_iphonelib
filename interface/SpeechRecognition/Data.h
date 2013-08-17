@@ -157,3 +157,14 @@
 #define kSoundWaveStartCGColor    RGBA(153.f, 47.f, 41.f, 1.0f).CGColor
 #define kSoundWaveEndCGColor      RGBA(153.f, 47.f, 41.f, 0.0f).CGColor
 
+#pragma mark - 关于录音和播放录音
+
+#define SOUNDSTRONGTH_THRESHOLD 150
+#define WAIT_TIME 4
+#define SAMPLATE_TIME 1/10.f
+#define SAMPLATE_RATE 16000
+
+#pragma mark - 文件相关操作
+
+#define DATAFILE_EXTENSION .data
+

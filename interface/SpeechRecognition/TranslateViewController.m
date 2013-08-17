@@ -153,7 +153,7 @@
     
     for (int i = 0; i != array.count; i++)
     {
-        string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
+            string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
     }
     return string;
 }

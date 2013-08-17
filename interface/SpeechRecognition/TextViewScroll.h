@@ -10,7 +10,7 @@
 #import "UIViewAnimation.h"
 #import "ASPlayDelegate.h"
 
-@interface TextViewScroll : UIScrollView<ASPlayDelegate>
+@interface TextViewScroll : UIScrollView
 {
     NSMutableArray *_viewArray;
     NSUInteger _maxRow;
@@ -41,9 +41,9 @@
 
 - (BOOL)setSubtitleKey :(NSArray*)keyArray;
 - (BOOL)playInit;
--(void)receivePlayData;
--(void)playComplete;
+- (void)receivePlayData;
 - (BOOL)resetTextViewAlpha;
+- (void)playComplete;
 
 
 @end

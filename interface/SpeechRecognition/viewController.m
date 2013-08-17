@@ -124,13 +124,13 @@
     [self createTranslateButton];
     m_buttonStart.enabled = YES;
     
-    
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
     {
         [self displayHistoryButton];
         isHistoryBtnDisplay = YES;
     }
 }
+
 
 #pragma mark - 背景布局
 
@@ -153,9 +153,10 @@
     [self.navigationController pushViewController:historyController animated:YES];
 }
 
+#pragma mark - 录音回调，用于展示音强
 - (BOOL)googleVoiceSoundStrong:(NSUInteger)soundStrong
 {
-    [m_soundWaveView addSoundStrong:[m_calculateSoundStrength voiceStrengthConvertHeight:soundStrong :120]];
+    [m_soundWaveView addSoundStrong:[m_calculateSoundStrength voiceStrengthConvertHeight:soundStrong :480]];
     return YES;
 }
 
@@ -177,30 +178,9 @@
     return YES;
 }
 
-- (BOOL)playButtonTouch :(UIButton*)sender
+#pragma mark - 和playButton按钮相关的操作
+- (BOOL)playButtonTouchButtonEnabled
 {
-    [m_switchButtonTouchAction switchButtonTouchAction:sender
-                                           oldAction:@selector(playButtonTouch:)
-                                          withTarget:self
-                                           newAction:@selector(stopPlayButtonTouch:)
-                                          withTarget:self];
-    m_audioPlayer = [[PlayAudioWav alloc]init:1/10.0];
-    m_audioPlayer.delegate = self;
-    
-    // 动画
-    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
-    [self beginStartAnimationWithButton:sender completion:^{
-        if(!isOffLine)
-        {
-            [m_textView setSubtitleKey:[m_dataProcessing getKeySet]];
-            [m_textView playInit];
-        }
-        m_audioInfo = [m_audioPlayer CreateAudioFile:m_currentFileName :@"wav"];
-        [m_audioPlayer startAudio:m_audioInfo];
-        m_soundWaveView.alpha = 0.f;
-        
-    }];
-    
     m_buttonStart.enabled = NO;
     m_buttonTranslate.enabled = NO;
     m_buttonEdit.enabled = NO;
@@ -208,14 +188,72 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     return YES;
 }
+- (BOOL)playButtonTouchAnimationComplete
+{
+    if(!isOffLine)
+    {
+        [m_textView setSubtitleKey:[m_dataProcessing getKeySet]];
+        [m_textView playInit];
+    }
+    m_audioInfo = [m_audioPlayer CreateAudioFile:m_currentFileName :@"wav"];
+    [m_audioPlayer startAudio:m_audioInfo];
+    m_soundWaveView.alpha = 0.f;
+    return YES;
+}
+- (BOOL)playButtonTouch :(UIButton*)sender
+{
+    [m_switchButtonTouchAction switchButtonTouchAction:sender
+                                           oldAction:@selector(playButtonTouch:)
+                                          withTarget:self
+                                           newAction:@selector(stopPlayButtonTouch:)
+                                          withTarget:self];
+    m_audioPlayer = [[PlayAudioWav alloc]init:SAMPLATE_TIME];
+    m_audioPlayer.delegate = self;
+    
+    // 动画
+    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
+    [self changeCDImageViewFrame:sender completion:^{
+        [self playButtonTouchAnimationComplete]; 
+    }];
+    
+    [self playButtonTouchButtonEnabled];
+    return YES;
+}
 
+#pragma mark - 和stopPlayButton安妮相关的操作
+
+- (BOOL)offLineButtonsEnabled
+{
+    if(isOffLine)
+    {
+        m_buttonEdit.enabled = NO;
+        m_buttonTranslate.enabled = NO;
+    }
+    else
+    {
+        m_buttonEdit.enabled = YES;
+        m_buttonTranslate.enabled = YES;
+    }
+    return YES;
+}
+- (BOOL)stopPlayButtonTouchButtonEnabled
+{
+    m_buttonPlay.enabled = YES;
+    m_buttonStart.enabled = YES;
+    [self offLineButtonsEnabled];
+    if(isHistoryChecked&&isHistoryCheckedWithoutStr)
+    {
+        m_buttonEdit.enabled = NO;
+        m_buttonTranslate.enabled = NO;
+    }
+    return YES;
+}
 - (BOOL)stopPlayButtonTouch:(UIButton *)sender
 {
     self.navigationItem.rightBarButtonItem.enabled = YES;
     [m_audioPlayer stopAudio:m_audioInfo];
     [m_audioPlayer closeAudio:m_audioInfo];
     [m_textView resetTextViewAlpha];
-    
     [m_viewAnimation changeViewLightness:m_soundWaveView alpha:0.f duration:0.f completion:^{}];
     
     m_buttonPlay.enabled = NO;
@@ -228,95 +266,97 @@
     [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
 
-    [self beginStopAnimation:^{
-        m_buttonPlay.enabled = YES;
-        m_buttonStart.enabled = YES;
-        if(isOffLine)
-        {
-           m_buttonEdit.enabled = NO;
-           m_buttonTranslate.enabled = NO;
-        }else
-        {
-            m_buttonEdit.enabled = YES;
-            m_buttonTranslate.enabled = YES;
-        }
-        if(isHistoryChecked&&isHistoryCheckedWithoutStr)
-        {
-            m_buttonEdit.enabled = NO;
-            m_buttonTranslate.enabled = NO;
-        }
-       
-        
+    [self darkenCDInnerImageViewLightness: ^{
+        [self stopPlayButtonTouchButtonEnabled];
     } withButton:sender];
     return YES;
 }
 
-- (BOOL)editButtonTouch:(UIButton *)sender
+#pragma mark - 编辑按钮相关操作
+
+- (NSString*)getEditFilePath
 {
-    EditViewController *editViewController = [[EditViewController alloc] initWithData:m_dataProcessing];
-    [editViewController setEditCompleteCallBack:self :@selector(editSave:)];
     NSString *path;
     if(!isHistoryChecked)
-       path = [m_filePath stringByAppendingString:@".data"];
+        path = [m_filePath stringByAppendingString:@".data"];
     if(isHistoryChecked)
     {
         path = [sandBoxOperation getDocumentPath];
         path = [path stringByAppendingPathComponent:m_currentFileName];
         path = [path stringByAppendingString:@".data"];
     }
-        
+    return path;
+}
+- (BOOL)editButtonTouch:(UIButton *)sender
+{
+    EditViewController *editViewController = [[EditViewController alloc] initWithData:m_dataProcessing];
+    [editViewController setEditCompleteCallBack:self :@selector(editSave:)];
+    NSString *path = [self getEditFilePath];
     [editViewController setSavePath:path];
     [editViewController setTextViewScroll:m_textView];
     [self.navigationController pushViewController:editViewController animated:YES];    
-    
+    return YES;
+}
+
+#pragma mark - 开始识别按钮操作
+- (BOOL)createAlertView :(NSString*)title :(NSString*)message :(id)delegate :(NSString*)cancelBtnTitle :(NSString*)otherBtnTitle
+{
+   UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title message:message delegate:delegate cancelButtonTitle:nil otherButtonTitles:otherBtnTitle, nil];
+    [alertView show];
     return YES;
 }
 - (void)startRecogniseButtonTouch:(UIButton *)sender
 {
     CheckNetStatus *checkNetStatus = [[CheckNetStatus alloc]init];
-    int back = [checkNetStatus isInWIFI];
-    UIAlertView *alertView;
-    if(back == NotReachable)
-    {
-       alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络离线，不能进行语音识别" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-        [alertView show];
-    }
-    if(back == ReachableViaWWAN)
-    {
-        alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前网络处在3G模式，需要用您的流量" delegate:self cancelButtonTitle:@"不允许" otherButtonTitles:@"允许", nil];
-        [alertView show];
-    }
-    if(!alertView)
+    int backCode = [checkNetStatus isInWIFI];
+    if(backCode == NotReachable)
+        [self createAlertView:@"提示" :@"当前网络离线，不能进行语音识别" :self :nil :@"确定"];
+    if(backCode == ReachableViaWWAN)
+        [self createAlertView:@"提示" :@"当前网络处在3G模式，需要用您的流量" :self :@"不允许" :@"允许"];
+    if(ReachableViaWiFi)
     {
         [self startRecognise:sender :YES];
         isOffLine = NO;
     }
         
 }
-- (BOOL)startRecognise:(UIButton *)sender :(BOOL)isRecognize
+- (BOOL)startRecognizeButtonsEnabled
 {
-    
     m_buttonStart.enabled = NO;
     m_buttonEdit.enabled = NO;
     m_buttonPlay.enabled = NO;
     m_buttonTranslate.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    
-    isHistoryChecked = NO;
-
-    [m_dataProcessing clearDicData];
+    return YES;
+}
+- (BOOL)senderActionSwitch :(UIButton*)sender
+{
     [m_switchButtonTouchAction switchButtonTouchAction:sender
-             oldAction:@selector(startRecogniseButtonTouch:)
-            withTarget:self
-             newAction:@selector(stopRecogniseButtonTouch:)
-            withTarget:self];
-    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
-    [self beginStartAnimationWithButton:sender completion:^{}];
+                                             oldAction:@selector(startRecogniseButtonTouch:)
+                                            withTarget:self
+                                             newAction:@selector(stopRecogniseButtonTouch:)
+                                            withTarget:self];
+    return YES;
+}
+- (NSString*)createCurrentDateTimeString
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
+    return dateTime;
+}
+- (BOOL)startRecognise:(UIButton *)sender :(BOOL)isRecognize
+{
+    [self startRecognizeButtonsEnabled];
+    isHistoryChecked = NO;
+    [m_dataProcessing clearDicData];
+    [self senderActionSwitch:sender];
     
+    [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
+    [self changeCDImageViewFrame:sender completion:^{}];
+    NSString *dateTime = [self createCurrentDateTimeString];
     m_currentFileName = dateTime;
+    
     m_filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     m_filePath = [m_filePath stringByAppendingPathComponent:dateTime];
     
@@ -350,7 +390,7 @@
                                           withTarget:self];
     [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
-    [self beginStopAnimation:^{
+    [self darkenCDInnerImageViewLightness:^{
         
         if(!isHistoryBtnDisplay)
             [self displayHistoryButton];
@@ -455,7 +495,7 @@
                             repeatCount:kAnimationDarknessRepeatCount
                           animationName:kAnimationDarknessName];
 }
-- (BOOL)beginStopAnimation:(void(^)(void)) finish withButton:(UIButton *)button
+- (BOOL)darkenCDInnerImageViewLightness:(void(^)(void))finish withButton:(UIButton *)button
 {
     [m_viewAnimation changeViewLightness:m_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
         [m_viewAnimation changeViewFrame:m_CDImageView
@@ -469,7 +509,7 @@
     }];
     return YES;
 }
-- (BOOL)beginStartAnimationWithButton:(UIButton *)button completion:(void(^)(void))completion
+- (BOOL)changeCDImageViewFrame:(UIButton *)button completion:(void(^)(void))completion
 {
     [m_viewAnimation changeViewFrame:m_CDImageView
                              toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,

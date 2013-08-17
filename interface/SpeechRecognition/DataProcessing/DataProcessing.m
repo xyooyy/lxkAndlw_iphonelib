@@ -100,7 +100,9 @@
     NSString *result = @"";
     for (NSString *key in [self getKeySet])
     {
-        result = [result stringByAppendingFormat:@"%@\n", [recognizedRecord objectForKey:key]];
+        NSString *str = [recognizedRecord objectForKey:key];
+        if(![str isEqualToString:@"--"])
+        result = [result stringByAppendingFormat:@"%@\n", str];
     }
     
     return result;
