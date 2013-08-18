@@ -166,5 +166,9 @@
 
 #pragma mark - 文件相关操作
 
-#define DATAFILE_EXTENSION .data
+static NSString *recognizedResultDicResult = @"result";
+static NSString *recognizedResultDicSoundSize = @"soundSize";
+static NSString *popHistoryViewDicStrArray = @"str";
+static NSString *popHistoryViewDicFileName = @"fileName";
+static NSString *dataFileExtension = @".data";
 

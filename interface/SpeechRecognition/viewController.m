@@ -301,22 +301,24 @@
 #pragma mark - 开始识别按钮操作
 - (BOOL)createAlertView :(NSString*)title :(NSString*)message :(id)delegate :(NSString*)cancelBtnTitle :(NSString*)otherBtnTitle
 {
-   UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title message:message delegate:delegate cancelButtonTitle:nil otherButtonTitles:otherBtnTitle, nil];
+   UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelBtnTitle otherButtonTitles:otherBtnTitle, nil];
     [alertView show];
     return YES;
 }
 - (void)startRecogniseButtonTouch:(UIButton *)sender
 {
+    //isOffLine = YES;
     CheckNetStatus *checkNetStatus = [[CheckNetStatus alloc]init];
     int backCode = [checkNetStatus isInWIFI];
     if(backCode == NotReachable)
         [self createAlertView:@"提示" :@"当前网络离线，不能进行语音识别" :self :nil :@"确定"];
     if(backCode == ReachableViaWWAN)
         [self createAlertView:@"提示" :@"当前网络处在3G模式，需要用您的流量" :self :@"不允许" :@"允许"];
-    if(ReachableViaWiFi)
+    if(backCode == ReachableViaWiFi)
     {
-        [self startRecognise:sender :YES];
-        isOffLine = NO;
+        [self createAlertView:@"提示" :@"当前网络处在WIFI模式，允许识别么？" :self :@"不允许" :@"允许"];
+//        [self startRecognise:sender :YES];
+//        isOffLine = NO;
     }
         
 }
@@ -327,15 +329,6 @@
     m_buttonPlay.enabled = NO;
     m_buttonTranslate.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    return YES;
-}
-- (BOOL)senderActionSwitch :(UIButton*)sender
-{
-    [m_switchButtonTouchAction switchButtonTouchAction:sender
-                                             oldAction:@selector(startRecogniseButtonTouch:)
-                                            withTarget:self
-                                             newAction:@selector(stopRecogniseButtonTouch:)
-                                            withTarget:self];
     return YES;
 }
 - (NSString*)createCurrentDateTimeString
@@ -350,7 +343,7 @@
     [self startRecognizeButtonsEnabled];
     isHistoryChecked = NO;
     [m_dataProcessing clearDicData];
-    [self senderActionSwitch:sender];
+    [self senderActionSwitch:sender :@selector(startRecogniseButtonTouch:) :@selector(stopRecogniseButtonTouch:)];
     
     [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self changeCDImageViewFrame:sender completion:^{}];
@@ -377,48 +370,77 @@
     [m_gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
     return YES;
 }
+#pragma mark - 按钮的Action切换
+- (BOOL)senderActionSwitch :(UIButton*)sender :(SEL)oldAction :(SEL)newAction
+{
+    [m_switchButtonTouchAction switchButtonTouchAction:sender
+                                             oldAction:oldAction
+                                            withTarget:self
+                                             newAction:newAction
+                                            withTarget:self];
+    return YES;
+}
+
+#pragma mark - 停止识别操作
+
+- (BOOL)saveRecognizedStr
+{
+    NSString *dataFilePath = [[NSString stringWithString:m_filePath] stringByAppendingString:@".data"];
+    [m_dataProcessing saveDicToFile:dataFilePath];
+    return YES;
+}
+- (BOOL)recognizedSuccessButtonsEnabled
+{
+    if(isOffLine)
+    {
+        m_buttonEdit.enabled = NO;
+        m_buttonTranslate.enabled = NO;
+        m_buttonPlay.enabled = YES;
+    }else
+    {
+        m_buttonPlay.enabled = YES;
+        m_buttonEdit.enabled = YES;
+        m_buttonTranslate.enabled = YES;
+    }
+    return YES;
+}
+- (BOOL)recognizedUnSuccessButtonsEnabled
+{
+    if(![sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    m_buttonPlay.enabled = NO;
+    m_buttonEdit.enabled = NO;
+    m_buttonTranslate.enabled = NO;
+    m_buttonStart.enabled = YES;
+    return YES;
+}
+- (BOOL)darkenCDInnerImageViewComplete :(BOOL)isSuccess
+{
+    if(!isHistoryBtnDisplay)
+        [self displayHistoryButton];
+    m_soundWaveView.alpha = 0.0;
+    if(isSuccess)
+    {
+        [self saveRecognizedStr];
+        [self recognizedSuccessButtonsEnabled];
+    }else
+    {
+        [self recognizedUnSuccessButtonsEnabled];
+    }
+    return YES;
+}
 - (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
 {
     m_buttonStart.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
     BOOL isSuccess = [m_gooleVoiceRecognizer stopRecording];
     [m_textView scrollsToTopWithAnimation];
-    [m_switchButtonTouchAction switchButtonTouchAction:sender
-                                           oldAction:@selector(stopRecogniseButtonTouch:)
-                                          withTarget:self
-                                           newAction:@selector(startRecogniseButtonTouch:)
-                                          withTarget:self];
+    [self senderActionSwitch:sender :@selector(stopRecogniseButtonTouch:) :@selector(startRecogniseButtonTouch:)];
     [m_viewAnimation removeAnimationFromLayer:m_CDCoverView.layer forKey:kAnimationDarknessName];
     [self brightenCDCoverView];
     [self darkenCDInnerImageViewLightness:^{
         
-        if(!isHistoryBtnDisplay)
-            [self displayHistoryButton];
-        m_soundWaveView.alpha = 0.0;
-        if(isSuccess)
-        {
-            NSString *dataFilePath = [[NSString stringWithString:m_filePath] stringByAppendingString:@".data"];
-            [m_dataProcessing saveDicToFile:dataFilePath];
-            if(isOffLine)
-            {
-                m_buttonEdit.enabled = NO;
-                m_buttonTranslate.enabled = NO;
-                 m_buttonPlay.enabled = YES;
-            }else
-            {
-              m_buttonPlay.enabled = YES;
-              m_buttonEdit.enabled = YES;
-              m_buttonTranslate.enabled = YES;
-            } 
-        }else
-        {
-            if(![sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
-                self.navigationItem.rightBarButtonItem.enabled = NO;
-            m_buttonPlay.enabled = NO;
-            m_buttonEdit.enabled = NO;
-            m_buttonTranslate.enabled = NO;
-            m_buttonStart.enabled = YES;
-        }
+        [self darkenCDInnerImageViewComplete:isSuccess];
         
     } withButton:sender];
    
@@ -427,15 +449,14 @@
 #pragma mark - 识别结果的返回
 - (BOOL)speechRecognitionResult :(NSDictionary*)postBackDic
 {
-    NSString *str = [postBackDic objectForKey:@"result"];
-    NSNumber *number = [postBackDic objectForKey:@"soundSize"];
-    
+    NSString *str = [postBackDic objectForKey:recognizedResultDicResult];
+    NSNumber *number = [postBackDic objectForKey:recognizedResultDicSoundSize];
     [self addText:str];
     [m_dataProcessing recognizedStrTimestamp:str :[number doubleValue]];
     return YES;
 }
 
-#pragma mark - 
+#pragma mark - 添加字幕
 
 - (BOOL)addText:(NSString *)text
 {
@@ -445,12 +466,6 @@
                  color:kTextFontColor
                spacing:kTextRowSpacing];
     return YES;
-}
-#pragma mark - 播放录音时回调
-
-- (void)receicePlayDataCallBack :(NSDictionary*)soundDataDic
-{
-    
 }
 
 #pragma mark - 封装动画函数
@@ -532,14 +547,9 @@
     [m_textView resetPosition];
     NSArray *keySet = [m_dataProcessing getKeySet];
     for (NSString *key in keySet)
-    {
         [self addText:[newDictionary objectForKey:key]];
-    }
-    
 }
 #pragma mark - 播放录音的委托
-
-
 - (void)playComplete
 {
     self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -551,22 +561,10 @@
 {
     if(!isOffLine)
         [m_textView receivePlayData];
-    
-//    NSData *soundData = [voiceData objectForKey:@"soundData"];
-//    Byte *soundDataByte = (Byte*)[soundData bytes];
-//    short *soundDataShort = (short*)soundDataByte;
-//    int size = [soundData length]*sizeof(Byte)/sizeof(short);
-//    int soundStrongh = [calculateSoundStrength calculateVoiceStrength:soundDataShort :size :1];
-//    int compress = [calculateSoundStrength voiceStrengthConvertHeight:soundStrongh :120];
-//    [_soundWaveView addSoundStrong:compress];
-    
 }
 #pragma mark - 历史纪录弹出
-- (void)popHistoryView :(NSMutableDictionary*)dic
+- (BOOL)popHistoryViewButtonsEnabled :(NSArray*)recognizedStrArray
 {
-    
-    NSArray *recognizedStrArray = [dic objectForKey:@"str"];
-    isHistoryChecked = YES;
     if(recognizedStrArray.count == 0)
     {
         m_buttonPlay.enabled = YES;
@@ -582,30 +580,52 @@
         m_buttonTranslate.enabled = YES;
         isHistoryCheckedWithoutStr = NO;
     }
+    return YES;
+}
+- (BOOL)clearTextView
+{
     [m_textView clearLastRecognition];
     [m_textView resetPosition];
     [m_textView playInit];
+    return YES;
+}
+- (BOOL)addStrToTextView :(NSArray*)recognizedStrArray
+{
     for (NSString *str in recognizedStrArray)
     {
         [self addText:str];
     }
+    return YES;
+}
+- (NSString*)getPopHistoryViewFilePath :(NSDictionary*)dic
+{
     NSString *doc = [sandBoxOperation getDocumentPath];
-    NSString *currentFileName = [dic objectForKey:@"fileName"];
+    NSString *currentFileName = [dic objectForKey:popHistoryViewDicFileName];
     doc = [doc stringByAppendingPathComponent:currentFileName];
-    doc = [doc stringByAppendingString:@".data"];
-    
-    NSLog(@"%@",doc);
-    NSMutableDictionary *historyRecordDic = [[NSMutableDictionary alloc]initWithContentsOfFile:doc];
-    [m_dataProcessing setDictionary:historyRecordDic];
+    doc = [doc stringByAppendingString:dataFileExtension];
+    return doc;
+}
+- (NSMutableArray*)getRecordKeySet :(NSDictionary*)historyRecordDic
+{
     NSMutableArray *noSqueneceKeyset = [[NSMutableArray alloc]init];
     for (NSString *key in [historyRecordDic keyEnumerator])
-    {
         [noSqueneceKeyset addObject:key];
-    }
-    
-    NSArray *keySet = [m_dataProcessing timestampSequence:noSqueneceKeyset];
-    [m_textView setSubtitleKey:keySet];
-    m_currentFileName = [dic objectForKey:@"fileName"];
+    return noSqueneceKeyset;
+}
+- (void)popHistoryView :(NSMutableDictionary*)dic
+{
+    NSArray *recognizedStrArray = [dic objectForKey:popHistoryViewDicStrArray];
+    isHistoryChecked = YES;
+    [self popHistoryViewButtonsEnabled:recognizedStrArray];
+    [self clearTextView];
+    [self addStrToTextView:recognizedStrArray];
+    NSString *doc =[self getPopHistoryViewFilePath:dic];
+    NSMutableDictionary *historyRecordDic = [[NSMutableDictionary alloc]initWithContentsOfFile:doc];
+    [m_dataProcessing setDictionary:historyRecordDic];
+    NSMutableArray *noSqueneceKeyset = [self getRecordKeySet:historyRecordDic];
+    NSArray *squeneceKeySet = [m_dataProcessing timestampSequence:noSqueneceKeyset];
+    [m_textView setSubtitleKey:squeneceKeySet];
+    m_currentFileName = [dic objectForKey:popHistoryViewDicFileName];
 }
 
 #pragma mark - alertView的delegate

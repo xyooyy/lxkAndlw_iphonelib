@@ -306,32 +306,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398423814.076137"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "594"
-         endingLineNumber = "594"
-         landmarkName = "-popHistoryView:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398423814.076137"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "580"
-         endingLineNumber = "580"
-         landmarkName = "-popHistoryView:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SpeechRecognition/EditViewController.m"
          timestampString = "398396456.725382"
          startingColumnNumber = "9223372036854775807"
@@ -489,26 +463,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398423814.076137"
+         timestampString = "398486397.20345"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "602"
-         endingLineNumber = "602"
-         landmarkName = "-alertView:clickedButtonAtIndex:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398423814.076137"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "542"
-         endingLineNumber = "542"
-         landmarkName = "-receivePlayData:"
-         landmarkType = "5">
+         startingLineNumber = "552"
+         endingLineNumber = "552"
+         landmarkName = "@implementation viewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -521,19 +482,6 @@
          startingLineNumber = "34"
          endingLineNumber = "34"
          landmarkName = "-initWithFrame:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398423814.076137"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "418"
-         endingLineNumber = "418"
-         landmarkName = "-speechRecognitionResult:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -560,19 +508,6 @@
          startingLineNumber = "263"
          endingLineNumber = "263"
          landmarkName = "-transResult:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SpeechRecognition/viewController.m"
-         timestampString = "398423814.076137"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "386"
-         endingLineNumber = "386"
-         landmarkName = "-stopRecogniseButtonTouch:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
