@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TranslateRecognizeResult.h"
 
 @interface TranslateViewController : UIViewController
+{
+    UITextView *m_textView;
+    NSString *m_savePath;
+    TranslateRecognizeResult *m_translate;
+}
 
 - (id)initWithString:(NSString *)string :(NSString*)savePath;
 - (BOOL)setSavePath:(NSString *)path;

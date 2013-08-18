@@ -9,56 +9,53 @@
 #import "EditTranslateController.h"
 #import "Data.h"
 
-@interface EditTranslateController ()
-{
-    UITextView *_textView;
-    NSString *_savePath;
-}
-@end
-
 @implementation EditTranslateController
 
 - (id)init
 {
     self = [super init];
-    if (self)
+    if(self)
     {
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, 350)];
-        _textView.backgroundColor = RGBA(27.f, 26.f, 24.f, 1.f);
-        _textView.textColor = [UIColor whiteColor];
-
+        m_textView = [[UITextView alloc]init];
     }
     return self;
 }
-
-- (void)viewDidLoad
+- (BOOL)createOperationButton
 {
-    [super viewDidLoad];
-
-    [self.view addSubview:_textView];
-    
+    UIButton *completionButton = [self addButtonWithImageNamed:kImageCompletionButton
+                                                          rect:CGRectMake(kFloatZero, kFloatZero, NAVIGATION_BTN_WIDTH, NAVIGATION_BTN_HEIGHT)
+                                                      delegate:self
+                                                        action:@selector(completionButtonTouch:)
+                                                        toView:nil];
     UIButton *backButton = [self addButtonWithImageNamed:kImageReturnButton
-                                                    rect:CGRectMake(0, 0, 70, 29)
+                                                    rect:CGRectMake(kFloatZero, kFloatZero, NAVIGATION_BTN_WIDTH, NAVIGATION_BTN_HEIGHT)
                                                 delegate:self
                                                   action:@selector(backButtonTouch:)
                                                   toView:nil];
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     
-    UIButton *completionButton = [self addButtonWithImageNamed:kImageCompletionButton
-                                                          rect:CGRectMake(0, 0, 70, 29)
-                                                      delegate:self
-                                                        action:@selector(completionButtonTouch:)
-                                                        toView:nil];
+    
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:completionButton];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-
+    return YES;
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    int textView_height = screenHeight == IPHONE4_SCREEN_HEIGHT?TABLEVIEW_HEIGHT:(TABLEVIEW_HEIGHT+screenHeight - IPHONE4_SCREEN_HEIGHT);
+    int operationBtn_Org_Y = textView_height == TABLEVIEW_HEIGHT?OPERATON_BTN_ORG_Y:(OPERATON_BTN_ORG_Y+screenHeight - IPHONE4_SCREEN_HEIGHT);
+    m_textView .frame = CGRectMake(TEXTVIEW_ORG_X, TEXTVIEW_ORG_Y, TEXTVIEW_WIDTH, textView_height);
+    m_textView.backgroundColor = RGBA(COLOR_R, COLOR_G, COLOR_B, COLOR_A);
+    m_textView.textColor = [UIColor whiteColor];
+    [self.view addSubview:m_textView];
+    [self createOperationButton];
     [self addButtonWithImageNamed:kImageBigSaveButton
-                             rect:CGRectMake(15, 373, 290, 34)
+                             rect:CGRectMake(TEXTVIEW_ORG_X, operationBtn_Org_Y, TEXTVIEW_WIDTH, SAVE_BTN_HEIGHT)
                          delegate:self
                            action:@selector(saveButtonTouch:)
                            toView:self.view];
-
 }
 
 - (UIButton *)addButtonWithImageNamed:(NSString *)name
@@ -78,14 +75,14 @@
 
 - (BOOL)setTextString:(NSString *)string
 {
-    _textView.text = string;
+    m_textView.text = string;
 
     return YES;
 }
 
 - (BOOL)setSavePath:(NSString *)path
 {
-    _savePath = path;
+    m_savePath = path;
     return YES;
 }
 
@@ -113,12 +110,7 @@
 }
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
-//    NSLog(@"%@",_savePath);
-//    NSError *error;
-//    if (![_textView.text writeToFile:_savePath atomically:YES encoding:NSUTF8StringEncoding error:&error])
-//        NSLog(@"%@", error);
-   // NSString *str = _textView.text;
-    [obj performSelector:editSaveAction withObject:_textView.text];
+    [obj performSelector:editSaveAction withObject:m_textView.text];
     [self.navigationController popViewControllerAnimated:YES];
     
     return YES;

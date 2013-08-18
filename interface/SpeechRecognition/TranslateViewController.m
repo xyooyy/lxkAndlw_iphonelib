@@ -7,21 +7,9 @@
 //
 
 #import "TranslateViewController.h"
-#import "TranslateRecognizeResult.h"
 #import "EditTranslateController.h"
 #import "PopupView.h"
 #import "Data.h"
-#define IPONE_4_HEIGHT 480
-
-@interface TranslateViewController ()
-{
-    UITextView *_textView;
-    NSString *_savePath;
-    TranslateRecognizeResult *_translate;
-    int tableView_height;
-    int operation_Org_Y;
-}
-@end
 
 @implementation TranslateViewController
 
@@ -29,54 +17,68 @@
 {
     if (self = [super init])
     {
-        
-        int screenHeight = [[UIScreen mainScreen] bounds].size.height;
-        tableView_height = screenHeight == 480?350:(350+screenHeight - 480);
-        operation_Org_Y = tableView_height == 350?375:(375+screenHeight - 480);
-        
-        _savePath = savePath;
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, tableView_height)];
-        _textView.editable = NO;
-        _textView.backgroundColor = [UIColor clearColor];
-        _textView.textColor = [UIColor whiteColor];
-        
-        _translate = [[TranslateRecognizeResult alloc] initWithData:self :@selector(translate:result:)];
-        [_translate translate:string];
-       
-        
+        m_savePath = savePath;
+        [self createTranslate:string];
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (BOOL)createTextView :(int)tableView_height
 {
-    [super viewDidLoad];
-    [self addImageWithName:kImageCD
-                     frame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
-                                      kImageCDAfterWidth, kImageCDAfterHeight)];
-   
-    [self.view addSubview:_textView];
+    m_textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, 290, tableView_height)];
+    m_textView.editable = NO;
+    m_textView.backgroundColor = [UIColor clearColor];
+    m_textView.textColor = [UIColor whiteColor];
+    [self.view addSubview:m_textView];
+    return YES;
+}
+- (BOOL)createTranslate :(NSString*)translateStr
+{
+    m_translate = [[TranslateRecognizeResult alloc] initWithData:self :@selector(translate:result:)];
+    [m_translate translate:translateStr];
+    return YES;
+}
 
+- (BOOL)createBackButton
+{
     UIButton *backButton = [self addButtonWithImageNamed:kImageReturnButton
-                                                    rect:CGRectMake(0, 0, 70, 29)
+                                                    rect:CGRectMake(kFloatZero, kFloatZero, NAVIGATION_BTN_WIDTH, NAVIGATION_BTN_HEIGHT)
                                                 delegate:self
                                                   action:@selector(backButtonTouch:)
                                                   toView:nil];
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-
-    
+    return YES;
+}
+- (BOOL)createOperationButton :(int)operation_Org_Y
+{
     [self addButtonWithImageNamed:kImageEditButton
-                             rect:CGRectMake(15, operation_Org_Y, 135, 30)
+                             rect:CGRectMake(OPERATION_COPYBTN_ORG_X, operation_Org_Y, OPERATION_COPYBTN_WIDTH, OPERATION_COPYBTN_HEIGHT)
                          delegate:self
                            action:@selector(editButtonTouch:)
                            toView:self.view];
     
     [self addButtonWithImageNamed:kImageRedCopyButton
-                             rect:CGRectMake(170, operation_Org_Y, 135, 30)
+                             rect:CGRectMake(OPERATION_SAVEBTN_ORG_X, operation_Org_Y, OPERATION_SAVEBTN_WIDTH, OPERATION_SAVEBTN_HEIGHT)
                          delegate:self
                            action:@selector(copyButtonTouch:)
                            toView:self.view];
+    return YES;
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    int textView_height = screenHeight == IPHONE4_SCREEN_HEIGHT?TEXTVIEW_HRIGHT:(TEXTVIEW_HRIGHT+screenHeight - IPHONE4_SCREEN_HEIGHT);
+    int operation_Org_Y = textView_height == TEXTVIEW_HRIGHT?OPERATON_BTN_ORG_Y:(OPERATON_BTN_ORG_Y+screenHeight - IPHONE4_SCREEN_HEIGHT);
+    
+    [self addImageWithName:kImageCD
+                     frame:CGRectMake(kImageCDAfterX, kImageCDAfterY,
+                                      kImageCDAfterWidth, kImageCDAfterHeight)];
+    [self createTextView:textView_height];
+    [self createBackButton];
+    [self createOperationButton:operation_Org_Y];
+    
 }
 
 // 创建一个按钮，并添加到self中
@@ -105,7 +107,7 @@
 
 - (BOOL)setSavePath:(NSString *)path
 {
-    _savePath = path;
+    m_savePath = path;
     return YES;
 }
 
@@ -119,7 +121,7 @@
                   andHeight:self.view.frame.size.height * 0.7];
     
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    [pasteboard setString:_textView.text];
+    [pasteboard setString:m_textView.text];
     return YES;
 }
 
@@ -127,7 +129,7 @@
 {
     EditTranslateController *editTranslateController = [[EditTranslateController alloc] init];
     //[editTranslateController setSavePath:_savePath];
-    [editTranslateController setTextString:_textView.text];
+    [editTranslateController setTextString:m_textView.text];
     [editTranslateController setEditSaveCallBack:self :@selector(editSaveCallBack:)];
     [self.navigationController pushViewController:editTranslateController animated:YES];
     return YES;
@@ -143,24 +145,21 @@
 
 - (BOOL)translate:(NSString *)string result:(NSArray *)resultArray
 {
-    [_textView setText:[self arrayToString:resultArray]];
+    [m_textView setText:[self arrayToString:resultArray]];
     return YES;
 }
 
 - (NSString *)arrayToString:(NSArray *)array
 {
     NSString *string = @"";
-    
     for (int i = 0; i != array.count; i++)
-    {
-            string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
-    }
+         string = [string stringByAppendingFormat:@"%@\n", [array objectAtIndex:i]];
     return string;
 }
 #pragma mark - 编辑翻译回调
 - (BOOL)editSaveCallBack :(NSString*)str
 {
-    _textView.text = str;
+    m_textView.text = str;
     return YES;
 }
 @end

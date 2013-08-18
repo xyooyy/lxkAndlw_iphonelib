@@ -188,8 +188,22 @@ static NSString *dataFileExtension = @".data";
 #define OPERATION_SAVEBTN_WIDTH 135
 #define OPERATION_SAVEBTN_HEIGHT 30
 
-#define NAVIGATION_BTN_WIDTH 29
-#define NAVIGATION_BTN_HEIGHT 70
+#define NAVIGATION_BTN_WIDTH 70
+#define NAVIGATION_BTN_HEIGHT 29
+
+#pragma mark - 翻页页面按钮布局
+
+#define TEXTVIEW_HRIGHT 350
+
+#pragma mark - 编辑翻译页面布局
+#define TEXTVIEW_WIDTH 290
+#define TEXTVIEW_ORG_X 15
+#define TEXTVIEW_ORG_Y 15
+#define COLOR_R 27.f
+#define COLOR_G 26.f
+#define COLOR_B 24.f
+#define COLOR_A 1.f
+#define SAVE_BTN_HEIGHT 34
 
 
 

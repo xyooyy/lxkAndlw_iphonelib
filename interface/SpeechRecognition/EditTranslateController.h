@@ -10,6 +10,8 @@
 
 @interface EditTranslateController : UIViewController
 {
+    UITextView *m_textView;
+    NSString *m_savePath;
     id obj;
     SEL editSaveAction;
 }
