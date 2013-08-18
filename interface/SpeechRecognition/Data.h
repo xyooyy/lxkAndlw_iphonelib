@@ -206,5 +206,23 @@ static NSString *dataFileExtension = @".data";
 #define COLOR_A 1.f
 #define SAVE_BTN_HEIGHT 34
 
+#pragma mark - 声音波形页面布局
 
+#define SOUNDWAVE_WIDTH 2
+#define TMPLATEIMAGE_HEIGHT 100.f
+#define START_COLOR_R 0.111
+#define START_COLOR_G 0.063
+#define START_COLOR_B 0.059
+#define START_COLOR_A 0.000
+#define END_COLOR_R 1.000
+#define END_COLOR_G 0.408
+#define END_COLOR_B 0.317
+#define END_COLOR_A 1.000
+#define SOUNDWAVE_HEIGHT 370
+#define SOUND_STRONG_THRESHOLD 10
+#define SEED_FACTOR 5.f
+#define LEFT_INDEX_THRESHOLD 100
+#define RIGHT_INDEX_THRESHOLD 220
+#define SOUND_STRONG_MIN_VALUE 2
+#define SOUND_STRONG_FACTOR 1.7f
 

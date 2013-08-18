@@ -13,6 +13,7 @@
     NSMutableArray *array;
     BOOL isDrawing;
     NSUInteger _strong;
+    int kSoundWaveHeight;
 }
 - (BOOL)addSoundStrong:(NSUInteger)strong;
 @property(atomic)BOOL isDawing;
