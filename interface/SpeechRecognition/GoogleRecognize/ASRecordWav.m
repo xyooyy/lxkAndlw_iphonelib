@@ -291,7 +291,6 @@ int computeRecordBufferSize(const AudioStreamBasicDescription *format,RecordInfo
 	
     bytes = frames * format->mBytesPerFrame;
     
-    
     return bytes;
 }//设置每个buff的容量
 -(void)dealloc

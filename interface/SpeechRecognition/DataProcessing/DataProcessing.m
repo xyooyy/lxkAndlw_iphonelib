@@ -118,32 +118,46 @@
     }
     return NO;
 }
-- (NSArray*)timestampSequence:(NSArray*)timestampEnumerator
+- (BOOL)convertNSArrayToCArray :(NSArray*)objArray :(int*)cArray
 {
-    NSMutableArray *keyArray = [[NSMutableArray alloc]init];
-    int keyCount = [timestampEnumerator count];
-    
-    int *keySet = malloc(keyCount*sizeof(int));
-    for (int i = 0; i != keyCount; i++)
+    for (int i = 0; i != objArray.count; i++)
     {
-        keySet[i] = [[timestampEnumerator objectAtIndex:i] integerValue];
+        cArray[i] = [[objArray objectAtIndex:i] integerValue];
     }
-    for (int i = 0; i != keyCount; i++)
+    return YES;
+}
+- (BOOL)squenceCArray :(int*)cArray :(int)size
+{
+    for (int i = 0; i != size; i++)
     {
-        for (int j = i+1; j != keyCount;j++)
+        for (int j = i+1; j != size;j++)
         {
-            if(keySet[i] > keySet[j])
+            if(cArray[i] > cArray[j])
             {
-                int temp = keySet[i];
-                keySet[i] = keySet[j];
-                keySet[j] = temp;
+                int temp = cArray[i];
+                cArray[i] = cArray[j];
+                cArray[j] = temp;
             }
         }
     }
-    for (int i = 0; i !=keyCount; i++)
+    return YES;
+}
+- (NSMutableArray*)getSquenceValue :(int*)keySet :(int)keyCount
+{
+    NSMutableArray *keyArray = [[NSMutableArray alloc]init];
+    for (int i = 0; i != keyCount; i++)
     {
         [keyArray addObject:[NSString stringWithFormat:@"%d",keySet[i]]];
     }
+    return keyArray;
+}
+- (NSArray*)timestampSequence:(NSArray*)timestampEnumerator
+{
+    int keyCount = [timestampEnumerator count];
+    int *keySet = malloc(keyCount*sizeof(int));
+    [self convertNSArrayToCArray:timestampEnumerator :keySet];
+    [self squenceCArray:keySet :keyCount];
+    NSMutableArray *keyArray = [self getSquenceValue:keySet :keyCount];
     free(keySet);
     return keyArray;
 }

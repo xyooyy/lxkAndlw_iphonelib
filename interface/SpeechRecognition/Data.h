@@ -163,6 +163,7 @@
 #define WAIT_TIME 4
 #define SAMPLATE_TIME 1/10.f
 #define SAMPLATE_RATE 16000
+#define RECORD_BUFFER_SIZE SAMPLATE_TIME*SAMPLATE_RATE*2
 
 #pragma mark - 文件相关操作
 

@@ -25,51 +25,31 @@
 {
     //http请求
     NSMutableURLRequest *mRequest;
-    NSMutableData *mRecivedData;
     
-    //标志位
-    BOOL isRecording;
-    BOOL canRecgnise;
-    BOOL isBeginRecgnise;
-
-    //录音
     ASRecordWav *mRecorder;
     RecordInfo *mRecorderInfo;
-    NSMutableData *mRecord;
-    NSMutableData *mFullRecord;
-    NSMutableData *currentUpLoad;
     
-    //NSMutableData *uploadData;
+    NSMutableData *mRecord;
+    NSMutableData *mRecivedData;
+    
     NSMutableArray *uploadDataArray;
+    NSMutableArray *uploadQueue;
     
     NSMutableString *fileName;
 
-    //识别成功的回调
     id mCotroller;
     SEL mSetText;
     
-    //文件大小
-    int upLoadStart;
-    int upLoadEnd;
-    int mDataEnd;
-    
-    // 音强代理
     id<GoogleVoiveDelegate> _delegate;
-
-    NSMutableArray *uploadQueue;
     
     int soundStrengthThreshold;
-    
     int sizeCount;
+    int receiveCount;
 
-    BOOL isRecognizedSuccess;
-    
     BOOL isRecognize;
-    
-    int recognizeCount;
-    
-    
-
+    BOOL isRecording;
+    BOOL canRecgnise;
+    BOOL isBeginRecgnise;
 }
 
 -(id)init :(BOOL)isRecognized;
@@ -77,11 +57,11 @@
 -(BOOL)startRecording;
 -(BOOL)stopRecording;
 
--(BOOL)upLoadWAV:(NSData *)aDataWav;
--(void)setController:(id)aCon andFunction:(SEL)aSEL;
+
+-(void)recognizedSuccessCallBack:(id)aCon andFunction:(SEL)aSEL;
 
 -(BOOL)setDelegate:(id)delegate;
--(RecordInfo *)recordInfo;
+
 -(NSData *)currentAudioData;
 
 

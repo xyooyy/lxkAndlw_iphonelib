@@ -12,8 +12,6 @@
 
 #define BUFFER_SIZE_BYTES 65536
 #define kNumberBuffers	 3 //内存分3块
-#define SAMPLE_RATE_16  16000
-#define SAMPLE_RATE_8 8000
 #define BITS_PER_SAMPLE 16
 #define CHANNELS 2
 #define kBufferDurationSeconds 0.25

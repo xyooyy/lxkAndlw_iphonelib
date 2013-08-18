@@ -9,7 +9,7 @@
 #import "EditViewController.h"
 #import "PopupView.h"
 #import "Data.h"
-#import "EditHistoryRecordViewController.h"
+#import "EditView.h"
 #define kTableViewCellHeight 30.f
 #define kTableViewBorderRadius 10.f
 
@@ -183,9 +183,9 @@
 - (void)selectAction :(NSIndexPath*)indexPath :(NSString*)str
 {
     m_currentIndex = indexPath;
-    EditHistoryRecordViewController *view = [[EditHistoryRecordViewController alloc]init];
+    EditView *view = [[EditView alloc]init];
     [view setTextString:str];
-    [view saveButtonCallBack:self :@selector(editSaveCallBack:)];
+    [view setEditSaveCallBack:self :@selector(editSaveCallBack:)];
     [self.navigationController pushViewController:view animated:YES];
 }
 #pragma mark - 编辑保存回调

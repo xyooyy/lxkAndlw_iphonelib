@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 Luwei. All rights reserved.
 //
 
-#import "EditTranslateController.h"
+#import "EditView.h"
 #import "Data.h"
 
-@implementation EditTranslateController
+@implementation EditView
 
 - (id)init
 {

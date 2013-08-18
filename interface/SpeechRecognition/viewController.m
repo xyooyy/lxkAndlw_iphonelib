@@ -367,7 +367,7 @@
     [m_gooleVoiceRecognizer setDelegate:self];
     [m_gooleVoiceRecognizer setFilePath:[NSString stringWithFormat:@"%@.wav",dateTime]];
     [m_gooleVoiceRecognizer startRecording];
-    [m_gooleVoiceRecognizer setController:self andFunction:@selector(speechRecognitionResult:)];
+    [m_gooleVoiceRecognizer recognizedSuccessCallBack:self andFunction:@selector(speechRecognitionResult:)];
     return YES;
 }
 #pragma mark - 按钮的Action切换

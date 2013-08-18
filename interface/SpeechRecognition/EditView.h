@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EditTranslateController : UIViewController
+@interface EditView : UIViewController
 {
     UITextView *m_textView;
     NSString *m_savePath;

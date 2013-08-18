@@ -7,7 +7,7 @@
 //
 
 #import "TranslateViewController.h"
-#import "EditTranslateController.h"
+#import "EditView.h"
 #import "PopupView.h"
 #import "Data.h"
 
@@ -127,7 +127,7 @@
 
 - (BOOL)editButtonTouch:(UIButton *)sender
 {
-    EditTranslateController *editTranslateController = [[EditTranslateController alloc] init];
+    EditView *editTranslateController = [[EditView alloc] init];
     //[editTranslateController setSavePath:_savePath];
     [editTranslateController setTextString:m_textView.text];
     [editTranslateController setEditSaveCallBack:self :@selector(editSaveCallBack:)];

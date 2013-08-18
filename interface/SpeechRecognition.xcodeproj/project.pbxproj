@@ -13,7 +13,6 @@
 		9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501ADD17B0F0380063FF9D /* DataProcessing.m */; };
 		9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */; };
 		9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */; };
-		9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */; };
 		9A65963E17BE2BBD000BF265 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */; };
 		9A65964217BE2E0D000BF265 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65964117BE2E0D000BF265 /* Reachability.m */; };
 		9A65964517BE3181000BF265 /* CheckNetStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65964417BE3181000BF265 /* CheckNetStatus.m */; };
@@ -73,7 +72,7 @@
 		BEF862A617B8C0D00042EB75 /* edit-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF862A317B8C0D00042EB75 /* edit-button.png */; };
 		BEF862A717B8C0D00042EB75 /* logo_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF862A417B8C0D00042EB75 /* logo_middle.png */; };
 		BEF862A817B8C0D00042EB75 /* redcopy-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF862A517B8C0D00042EB75 /* redcopy-button.png */; };
-		BEF862AB17B8C71C0042EB75 /* EditTranslateController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF862AA17B8C71B0042EB75 /* EditTranslateController.m */; };
+		BEF862AB17B8C71C0042EB75 /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF862AA17B8C71B0042EB75 /* EditView.m */; };
 		BEF862AD17B8C8BE0042EB75 /* big-save-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF862AC17B8C8BE0042EB75 /* big-save-button.png */; };
 /* End PBXBuildFile section */
 
@@ -90,8 +89,6 @@
 		9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		9A5E232D17B24A0A00B04C73 /* TextViewScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewScroll.h; sourceTree = "<group>"; };
 		9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewScroll.m; sourceTree = "<group>"; };
-		9A65963617BDC17E000BF265 /* EditHistoryRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditHistoryRecordViewController.h; sourceTree = "<group>"; };
-		9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditHistoryRecordViewController.m; sourceTree = "<group>"; };
 		9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9A65964017BE2E0D000BF265 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9A65964117BE2E0D000BF265 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -189,8 +186,8 @@
 		BEF862A317B8C0D00042EB75 /* edit-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-button.png"; sourceTree = "<group>"; };
 		BEF862A417B8C0D00042EB75 /* logo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_middle.png; sourceTree = "<group>"; };
 		BEF862A517B8C0D00042EB75 /* redcopy-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redcopy-button.png"; sourceTree = "<group>"; };
-		BEF862A917B8C71B0042EB75 /* EditTranslateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTranslateController.h; sourceTree = "<group>"; };
-		BEF862AA17B8C71B0042EB75 /* EditTranslateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTranslateController.m; sourceTree = "<group>"; };
+		BEF862A917B8C71B0042EB75 /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
+		BEF862AA17B8C71B0042EB75 /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
 		BEF862AC17B8C8BE0042EB75 /* big-save-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "big-save-button.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -427,10 +424,8 @@
 				BE49508217B4C3FF007F82B7 /* EditViewController.m */,
 				BEF862A017B89D870042EB75 /* TranslateViewController.h */,
 				BEF862A117B89D870042EB75 /* TranslateViewController.m */,
-				BEF862A917B8C71B0042EB75 /* EditTranslateController.h */,
-				BEF862AA17B8C71B0042EB75 /* EditTranslateController.m */,
-				9A65963617BDC17E000BF265 /* EditHistoryRecordViewController.h */,
-				9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */,
+				BEF862A917B8C71B0042EB75 /* EditView.h */,
+				BEF862AA17B8C71B0042EB75 /* EditView.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -599,11 +594,10 @@
 				BE300D4417B4E49600E642FD /* PopupView.m in Sources */,
 				BE88B1FF17B5D47F00F7465F /* EditTableView.m in Sources */,
 				BEF862A217B89D870042EB75 /* TranslateViewController.m in Sources */,
-				BEF862AB17B8C71C0042EB75 /* EditTranslateController.m in Sources */,
+				BEF862AB17B8C71C0042EB75 /* EditView.m in Sources */,
 				9AA9E13317BB374300A4DF2D /* AudioInfo.m in Sources */,
 				9AA9E13417BB374300A4DF2D /* PlayAudioWav.m in Sources */,
 				9ADD0A2217BCBE4100B19DB8 /* ASGoogleVoiceRecognizer.mm in Sources */,
-				9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */,
 				9A65964217BE2E0D000BF265 /* Reachability.m in Sources */,
 				9A65964517BE3181000BF265 /* CheckNetStatus.m in Sources */,
 			);
