@@ -10,6 +10,7 @@
 
 @interface HistoryViewController : UITableViewController
 {
+    NSMutableArray *historyRecord;
     id obj;
     SEL popViewAction;
 }

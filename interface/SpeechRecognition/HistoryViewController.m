@@ -8,11 +8,6 @@
 
 #import "HistoryViewController.h"
 
-@interface HistoryViewController ()
-{
-    NSMutableArray *historyRecord;
-}
-@end
 
 @implementation HistoryViewController
 
@@ -42,7 +37,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
         NSFileManager *manger = [NSFileManager defaultManager];
         NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSArray *fileNameSet = [manger subpathsAtPath:docDir];
@@ -59,16 +54,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-   // [self.navigationItem setBackBarButtonItem:leftbtn];
-
-    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source

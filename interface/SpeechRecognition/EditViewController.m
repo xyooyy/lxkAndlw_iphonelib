@@ -7,89 +7,83 @@
 //
 
 #import "EditViewController.h"
-#import "EditTableView.h"
 #import "PopupView.h"
-#import "DataProcessing.h"
-#import "TextViewScroll.h"
 #import "Data.h"
 #import "EditHistoryRecordViewController.h"
 #define kTableViewCellHeight 30.f
 #define kTableViewBorderRadius 10.f
 
-@interface EditViewController ()
-{
-    EditTableView *_tableView;
-    NSString *_savePath;
-    DataProcessing *_data;
-    TextViewScroll *_textView;
-    NSMutableArray *_dataArray;
-    NSMutableArray *_soundDataArray;
-    
-}
-@end
-
 @implementation EditViewController
 
+#pragma mark - 初始化函数
 - (id)initWithData:(DataProcessing *)data
 {
     self = [super init];
     if (self)
     {
-        _data = data;
-        NSArray *keySet = [_data getKeySet];
-        _soundDataArray = [[NSMutableArray alloc]init];
-        _dataArray = [[NSMutableArray alloc]init];
-        for (NSString *key in keySet)
-        {
-            [_dataArray addObject:[[_data getDic] objectForKey:key]];
-            [_soundDataArray addObject:key];
-        }
+        m_data = data;
     }
     return self;
 }
+#pragma mark - viewDidLoad
 
-- (void)viewDidLoad
+- (BOOL)createTableView :(int)tableView_height
 {
-    [super viewDidLoad];
-    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    int tableView_height = screenHeight == 480?350:(350+screenHeight - 480);
-    int operation_Org_Y = tableView_height == 350?375:(375+screenHeight - 480);
-    
-    
-    _tableView = [[EditTableView alloc] initWithFrame:CGRectMake(15, 15, 290, tableView_height) andData:_data];
-    [_tableView setSelectCallBack:self :@selector(selectAction::)];
-    
-    
-    [self.view addSubview:_tableView];
-    
+    m_tableView = [[EditTableView alloc] initWithFrame:CGRectMake(TABLEVIEW_ORG_X, TABLEVIEW_ORG_Y, TABLEVIEW_WIDTH, tableView_height) andData:m_data];
+    [m_tableView setSelectCallBack:self :@selector(selectAction::)];
+    [self.view addSubview:m_tableView];
+    return YES;
+}
+- (BOOL)createBackButton
+{
     UIButton *backButton = [self addButtonWithImageNamed:kImageReturnButton
-                                                    rect:CGRectMake(0, 0, 70, 29)
+                                                    rect:CGRectMake(kFloatZero, kFloatZero, NAVIGATION_BTN_WIDTH, NAVIGATION_BTN_HEIGHT)
                                                 delegate:self
                                                   action:@selector(backButtonTouch:)
                                                   toView:nil];
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
+    return YES;
+}
+- (BOOL)createRightButton
+{
     UIButton *completionButton = [self addButtonWithImageNamed:kImageCompletionButton
-                                                          rect:CGRectMake(0, 0, 70, 29)
+                                                          rect:CGRectMake(kFloatZero, kFloatZero, NAVIGATION_BTN_WIDTH, NAVIGATION_BTN_HEIGHT)
                                                       delegate:self
                                                         action:@selector(completionButtonTouch:)
                                                         toView:nil];
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:completionButton];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-    
-    
+    return YES;
+}
+- (BOOL)createFootOperationButton :(int)operationBtn_Org_Y
+{
     [self addButtonWithImageNamed:kImageCopyButton
-                             rect:CGRectMake(15, operation_Org_Y, 135, 30)
+                             rect:CGRectMake(OPERATION_COPYBTN_ORG_X, operationBtn_Org_Y, OPERATION_COPYBTN_WIDTH, OPERATION_COPYBTN_HEIGHT)
                          delegate:self
                            action:@selector(copyButtonTouch:)
                            toView:self.view];
     
     [self addButtonWithImageNamed:kImageSaveButton
-                             rect:CGRectMake(170, operation_Org_Y, 135, 30)
+                             rect:CGRectMake(OPERATION_SAVEBTN_ORG_X, operationBtn_Org_Y, OPERATION_SAVEBTN_WIDTH, OPERATION_SAVEBTN_HEIGHT)
                          delegate:self
                            action:@selector(saveButtonTouch:)
                            toView:self.view];
+    return YES;
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    int tableView_height = screenHeight == IPHONE4_SCREEN_HEIGHT?TABLEVIEW_HEIGHT:(TABLEVIEW_HEIGHT+screenHeight - IPHONE4_SCREEN_HEIGHT);
+    int operationBtn_Org_Y = tableView_height == TABLEVIEW_HEIGHT?OPERATON_BTN_ORG_Y:(OPERATON_BTN_ORG_Y+screenHeight - IPHONE4_SCREEN_HEIGHT);
+    
+    [self createTableView:tableView_height];
+    [self createBackButton];
+    [self createRightButton];
+    [self createFootOperationButton:operationBtn_Org_Y];
+    
+    
 }
 
 // 创建一个按钮，并添加到self中
@@ -108,15 +102,23 @@
     return button;
 }
 
+#pragma mark - 接口函数
 - (BOOL)setSavePath:(NSString *)path
 {
-    _savePath = path;
+    m_savePath = path;
     return YES;
 }
 
 - (BOOL)setTextViewScroll:(TextViewScroll *)textView
 {
-    _textView = textView;
+    m_textView = textView;
+    return YES;
+}
+
+- (BOOL)setEditCompleteCallBack:(id)parmObj :(SEL)parmAction
+{
+    obj = parmObj;
+    action = parmAction;
     return YES;
 }
 
@@ -139,24 +141,22 @@
                   andHeight:self.view.frame.size.height * 0.7];
     
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    NSLog(@"copy string is :%@", [_tableView getTextStringInEditView]);
-    [pasteboard setString:[_tableView getTextStringInEditView]];
-
+    [pasteboard setString:[m_tableView getTextStringInEditView]];
     return YES;
 }
 
 - (BOOL)saveButtonTouch:(UIButton *)sender
 {
     NSMutableDictionary *newDictionary = [[NSMutableDictionary alloc] init];
-    NSArray *newTextArray = [_tableView getTextArrayStringInEditView];
-    NSArray *soundDataArray = [_tableView getSoundDataArray];
+    NSArray *newTextArray = [m_tableView getTextArrayStringInEditView];
+    NSArray *soundDataArray = [m_tableView getSoundDataArray];
     
     for (int i = 0; i < newTextArray.count; i++)
     {
         [newDictionary setObject:[newTextArray objectAtIndex:i] forKey:[soundDataArray objectAtIndex:i]];
     }
     
-    if (![newDictionary writeToFile:_savePath atomically:YES])
+    if (![newDictionary writeToFile:m_savePath atomically:YES])
         NSLog(@"%s error", __func__);
     
     [obj performSelector:action withObject:newDictionary];
@@ -171,18 +171,12 @@
     [self.navigationController popViewControllerAnimated:YES];
     return YES;
 }
-#pragma mark - 设置保存完成
-- (BOOL)setEditCompleteCallBack:(id)parmObj :(SEL)parmAction
-{
-    obj = parmObj;
-    action = parmAction;
-    return YES;
-}
+
 
 #pragma mark - 单元格点击回调
 - (void)selectAction :(NSIndexPath*)indexPath :(NSString*)str
 {
-    currentIndex = indexPath;
+    m_currentIndex = indexPath;
     EditHistoryRecordViewController *view = [[EditHistoryRecordViewController alloc]init];
     [view setTextString:str];
     [view saveButtonCallBack:self :@selector(editSaveCallBack:)];
@@ -191,10 +185,10 @@
 #pragma mark - 编辑保存回调
 - (void)editSaveCallBack :(NSString*)editStr
 {
-    UITableViewCell *cell = [_tableView cellForRowAtIndexPath:currentIndex];
+    UITableViewCell *cell = [m_tableView cellForRowAtIndexPath:m_currentIndex];
     if([editStr isEqual:@""]||[[editStr stringByReplacingOccurrencesOfString:@" " withString:@""] isEqual:@""])
         editStr = @"--";
     cell.textLabel.text = editStr;
-    [_tableView upDateSourceData:editStr :currentIndex];
+    [m_tableView upDateSourceData:editStr :m_currentIndex];
 }
 @end

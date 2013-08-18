@@ -11,7 +11,6 @@
 		9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */; };
 		9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */; };
 		9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501ADD17B0F0380063FF9D /* DataProcessing.m */; };
-		9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AE317B120C60063FF9D /* EnglishViewController.m */; };
 		9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */; };
 		9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */; };
 		9A65963817BDC17E000BF265 /* EditHistoryRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A65963717BDC17E000BF265 /* EditHistoryRecordViewController.m */; };
@@ -87,8 +86,6 @@
 		9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateRecognizeResult.m; sourceTree = "<group>"; };
 		9A501ADC17B0F0380063FF9D /* DataProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProcessing.h; sourceTree = "<group>"; };
 		9A501ADD17B0F0380063FF9D /* DataProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProcessing.m; sourceTree = "<group>"; };
-		9A501AE217B120C60063FF9D /* EnglishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnglishViewController.h; sourceTree = "<group>"; };
-		9A501AE317B120C60063FF9D /* EnglishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnglishViewController.m; sourceTree = "<group>"; };
 		9A5E232717B1C8CB00B04C73 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		9A5E232D17B24A0A00B04C73 /* TextViewScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewScroll.h; sourceTree = "<group>"; };
@@ -424,8 +421,6 @@
 			children = (
 				9AA79F1F17AF3A0400298409 /* viewController.h */,
 				9AA79F2017AF3A0400298409 /* viewController.m */,
-				9A501AE217B120C60063FF9D /* EnglishViewController.h */,
-				9A501AE317B120C60063FF9D /* EnglishViewController.m */,
 				9A5E232717B1C8CB00B04C73 /* HistoryViewController.h */,
 				9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */,
 				BE49508117B4C3FF007F82B7 /* EditViewController.h */,
@@ -595,7 +590,6 @@
 				9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */,
 				9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */,
 				9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */,
-				9A501AE417B120C60063FF9D /* EnglishViewController.m in Sources */,
 				9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */,
 				9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */,
 				9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */,

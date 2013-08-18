@@ -7,19 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class DataProcessing;
-@class TextViewScroll;
+#import "EditTableView.h"
+#import "DataProcessing.h"
+#import "TextViewScroll.h"
 
 @interface EditViewController : UIViewController
 {
+    
+    EditTableView *m_tableView;
+    DataProcessing *m_data;
+    TextViewScroll *m_textView;
+    
+    NSIndexPath *m_currentIndex;
+    NSString *m_savePath;
+    
     id obj;
     SEL action;
-    NSIndexPath *currentIndex;
 }
 
 - (id)initWithData:(DataProcessing *)data;
-- (BOOL)setSavePath:(NSString *)path;
+- (BOOL)setSavePath :(NSString *)path;
 - (BOOL)setTextViewScroll:(TextViewScroll *)textView;
 - (BOOL)setEditCompleteCallBack :(id)parmObj :(SEL)parmAction;
 

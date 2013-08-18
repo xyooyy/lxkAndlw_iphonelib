@@ -172,3 +172,24 @@ static NSString *popHistoryViewDicStrArray = @"str";
 static NSString *popHistoryViewDicFileName = @"fileName";
 static NSString *dataFileExtension = @".data";
 
+#pragma mark - 编辑页面的布局
+#define IPHONE4_SCREEN_HEIGHT 480
+#define TABLEVIEW_HEIGHT 350
+#define TABLEVIEW_ORG_X 15
+#define TABLEVIEW_ORG_Y 15
+#define TABLEVIEW_WIDTH 290
+#define OPERATON_BTN_ORG_Y 375
+
+#define OPERATION_COPYBTN_ORG_X 15
+#define OPERATION_COPYBTN_WIDTH 135
+#define OPERATION_COPYBTN_HEIGHT 30
+
+#define OPERATION_SAVEBTN_ORG_X 170
+#define OPERATION_SAVEBTN_WIDTH 135
+#define OPERATION_SAVEBTN_HEIGHT 30
+
+#define NAVIGATION_BTN_WIDTH 29
+#define NAVIGATION_BTN_HEIGHT 70
+
+
+
