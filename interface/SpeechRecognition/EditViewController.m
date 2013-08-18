@@ -145,16 +145,22 @@
     return YES;
 }
 
-- (BOOL)saveButtonTouch:(UIButton *)sender
+- (NSMutableDictionary*)upDateData :(NSArray*)newTextArray :(NSArray*)soundDataArray
 {
     NSMutableDictionary *newDictionary = [[NSMutableDictionary alloc] init];
-    NSArray *newTextArray = [m_tableView getTextArrayStringInEditView];
-    NSArray *soundDataArray = [m_tableView getSoundDataArray];
-    
     for (int i = 0; i < newTextArray.count; i++)
     {
         [newDictionary setObject:[newTextArray objectAtIndex:i] forKey:[soundDataArray objectAtIndex:i]];
     }
+    return newDictionary;
+
+}
+- (BOOL)saveButtonTouch:(UIButton *)sender
+{
+    
+    NSArray *newTextArray = [m_tableView getTextArrayStringInEditView];
+    NSArray *soundDataArray = [m_tableView getSoundDataArray];
+    NSMutableDictionary *newDictionary = [self upDateData:newTextArray :soundDataArray];
     
     if (![newDictionary writeToFile:m_savePath atomically:YES])
         NSLog(@"%s error", __func__);
