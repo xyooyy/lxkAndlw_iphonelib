@@ -311,16 +311,15 @@
     CheckNetStatus *checkNetStatus = [[CheckNetStatus alloc]init];
     int backCode = [checkNetStatus isInWIFI];
     if(backCode == NotReachable)
-        [self createAlertView:@"提示" :@"当前网络离线，不能进行语音识别" :self :nil :@"确定"];
+        [self createAlertView:@"提示" :@"当前网络离线，不能进行语音识别" :self :@"确定" :nil];
     if(backCode == ReachableViaWWAN)
         [self createAlertView:@"提示" :@"当前网络处在3G模式，需要用您的流量" :self :@"不允许" :@"允许"];
     if(backCode == ReachableViaWiFi)
     {
-        [self createAlertView:@"提示" :@"当前网络处在WIFI模式，允许识别么？" :self :@"不允许" :@"允许"];
-//        [self startRecognise:sender :YES];
-//        isOffLine = NO;
+        [self startRecognise:sender :YES];
+        isOffLine = NO;
     }
-        
+    
 }
 - (BOOL)startRecognizeButtonsEnabled
 {

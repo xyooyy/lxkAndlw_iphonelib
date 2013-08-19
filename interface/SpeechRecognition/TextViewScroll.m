@@ -89,31 +89,9 @@
 // 删除指定的view
 - (BOOL)removeViewArray:(NSMutableArray *)viewArray range:(NSRange)range
 {
-    
-    //for (int i = 0; i < range.length; i++)
-    //{
-       // UIView *view = [viewArray objectAtIndex:i];
-        
-//        [_viewAnimation changeViewFrame:view
-//                                toFrame:CGRectMake((int)self.frame.size.width,
-//                                                   kFloatZero,
-//                                                   view.frame.size.width,
-//                                                   kFloatZero)
-//                           withDuration:kTextAnimationMoveTime
-//                             completion:^{}];
-//        
-//        [_viewAnimation changeViewLightness:view
-//                                      alpha:0.f
-//                                   duration:kTextAnimationFadeOutTime
-//                                 completion:^{
-//                                     [view removeFromSuperview];
-//                                 }];
-        CGPoint offset = self.contentOffset;
-        offset.y += 22*range.length /*view.frame.size.height*/;
-        [self setContentOffset:offset animated:YES];
-        
-        //[viewArray removeObjectAtIndex:i];
-  //  }
+    CGPoint offset = self.contentOffset;
+    offset.y += 22*range.length /*view.frame.size.height*/;
+    [self setContentOffset:offset animated:YES];
     return YES;
 }
 
@@ -136,7 +114,6 @@
                                            withFont:font
                                               color:color
                                          rowSpacing:spacing];
-        NSLog(@"image.size.width = %f,merageView.width = %f",image.size.width,merageView.frame.size.width);
         
         UIImageView *view = [[UIImageView alloc] initWithImage:image];
         rect = view.frame;
@@ -238,10 +215,9 @@
 -(void)receivePlayData
 {
     if([_viewArray count] == 0) return;
-    scrollCount++;
-    if(scrollIndex<=[keyArray count] -1 && !flag)
+    
+    if(scrollIndex <= [keyArray count] -1 && !flag)
     {
-        
         lastView = [_viewArray objectAtIndex:scrollIndex];
         lastView.alpha = 0.5;
         flag = YES;
@@ -252,19 +228,22 @@
             [self setContentOffset:offset animated:YES];
         }
     }
-    
     if([self isKeyInKeyArray:scrollCount :keyArray])
     {
-        if(lastView) lastView.alpha = 1.f;
+        if(lastView) lastView.alpha = 1.0;
         flag = NO;
         scrollIndex++;
     }
-    //[obj performSelector:receivePlayDataAction withObject:voiceData];
+    scrollCount++;
 }
 -(void)playComplete
 {
     CGPoint offset = self.contentOffset;
     offset.y = 0;
+    lastView = nil;
+    scrollIndex = 0;
+    scrollCount = 0;
+    [self resetTextViewAlpha];
     [self setContentOffset:offset animated:YES];
 }
 - (BOOL)setSubtitleKey:(NSArray *)parmKeyArray

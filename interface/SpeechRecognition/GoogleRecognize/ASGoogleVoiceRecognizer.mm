@@ -228,16 +228,17 @@
 
 - (BOOL)recognizedResultPost :(NSDictionary*)dic
 {
+    
     if ([[dic objectForKey:@"hypotheses"] count]!=0)
     {
-        
         NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:[[[dic objectForKey:@"hypotheses"] objectAtIndex:0] objectForKey:@"utterance"],@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:1],@"isSuccess", nil];
         [mCotroller performSelector:mSetText withObject:parmDic];
+        
     }
     else
     {
-        NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:@"--",@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:0],@"isSuccess", nil];
-        [mCotroller performSelector:mSetText withObject:parmDic];
+//        NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:@"--",@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:0],@"isSuccess", nil];
+//        [mCotroller performSelector:mSetText withObject:parmDic];
     }
     return YES;
 }
@@ -248,9 +249,11 @@
     SBJsonParser * parser = [[SBJsonParser alloc]init];
     
     NSDictionary *dic = [[NSDictionary alloc]initWithDictionary: [parser objectWithData:mRecivedData]];
+    
     NSUInteger size = [(NSData*)[uploadDataArray lastObject] length];
     int bufferSize = RECORD_BUFFER_SIZE;
     sizeCount += size / bufferSize;
+    
     [self recognizedResultPost:dic];
     finish();
     [mRecivedData setLength:0];
