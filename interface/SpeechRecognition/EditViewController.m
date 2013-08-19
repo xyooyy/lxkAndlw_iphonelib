@@ -150,7 +150,9 @@
     NSMutableDictionary *newDictionary = [[NSMutableDictionary alloc] init];
     for (int i = 0; i < newTextArray.count; i++)
     {
-        [newDictionary setObject:[newTextArray objectAtIndex:i] forKey:[soundDataArray objectAtIndex:i]];
+        NSString *str = [newTextArray objectAtIndex:i];
+        if(![str isEqualToString:@"--"])
+            [newDictionary setObject:str forKey:[soundDataArray objectAtIndex:i]];
     }
     return newDictionary;
 

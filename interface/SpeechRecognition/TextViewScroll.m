@@ -29,6 +29,7 @@
         viewCount = 0;
         scrollCount = 0;
         scrollIndex = 0;
+        flag = NO;
     }
     return self;
 }
@@ -214,8 +215,9 @@
 }
 -(void)receivePlayData
 {
-    if([_viewArray count] == 0) return;
+    if([_viewArray count] == 0 || isComplete) return;
     
+     scrollCount++;
     if(scrollIndex <= [keyArray count] -1 && !flag)
     {
         lastView = [_viewArray objectAtIndex:scrollIndex];
@@ -234,15 +236,17 @@
         flag = NO;
         scrollIndex++;
     }
-    scrollCount++;
+   
 }
 -(void)playComplete
 {
+    isComplete = YES;
     CGPoint offset = self.contentOffset;
     offset.y = 0;
     lastView = nil;
     scrollIndex = 0;
     scrollCount = 0;
+    flag = NO;
     [self resetTextViewAlpha];
     [self setContentOffset:offset animated:YES];
 }
@@ -256,6 +260,8 @@
 {
     scrollIndex = 0;
     scrollCount = 0;
+    isComplete = NO;
+    lastView = nil;
     return YES;
 }
 - (BOOL)resetTextViewAlpha

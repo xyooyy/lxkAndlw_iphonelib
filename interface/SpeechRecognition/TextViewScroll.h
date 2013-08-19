@@ -24,6 +24,8 @@
     UIView *lastView;
     
     BOOL flag;
+    BOOL isComplete;
+    
     int scrollCount;
     int scrollIndex;
     
