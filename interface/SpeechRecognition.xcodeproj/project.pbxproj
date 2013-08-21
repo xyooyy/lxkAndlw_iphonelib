@@ -8,9 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		9A17B97317B33A2700E49CC1 /* SandBoxOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */; };
+		9A2910FD17C321E10045BF97 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2910FB17C321E10045BF97 /* Icon-72.png */; };
+		9A2910FE17C321E10045BF97 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2910FC17C321E10045BF97 /* Icon-Small-50.png */; };
+		9A29110717C324E20045BF97 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A29110617C324E20045BF97 /* Icon@2x.png */; };
 		9A501AC617B0867C0063FF9D /* SwitchButtonTouchAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */; };
 		9A501ADA17B0E2370063FF9D /* TranslateRecognizeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */; };
 		9A501ADE17B0F0380063FF9D /* DataProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A501ADD17B0F0380063FF9D /* DataProcessing.m */; };
+		9A59DC7F17C3204C00D9A84A /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59DC7B17C3204B00D9A84A /* Icon-Small-50@2x.png */; };
+		9A59DC8017C3204C00D9A84A /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59DC7C17C3204B00D9A84A /* Icon-Small.png */; };
+		9A59DC8117C3204C00D9A84A /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59DC7D17C3204B00D9A84A /* Icon-Small@2x.png */; };
+		9A59DC8217C3204C00D9A84A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59DC7E17C3204C00D9A84A /* Icon.png */; };
 		9A5E232917B1C8CB00B04C73 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */; };
 		9A5E232F17B24A0A00B04C73 /* TextViewScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E232E17B24A0A00B04C73 /* TextViewScroll.m */; };
 		9A65963E17BE2BBD000BF265 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A65963D17BE2BBD000BF265 /* SystemConfiguration.framework */; };
@@ -79,12 +86,19 @@
 /* Begin PBXFileReference section */
 		9A17B97117B33A2700E49CC1 /* SandBoxOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandBoxOperation.h; sourceTree = "<group>"; };
 		9A17B97217B33A2700E49CC1 /* SandBoxOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandBoxOperation.m; sourceTree = "<group>"; };
+		9A2910FB17C321E10045BF97 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "images/Icon-72.png"; sourceTree = "<group>"; };
+		9A2910FC17C321E10045BF97 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "images/Icon-Small-50.png"; sourceTree = "<group>"; };
+		9A29110617C324E20045BF97 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		9A501AC417B0867C0063FF9D /* SwitchButtonTouchAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchButtonTouchAction.h; sourceTree = "<group>"; };
 		9A501AC517B0867C0063FF9D /* SwitchButtonTouchAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchButtonTouchAction.m; sourceTree = "<group>"; };
 		9A501AD817B0E2370063FF9D /* TranslateRecognizeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateRecognizeResult.h; sourceTree = "<group>"; };
 		9A501AD917B0E2370063FF9D /* TranslateRecognizeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateRecognizeResult.m; sourceTree = "<group>"; };
 		9A501ADC17B0F0380063FF9D /* DataProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProcessing.h; sourceTree = "<group>"; };
 		9A501ADD17B0F0380063FF9D /* DataProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProcessing.m; sourceTree = "<group>"; };
+		9A59DC7B17C3204B00D9A84A /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50@2x.png"; path = "images/Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		9A59DC7C17C3204B00D9A84A /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "images/Icon-Small.png"; sourceTree = "<group>"; };
+		9A59DC7D17C3204B00D9A84A /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "images/Icon-Small@2x.png"; sourceTree = "<group>"; };
+		9A59DC7E17C3204C00D9A84A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = images/Icon.png; sourceTree = "<group>"; };
 		9A5E232717B1C8CB00B04C73 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		9A5E232817B1C8CB00B04C73 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		9A5E232D17B24A0A00B04C73 /* TextViewScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewScroll.h; sourceTree = "<group>"; };
@@ -402,6 +416,13 @@
 		BE7B5B6D17A278BD00BF9C1E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9A29110617C324E20045BF97 /* Icon@2x.png */,
+				9A2910FB17C321E10045BF97 /* Icon-72.png */,
+				9A2910FC17C321E10045BF97 /* Icon-Small-50.png */,
+				9A59DC7B17C3204B00D9A84A /* Icon-Small-50@2x.png */,
+				9A59DC7C17C3204B00D9A84A /* Icon-Small.png */,
+				9A59DC7D17C3204B00D9A84A /* Icon-Small@2x.png */,
+				9A59DC7E17C3204C00D9A84A /* Icon.png */,
 				BE7B5B6E17A278BD00BF9C1E /* SpeechRecognition-Info.plist */,
 				BE7B5B6F17A278BD00BF9C1E /* InfoPlist.strings */,
 				BE7B5B7217A278BD00BF9C1E /* main.m */,
@@ -551,6 +572,13 @@
 				BEF862A717B8C0D00042EB75 /* logo_middle.png in Resources */,
 				BEF862A817B8C0D00042EB75 /* redcopy-button.png in Resources */,
 				BEF862AD17B8C8BE0042EB75 /* big-save-button.png in Resources */,
+				9A59DC7F17C3204C00D9A84A /* Icon-Small-50@2x.png in Resources */,
+				9A59DC8017C3204C00D9A84A /* Icon-Small.png in Resources */,
+				9A59DC8117C3204C00D9A84A /* Icon-Small@2x.png in Resources */,
+				9A59DC8217C3204C00D9A84A /* Icon.png in Resources */,
+				9A2910FD17C321E10045BF97 /* Icon-72.png in Resources */,
+				9A2910FE17C321E10045BF97 /* Icon-Small-50.png in Resources */,
+				9A29110717C324E20045BF97 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,7 +657,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -644,7 +672,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				"PROVISIONING_PROFILE[sdk=*]" = "";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -669,7 +699,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -684,12 +716,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechRecognition/SpeechRecognition-Prefix.pch";
 				INFOPLIST_FILE = "SpeechRecognition/SpeechRecognition-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Speex\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -698,17 +732,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: liu baoci (2A48575WNC)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechRecognition/SpeechRecognition-Prefix.pch";
 				INFOPLIST_FILE = "SpeechRecognition/SpeechRecognition-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Speex\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9460A7C9-4DCD-4BAE-9B66-884E848937D0";
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -28,6 +28,7 @@
 #define kImageRedCopyButton @"redcopy-button.png"
 #define kImageEditButton    @"edit-button.png"
 #define kImageBigSaveButton @"big-save-button.png"
+#define kImageReturnButton  @"return-button.png"
 
 #pragma mark - 常用
 

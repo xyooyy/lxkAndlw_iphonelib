@@ -7,6 +7,7 @@
 //
 
 #import "HistoryViewController.h"
+#import "Data.h"
 
 
 @implementation HistoryViewController
@@ -46,7 +47,10 @@
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.separatorColor = [UIColor clearColor];
         self.tableView.showsVerticalScrollIndicator = NO;
-        
+//        UIButton *returnButton = [[UIButton alloc]initWithFrame:CGRectMake(kFloatZero, kFloatZero, NAVIGATION_BTN_WIDTH, NAVIGATION_BTN_HEIGHT)];
+//        
+//        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:returnButton];
+//        self.navigationItem.leftBarButtonItem = leftBarButtonItem;        
     }
     return self;
 }

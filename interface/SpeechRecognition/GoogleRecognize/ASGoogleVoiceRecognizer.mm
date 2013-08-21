@@ -143,6 +143,8 @@
         [mRecord appendData:soundData];
         receiveCount = 0;
     }
+//    if(canRecgnise)
+//         [mRecord appendData:soundData];
     receiveCount++;
     if(receiveCount == WAIT_TIME && canRecgnise)
     {
@@ -235,11 +237,7 @@
         [mCotroller performSelector:mSetText withObject:parmDic];
         
     }
-    else
-    {
-//        NSDictionary *parmDic = [[NSDictionary alloc]initWithObjectsAndKeys:@"--",@"result",[NSNumber numberWithDouble:sizeCount],@"soundSize",[NSNumber numberWithInt:0],@"isSuccess", nil];
-//        [mCotroller performSelector:mSetText withObject:parmDic];
-    }
+
     return YES;
 }
 
