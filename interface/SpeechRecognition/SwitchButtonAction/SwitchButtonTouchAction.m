@@ -10,10 +10,13 @@
 
 @implementation SwitchButtonTouchAction
 
-- (BOOL)switchButtonTouchAction:(UIButton *)parmButton oldAction:(SEL)oldAction withTarget:(id)oldTarget newAction:(SEL)newAction withTarget:(id)newTarget
+- (BOOL)switchButtonTouchAction:(UIBarButtonItem *)parmButton oldAction:(SEL)oldAction withTarget:(id)oldTarget newAction:(SEL)newAction withTarget:(id)newTarget
 {
-    [parmButton removeTarget:oldTarget action:oldAction forControlEvents:UIControlEventTouchDown];
-    [parmButton addTarget:newTarget action:newAction forControlEvents:UIControlEventTouchDown];
+    [parmButton setTarget:newTarget];
+    [parmButton setAction:newAction];
+//    [parmButton removeTarget:oldTarget action:oldAction forControlEvents:UIControlEventTouchDown];
+//    [parmButton addTarget:newTarget action:newAction forControlEvents:UIControlEventTouchDown];
+    
     return YES;
 }
 @end

@@ -71,13 +71,14 @@
     m_CDInnerImageView.center = CGPointMake(kImageCDInnerCenterX, kImageCDInnerCenterY);
     return YES;
 }
-- (UIButton*)createButton :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
+- (UIBarButtonItem*)createButton :(CGRect)frame :(NSString*)imageName :(SEL)action :(id)obj
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:frame];
-    [button setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    [button addTarget:obj action:action forControlEvents:UIControlEventTouchDown];
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:obj action:action];
+//    UIBarButtonItem *button = [[UIBarButtonItem alloc]initWithTitle:@"点击" style:UIBarButtonItemStylePlain target:obj action:action];
     button.enabled = NO;
-    [self.view addSubview:button];
+                              
+    //[self.view addSubview:button];
     return button;
 }
 - (BOOL)createTranslateButton
@@ -97,7 +98,7 @@
 }
 - (BOOL)createStartButton
 {
-   m_buttonStart = [self createButton:CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight):kImageRecognise:@selector(startRecogniseButtonTouch:):self];
+   m_buttonStart = [self createButton :CGRectMake(kButtonRecogniseX, kButtonRecogniseY,kButtonRecogniseWidth, kButtonRecogniseHeight):kImageRecognise:@selector(startRecogniseButtonTouch:):self];
     return YES;
 }
 #pragma mark-init函数
@@ -118,10 +119,29 @@
     sandBoxOperation = [[SandBoxOperation alloc]init];
     [self.view addSubview:m_soundWaveView];
     [self.view addSubview:m_textView];
+    
+    UIToolbar *bar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, kButtonRecogniseY-4, 320, 50)];
+   
     [self createStartButton];
     [self createEditButton];
     [self createPlayButton];
     [self createTranslateButton];
+    m_space = [[UIBarButtonItem alloc]init];
+    m_space.width = 10;
+    
+    NSMutableArray *items = [[NSMutableArray alloc]initWithCapacity:4];
+    [items addObject:m_buttonStart];
+    [items addObject:m_space];
+    [items addObject:m_buttonEdit];
+    [items addObject:m_space];
+    [items addObject:m_buttonPlay];
+    [items addObject:m_space];
+    [items addObject:m_buttonTranslate];
+    
+    bar.barStyle = UIBarButtonSystemItemAction;
+    [bar setItems:items animated:YES];
+    [self.view addSubview:bar];
+    
     m_buttonStart.enabled = YES;
     
     if([sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
@@ -200,7 +220,7 @@
     m_soundWaveView.alpha = 0.f;
     return YES;
 }
-- (BOOL)playButtonTouch :(UIButton*)sender
+- (BOOL)playButtonTouch :(UIBarButtonItem*)sender
 {
     [m_switchButtonTouchAction switchButtonTouchAction:sender
                                            oldAction:@selector(playButtonTouch:)
@@ -241,14 +261,14 @@
     m_buttonPlay.enabled = YES;
     m_buttonStart.enabled = YES;
     [self offLineButtonsEnabled];
-    if(isHistoryChecked&&isHistoryCheckedWithoutStr)
+    if((isHistoryChecked&&isHistoryCheckedWithoutStr) || !isBeginRecognize)
     {
         m_buttonEdit.enabled = NO;
         m_buttonTranslate.enabled = NO;
     }
     return YES;
 }
-- (BOOL)stopPlayButtonTouch:(UIButton *)sender
+- (BOOL)stopPlayButtonTouch:(UIBarButtonItem *)sender
 {
     self.navigationItem.rightBarButtonItem.enabled = YES;
     [m_audioPlayer stopAudio:m_audioInfo];
@@ -305,9 +325,10 @@
     [alertView show];
     return YES;
 }
-- (void)startRecogniseButtonTouch:(UIButton *)sender
+- (void)startRecogniseButtonTouch:(UIBarButtonItem *)sender
 {
     //isOffLine = YES;
+    isBeginRecognize = NO;
     CheckNetStatus *checkNetStatus = [[CheckNetStatus alloc]init];
     int backCode = [checkNetStatus isInWIFI];
     if(backCode == NotReachable)
@@ -337,7 +358,7 @@
     NSString *dateTime = [formatter stringFromDate:[NSDate date]];
     return dateTime;
 }
-- (BOOL)startRecognise:(UIButton *)sender :(BOOL)isRecognize
+- (BOOL)startRecognise:(UIBarButtonItem *)sender :(BOOL)isRecognize
 {
     [self startRecognizeButtonsEnabled];
     isHistoryChecked = NO;
@@ -370,7 +391,7 @@
     return YES;
 }
 #pragma mark - 按钮的Action切换
-- (BOOL)senderActionSwitch :(UIButton*)sender :(SEL)oldAction :(SEL)newAction
+- (BOOL)senderActionSwitch :(UIBarButtonItem*)sender :(SEL)oldAction :(SEL)newAction
 {
     [m_switchButtonTouchAction switchButtonTouchAction:sender
                                              oldAction:oldAction
@@ -390,24 +411,33 @@
 }
 - (BOOL)recognizedSuccessButtonsEnabled
 {
+    m_buttonPlay.enabled = YES;
     if(isOffLine)
     {
         m_buttonEdit.enabled = NO;
         m_buttonTranslate.enabled = NO;
-        m_buttonPlay.enabled = YES;
+        
     }else
     {
-        m_buttonPlay.enabled = YES;
         m_buttonEdit.enabled = YES;
         m_buttonTranslate.enabled = YES;
     }
+    if(!isBeginRecognize)
+    {
+        m_buttonPlay.enabled = YES;
+        m_buttonEdit.enabled = NO;
+        m_buttonTranslate.enabled = NO;
+    }
+        
     return YES;
 }
 - (BOOL)recognizedUnSuccessButtonsEnabled
 {
     if(![sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
         self.navigationItem.rightBarButtonItem.enabled = NO;
-    m_buttonPlay.enabled = NO;
+    m_buttonPlay.enabled = YES;
+    if(!isBeginRecognize)
+        m_buttonPlay.enabled = NO;
     m_buttonEdit.enabled = NO;
     m_buttonTranslate.enabled = NO;
     m_buttonStart.enabled = YES;
@@ -418,17 +448,14 @@
     if(!isHistoryBtnDisplay)
         [self displayHistoryButton];
     m_soundWaveView.alpha = 0.0;
+    [self saveRecognizedStr];
     if(isSuccess)
-    {
-        [self saveRecognizedStr];
         [self recognizedSuccessButtonsEnabled];
-    }else
-    {
+    if(!isSuccess)
         [self recognizedUnSuccessButtonsEnabled];
-    }
     return YES;
 }
-- (BOOL)stopRecogniseButtonTouch:(UIButton *)sender
+- (BOOL)stopRecogniseButtonTouch:(UIBarButtonItem *)sender
 {
     m_buttonStart.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -448,6 +475,7 @@
 #pragma mark - 识别结果的返回
 - (BOOL)speechRecognitionResult :(NSDictionary*)postBackDic
 {
+    isBeginRecognize = YES;
     NSString *str = [postBackDic objectForKey:recognizedResultDicResult];
     NSNumber *number = [postBackDic objectForKey:recognizedResultDicSoundSize];
     [self addText:str];
@@ -509,7 +537,7 @@
                             repeatCount:kAnimationDarknessRepeatCount
                           animationName:kAnimationDarknessName];
 }
-- (BOOL)darkenCDInnerImageViewLightness:(void(^)(void))finish withButton:(UIButton *)button
+- (BOOL)darkenCDInnerImageViewLightness:(void(^)(void))finish withButton:(UIBarButtonItem *)button
 {
     [m_viewAnimation changeViewLightness:m_CDInnerImageView alpha:0.f duration:kAnimationDarknessDuration completion:^{
         [m_viewAnimation changeViewFrame:m_CDImageView
@@ -523,7 +551,7 @@
     }];
     return YES;
 }
-- (BOOL)changeCDImageViewFrame:(UIButton *)button completion:(void(^)(void))completion
+- (BOOL)changeCDImageViewFrame:(UIBarButtonItem *)button completion:(void(^)(void))completion
 {
     [m_viewAnimation changeViewFrame:m_CDImageView
                              toFrame:CGRectMake(kImageCDAfterX, kImageCDAfterY,

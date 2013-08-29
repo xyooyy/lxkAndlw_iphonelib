@@ -34,10 +34,11 @@
     UIImageView *m_CDImageView;
     UIImageView *m_CDInnerImageView;
     
-    UIButton *m_buttonStart;
-    UIButton *m_buttonEdit;
-    UIButton *m_buttonPlay;
-    UIButton *m_buttonTranslate;
+    UIBarButtonItem *m_buttonStart;
+    UIBarButtonItem *m_buttonEdit;
+    UIBarButtonItem *m_buttonPlay;
+    UIBarButtonItem *m_buttonTranslate;
+    UIBarButtonItem *m_space;
     
     NSString *m_currentFileName;
     NSString *m_filePath;
@@ -46,6 +47,7 @@
     BOOL isHistoryChecked;
     BOOL isOffLine;
     BOOL isHistoryCheckedWithoutStr;
+    BOOL isBeginRecognize;
     
 }
 @end

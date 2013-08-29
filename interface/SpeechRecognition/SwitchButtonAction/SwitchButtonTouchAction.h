@@ -10,7 +10,7 @@
 
 @interface SwitchButtonTouchAction : NSObject
 
-- (BOOL)switchButtonTouchAction:(UIButton *)parmButton
+- (BOOL)switchButtonTouchAction:(UIBarButtonItem *)parmButton
            oldAction:(SEL)oldAction
           withTarget:(id)oldTarget
            newAction:(SEL)newAction
