@@ -65,7 +65,7 @@
         CGSize size = self.contentSize;
         size.height += view.frame.size.height;
         self.contentSize = size;
-        NSLog(@"scrollView的currentSize = %f",size.height/22.0);
+       // NSLog(@"scrollView的currentSize = %f",size.height/22.0);
         [_viewAnimation changeViewFrame:view
                                 toFrame:CGRectMake(view.frame.origin.x,
                                                    rect.size.height * viewCount,

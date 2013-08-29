@@ -61,7 +61,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"Response");
+    //NSLog(@"Response");
 }
 
 @end

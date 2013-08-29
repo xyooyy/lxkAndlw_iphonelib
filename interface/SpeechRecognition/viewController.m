@@ -412,32 +412,21 @@
 - (BOOL)recognizedSuccessButtonsEnabled
 {
     m_buttonPlay.enabled = YES;
-    if(isOffLine)
-    {
-        m_buttonEdit.enabled = NO;
-        m_buttonTranslate.enabled = NO;
-        
-    }else
+    m_buttonEdit.enabled = NO;
+    m_buttonTranslate.enabled = NO;
+    if(!isOffLine && isBeginRecognize)
     {
         m_buttonEdit.enabled = YES;
         m_buttonTranslate.enabled = YES;
-    }
-    if(!isBeginRecognize)
-    {
-        m_buttonPlay.enabled = YES;
-        m_buttonEdit.enabled = NO;
-        m_buttonTranslate.enabled = NO;
-    }
         
+    } 
     return YES;
 }
 - (BOOL)recognizedUnSuccessButtonsEnabled
 {
     if(![sandBoxOperation isContainSpecifiedSuffixFile:@".data"])
         self.navigationItem.rightBarButtonItem.enabled = NO;
-    m_buttonPlay.enabled = YES;
-    if(!isBeginRecognize)
-        m_buttonPlay.enabled = NO;
+    m_buttonPlay.enabled = NO;
     m_buttonEdit.enabled = NO;
     m_buttonTranslate.enabled = NO;
     m_buttonStart.enabled = YES;

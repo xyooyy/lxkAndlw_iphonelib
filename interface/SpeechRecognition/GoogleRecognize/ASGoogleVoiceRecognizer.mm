@@ -172,12 +172,12 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"服务器已经响应");
+   // NSLog(@"服务器已经响应");
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSLog(@"服务器正在返回数据");
+   // NSLog(@"服务器正在返回数据");
     [mRecivedData appendData:data];
 }
 
@@ -187,7 +187,7 @@
     [uploadDataArray addObject:[uploadQueue objectAtIndex:0]];
     [uploadQueue removeObjectAtIndex:0];
     [NSURLConnection connectionWithRequest:mRequest delegate:self];
-    NSLog(@"开始请求..");
+    //NSLog(@"开始请求..");
     return YES;
 }
 -(BOOL)addToUpLoadQueue:(NSData *)aDataWav
@@ -213,7 +213,7 @@
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"已经得到完整的数据");
+    //NSLog(@"已经得到完整的数据");
     [connection cancel];
     [self recognize:^{
         [self recognizedComplete];
