@@ -26,7 +26,7 @@
     
     // 设置状态栏颜色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
-    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [self.window makeKeyAndVisible];
     return YES;
 }

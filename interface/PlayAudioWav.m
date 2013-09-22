@@ -7,6 +7,7 @@
 //
 
 #import "PlayAudioWav.h"
+#import "Data.h"
 //0X10000 = 65536
 #define CALLBACKFROMBUFF 0
 #define CALLBACKFROMFILE 1

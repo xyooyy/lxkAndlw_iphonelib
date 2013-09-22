@@ -98,6 +98,7 @@
 -(BOOL)stopRecording
 {
     [mRecorder pauseRecord:mRecorderInfo];
+    [mRecorder stopRecord:mRecorderInfo];
     isRecording = NO;
     //if(shouldRecignize)
      //   [self enforcePostBack];
@@ -132,15 +133,16 @@
     int size = [soundData length]*sizeof(Byte)/sizeof(short);
     CalculateSoundStrength *counter = [[CalculateSoundStrength alloc]init];
     int soundStrongh = [counter calculateVoiceStrength:soundDataShort :size :1];
-    [_delegate googleVoiceSoundStrong:soundStrongh];
+    //[_delegate googleVoiceSoundStrong:soundStrongh];
     return soundStrongh;
 }
 - (BOOL)dataAccumulation :(int)soundStrongh :(NSData*)soundData
 {
+    [mRecord appendData:soundData];
     if (soundStrongh > soundStrengthThreshold)
     {
         canRecgnise = YES;
-        [mRecord appendData:soundData];
+        /*[mRecord appendData:soundData];*/
         receiveCount = 0;
     }
 //    if(canRecgnise)
@@ -153,7 +155,9 @@
         [mRecord setLength:0];
         [self addToUpLoadQueue:data];
         receiveCount = 0;
+        
     }
+    
     if(receiveCount >= WAIT_TIME)
         receiveCount = 0;
     return YES;
@@ -275,6 +279,7 @@
     {
         [uploadData appendData:data];
     }
+    [uploadData appendData:mRecord];
     return uploadData;
 }
 -(NSData *)currentAudioData
